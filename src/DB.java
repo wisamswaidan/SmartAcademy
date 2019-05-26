@@ -1,3 +1,4 @@
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -56,14 +57,17 @@ public class DB {
             System.err.println(e.getMessage());
         }
     }
-    private static void connect(){
+    public static Connection connect(){
         try {
             con = DriverManager.getConnection("jdbc:sqlserver://localhost:"+port+";databaseName="+databaseName,userName,password);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
+        return con;
         
     }
+
+
     private static void disconnect(){
         try {
             con.close();

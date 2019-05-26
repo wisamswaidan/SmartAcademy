@@ -1,4 +1,3 @@
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,21 +11,32 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import javax.swing.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-//Test
-//
 
-public class Login extends Application {
+public class DB_TSQL extends Application {
+
+    Connection con = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
+
     @Override
-    public void start(Stage stage) {
-
+    public void start(Stage primaryStage) throws Exception {
+        Connection con = DB.connect();
         Text headerWelcome = new Text("Welcome to SmartAcademy");
         Text headerWelcome2 = new Text("The Future Workforce");
+
         TextField user = new TextField();
         user.setPromptText("Your username");
+
         PasswordField pass = new PasswordField();
         pass.setPromptText("Your password");
+
         Button button1 = new Button("Login");
 
         button1.setOnAction(new EventHandler<ActionEvent>() {
@@ -36,40 +46,31 @@ public class Login extends Application {
                 String userName = user.getText().trim();
                 String password = pass.getText().trim();
 
-                if (userName.equals("")){
-                    JOptionPane.showMessageDialog(null,"Please enter your username");
-                }
-                else if (password.equals("")){
-                    JOptionPane.showMessageDialog(null, "Please enter your password");
-                }
+                //Query
+                String sql = "SELECT * from tblUser where fldUserName = ? and fldPassword = ?";
 
-                else {
-                    DB.selectSQL("SELECT fldUserName from tblUser where fldUserName = '" + userName + "'");
-                    String un = DB.getData();
-
-                    DB.selectSQL("SELECT fldPassword from tblUser where fldUserName = '" + userName + "'");
-                    String ps = DB.getData();
-
-                    do {
-                        if (un.equals(userName.toLowerCase()) && ps.equals(password)) {
-                            JOptionPane.showMessageDialog(null, "All good and working - Now open a new scene");
-                            break; //open the correct scene for the access level
-
-                        }
-
-                        else {
-                            //DB.insertSQL("Insert into tblPlayListName (fldPlayListName) values ('" + playListBox + "');");
-                            JOptionPane.showMessageDialog(null, "Username or password is wrong");
-                            break;
-                        }
+                try {
+                    preparedStatement = con.prepareStatement(sql);
+                    preparedStatement.setString(1,userName);
+                    preparedStatement.setString(2,password);
+                    resultSet = preparedStatement.executeQuery();
 
 
+                    if (!resultSet.next()) {
+                        JOptionPane.showMessageDialog(null, "Username or password is wrong" );
                     }
-                    while (true) ;
-                }
-            }
-        });
+                    else {
+                        JOptionPane.showMessageDialog(null, "All good and working - Now open a new scene");
+                    }
 
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+    });
         //Creating a Grid Pane
         GridPane gridPane = new GridPane();
         //Setting size for the pane
@@ -102,10 +103,12 @@ public class Login extends Application {
         Scene scene = new Scene(gridPane);
 
         // Setting title to the Stage
-        stage.setTitle("SmartAcademy");
+        primaryStage.setTitle("SmartAcademy");
         // Adding scene to the stage
-        stage.setScene(scene);
+        primaryStage.setScene(scene);
         //Displaying the contents of the stage
-        stage.show();
-    }
+        primaryStage.show();
+
+        }
+
 }
