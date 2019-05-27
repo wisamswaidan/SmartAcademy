@@ -1,3 +1,6 @@
+package Application;
+
+import Foundation.DB;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,7 +22,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class Login extends Application {
+
+public class LoginController extends Application {
 
     Connection con = null;
     PreparedStatement preparedStatement = null;
