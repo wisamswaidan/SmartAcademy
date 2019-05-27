@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.LoginController">
+   <children>
+      <ImageView fitHeight="407.0" fitWidth="607.0" layoutX="-2.0" layoutY="-2.0">
+         <image>
+            <Image url="@main_photo.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="login_Button" layoutX="334.0" layoutY="206.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Create" />
+      <Button fx:id="login_Button1" layoutX="334.0" layoutY="169.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="View" />
+      <Button fx:id="login_Button11" layoutX="334.0" layoutY="242.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Edit" />
+      <Button fx:id="login_Button111" layoutX="334.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Delete" />
+   </children>
+</Pane>
