@@ -13,14 +13,21 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javax.swing.*;
-
-//Test
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 public class Login extends Application {
-    @Override
-    public void start(Stage stage) {
 
+    Connection con = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Connection con = DB.connect();
         Text headerWelcome = new Text("Welcome to SmartAcademy");
         Text headerWelcome2 = new Text("The Future Workforce");
 
@@ -33,56 +40,49 @@ public class Login extends Application {
         Button button1 = new Button("Login");
 
         button1.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
+
             public void handle(ActionEvent LoginEvent) {
 
                 String userName = user.getText().trim();
                 String password = pass.getText().trim();
 
-                if (userName.equals("")){
-                    JOptionPane.showMessageDialog(null,"Please enter your username");
-                }
-                else if (password.equals("")){
-                    JOptionPane.showMessageDialog(null, "Please enter your password");
-                }
+                //Query
+                String sql = "SELECT * from tblUser where fldUserName = ? and fldPassword = ?";
 
-                else {
-                    DB.selectSQL("SELECT fldUserName from tblUser where fldUserName = '" + userName + "'");
-                    String un = DB.getData();
+                try {
+                    preparedStatement = con.prepareStatement(sql);
+                    preparedStatement.setString(1,userName);
+                    preparedStatement.setString(2,password);
+                    resultSet = preparedStatement.executeQuery();
 
-                    DB.selectSQL("SELECT fldPassword from tblUser where fldUserName = '" + userName + "'");
-                    String ps = DB.getData();
 
-                    do {
-                        if (un.equals(userName.toLowerCase()) && ps.equals(password)) {
-                                JOptionPane.showMessageDialog(null, "All good and working - Now open a new scene");
-                                break; //open the correct scene for the access level
-
-                        }
-
-                        else {
-                            //DB.insertSQL("Insert into tblPlayListName (fldPlayListName) values ('" + playListBox + "');");
-                            JOptionPane.showMessageDialog(null, "Username or password is wrong");
-                            break;
-                        }
+                    if (!resultSet.next()) {
+                        JOptionPane.showMessageDialog(null, "Username or password is wrong" );
                     }
-                    while (true) ;
-                }
-            }
-        });
+                    else {
+                        JOptionPane.showMessageDialog(null, "All good and working - Now open a new scene");
+                    }
 
-//Creating a Grid Pane
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+        });
+        //Creating a Grid Pane
         GridPane gridPane = new GridPane();
-//Setting size for the pane
+        //Setting size for the pane
         gridPane.setMinSize(500, 500);
-//Setting the padding
+        //Setting the padding
         gridPane.setPadding(new Insets(10, 10, 10, 10));
-//Setting the vertical and horizontal gaps between the columns
+        //Setting the vertical and horizontal gaps between the columns
         gridPane.setVgap(10);
         gridPane.setHgap(10);
-//Setting the Grid alignment
+        //Setting the Grid alignment
         gridPane.setAlignment(Pos.CENTER);
-//Arranging all the nodes in the grid
+        //Arranging all the nodes in the grid
         gridPane.add(headerWelcome, 0, 0);
         GridPane.setHalignment(headerWelcome, HPos.CENTER);
 
@@ -99,14 +99,16 @@ public class Login extends Application {
         button1.setMaxSize(200, 200);
         GridPane.setHalignment(button1, HPos.CENTER);
 
-// Creating a scene object
+        // Creating a scene object
         Scene scene = new Scene(gridPane);
 
         // Setting title to the Stage
-        stage.setTitle("SmartAcademy");
-// Adding scene to the stage
-        stage.setScene(scene);
-//Displaying the contents of the stage
-        stage.show();
+        primaryStage.setTitle("SmartAcademy");
+        // Adding scene to the stage
+        primaryStage.setScene(scene);
+        //Displaying the contents of the stage
+        primaryStage.show();
+
     }
+
 }
