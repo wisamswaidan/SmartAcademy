@@ -1,118 +1,90 @@
+
 package Application;
 
 import Foundation.DB;
-import javafx.application.Application;
+import Technical.JDBC;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
+import javafx.fxml.*;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
+import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
+import javax.swing.*;
+import java.sql.SQLException;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
-
-
-public class LoginController extends Application {
-
-    Connection con = null;
+public class LoginController {
+    //PreparedStatement
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+    /**
+     * TextField where the username_TextField is entered.
+     */
+    @FXML
+    private TextField username_TextField;
+
+    /**
+     * TextField where the password is entered.
+     */
+    @FXML
+    private TextField password_TextField;
+
+    /**
+     * Button created to start the search for login match and to start the connection to database .
+     */
+    @FXML
+    private Button login_Button;
+
+
+    /**
+     * Check the username and the password TextField was entered from the login scene and start
+     * the connection to database .
+     */
+
+    @FXML
+    public void handelLogin(ActionEvent LoginEvent) throws Exception {
+        //Start the connection to DB.
         Connection con = DB.connect();
-        Text headerWelcome = new Text("Welcome to SmartAcademy");
-        Text headerWelcome2 = new Text("The Future Workforce");
 
-        TextField user = new TextField();
-        user.setPromptText("Your username");
+        //Create an object from JBDC class to read the user name and the password from the database .
+        JDBC login = new JDBC();
+        login.loginTSQL();
 
-        PasswordField pass = new PasswordField();
-        pass.setPromptText("Your password");
-
-        Button button1 = new Button("Login");
-
-        button1.setOnAction(new EventHandler<ActionEvent>() {
-
-            public void handle(ActionEvent LoginEvent) {
-
-                String userName = user.getText().trim();
-                String password = pass.getText().trim();
-
-                //Query
-                String sql = "SELECT * from tblUser where fldUserName = ? and fldPassword = ?";
-
-                try {
-                    preparedStatement = con.prepareStatement(sql);
-                    preparedStatement.setString(1,userName);
-                    preparedStatement.setString(2,password);
-                    resultSet = preparedStatement.executeQuery();
+        //Text field read the username and password .
+        String userName = username_TextField.getText().trim();
+        String password = password_TextField.getText().trim();
 
 
-                    if (!resultSet.next()) {
-                        JOptionPane.showMessageDialog(null, "Username or password is wrong" );
-                    }
-                    else {
-                        JOptionPane.showMessageDialog(null, "All good and working - Now open a new scene");
-                    }
+        try {
+            //Start the JDBC read query and read the loginTSQL_query
+            preparedStatement = con.prepareStatement(login.loginTSQL());
+            preparedStatement.setString(1,userName);
+            preparedStatement.setString(2,password);
+            resultSet = preparedStatement.executeQuery();
 
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-
+            //Check for match from text fields and the date from database.
+            if (!resultSet.next()) {
+                JOptionPane.showMessageDialog(null, "Username or password is wrong" );
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "All good and working");
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/main.fxml"));
+                Parent root = (Parent) fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
             }
 
-        });
-        //Creating a Grid Pane
-        GridPane gridPane = new GridPane();
-        //Setting size for the pane
-        gridPane.setMinSize(500, 500);
-        //Setting the padding
-        gridPane.setPadding(new Insets(10, 10, 10, 10));
-        //Setting the vertical and horizontal gaps between the columns
-        gridPane.setVgap(10);
-        gridPane.setHgap(10);
-        //Setting the Grid alignment
-        gridPane.setAlignment(Pos.CENTER);
-        //Arranging all the nodes in the grid
-        gridPane.add(headerWelcome, 0, 0);
-        GridPane.setHalignment(headerWelcome, HPos.CENTER);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-        gridPane.add(headerWelcome2, 0, 1);
-        GridPane.setHalignment(headerWelcome2, HPos.CENTER);
-
-        gridPane.add(user, 0, 2);
-        user.setFocusTraversable(false);
-
-        gridPane.add(pass, 0, 3);
-        pass.setFocusTraversable(false);
-
-        gridPane.add(button1, 0, 4);
-        button1.setMaxSize(200, 200);
-        GridPane.setHalignment(button1, HPos.CENTER);
-
-        // Creating a scene object
-        Scene scene = new Scene(gridPane);
-
-        // Setting title to the Stage
-        primaryStage.setTitle("SmartAcademy");
-        // Adding scene to the stage
-        primaryStage.setScene(scene);
-        //Displaying the contents of the stage
-        primaryStage.show();
+        }
 
     }
-
-}
