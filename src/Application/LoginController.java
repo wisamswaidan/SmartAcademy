@@ -73,7 +73,7 @@ public class LoginController {
                 JOptionPane.showMessageDialog(null, "Username or password is wrong" );
             }
             else {
-                JOptionPane.showMessageDialog(null, "All good and working");
+                JOptionPane.showMessageDialog(null, "Welcome " + userName);
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/main.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
                 Stage stage = new Stage();

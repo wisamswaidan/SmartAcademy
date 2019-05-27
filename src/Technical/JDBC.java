@@ -7,12 +7,16 @@ public class JDBC {
     /*
     Here we need to add the JDBC commands to Add , Edit and Delete from Database
      */
+
     //maybe need to for later ... just keep it for now
     //PreparedStatement
     //Connection con = null;
     //PreparedStatement preparedStatement = null;
     //ResultSet resultSet = null;
 
+    /**
+     * All the JDBC command related to login by searching for match between javafx textFields and the db.
+     */
 
     public String loginTSQL(){
 
