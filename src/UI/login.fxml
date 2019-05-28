@@ -8,15 +8,15 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.LoginController">
    <children>
-      <ImageView fitHeight="407.0" fitWidth="607.0" layoutX="-3.0" layoutY="-5.0">
+      <ImageView fitHeight="400.0" fitWidth="600.0" layoutX="1.0">
          <image>
-            <Image url="@main_photo.jpg" />
+            <Image url="@Images/login.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="login_Button" layoutX="336.0" layoutY="280.0" mnemonicParsing="false" onAction="#handelLogin" prefHeight="25.0" prefWidth="149.0" text="Login" />
-      <TextField fx:id="username_TextField" layoutX="336.0" layoutY="208.0" promptText="Username" />
-      <Text layoutX="330.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to SmartAcademy" />
-      <Text layoutX="349.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Future Workforce" />
-      <PasswordField fx:id="password_TextField" layoutX="336.0" layoutY="244.0" promptText="Password" />
+      <Button fx:id="login_Button" layoutX="345.0" layoutY="280.0" mnemonicParsing="false" onAction="#handelLogin" prefHeight="25.0" prefWidth="149.0" text="Login" />
+      <TextField fx:id="username_TextField" layoutX="345.0" layoutY="208.0" promptText="Username" />
+      <Text layoutX="339.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to SmartAcademy" />
+      <Text layoutX="358.0" layoutY="186.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Future Workforce" />
+      <PasswordField fx:id="password_TextField" layoutX="345.0" layoutY="244.0" promptText="Password" />
    </children>
 </Pane>

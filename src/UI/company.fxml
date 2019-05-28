@@ -10,12 +10,12 @@
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0">
          <image>
-            <Image url="@Images/User.jpg" />
+            <Image url="@Images/Company.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="437.0" layoutY="101.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Create Users" />
-      <Button layoutX="437.0" layoutY="64.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="View Users" />
-      <Button layoutX="437.0" layoutY="137.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Edit Users" />
-      <Button layoutX="437.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Delete Users" />
+      <Button layoutX="33.0" layoutY="171.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Create Company" />
+      <Button layoutX="33.0" layoutY="134.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="View Company" />
+      <Button layoutX="33.0" layoutY="207.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Edit Company" />
+      <Button layoutX="33.0" layoutY="241.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Delete Company" />
    </children>
 </Pane>

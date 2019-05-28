@@ -8,14 +8,14 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.EducationController">
    <children>
-      <ImageView fitHeight="407.0" fitWidth="607.0" layoutX="-2.0" layoutY="-2.0">
+      <ImageView fitHeight="400.0" fitWidth="600.0">
          <image>
-            <Image url="@main_photo.jpg" />
+            <Image url="@Images/Education.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="login_Button" layoutX="335.0" layoutY="206.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Create Educations" />
-      <Button fx:id="login_Button1" layoutX="335.0" layoutY="169.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="View Educations" />
-      <Button fx:id="login_Button11" layoutX="335.0" layoutY="242.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Edit Educations" />
-      <Button fx:id="login_Button111" layoutX="335.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Delete Educations" />
+      <Button layoutX="365.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Delete Educations" />
+      <Button layoutX="365.0" layoutY="206.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Create Educations" />
+      <Button layoutX="365.0" layoutY="169.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="View Educations" />
+      <Button layoutX="365.0" layoutY="242.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Edit Educations" />
    </children>
 </Pane>

@@ -16,6 +16,7 @@ public class MainController {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
+    
     public void ShowEduOptions(ActionEvent LoginEvent) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/education.fxml"));
         Parent root = (Parent) fxmlLoader.load();
@@ -30,12 +31,46 @@ public class MainController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
+
     }
-    public void ShowCompaniesOptions(ActionEvent LoginEvent) throws Exception {}
-    public void ShowEmployeesOptions(ActionEvent LoginEvent) throws Exception {}
-    public void ShowAssignUserOptions(ActionEvent LoginEvent) throws Exception {}
-    public void ShowEduSchOptions(ActionEvent LoginEvent) throws Exception {}
-    public void ShowEduPlanOptions(ActionEvent LoginEvent) throws Exception {}
+
+    public void ShowCompaniesOptions(ActionEvent LoginEvent) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/company.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+    public void ShowEmployeesOptions(ActionEvent LoginEvent) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/employee.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+    public void ShowAssignUserOptions(ActionEvent LoginEvent) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/assignUser.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    }
+    public void ShowEduSchOptions(ActionEvent LoginEvent) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/eduSch.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    }
+    public void ShowEduPlanOptions(ActionEvent LoginEvent) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/eduPlan.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 
 
 }
