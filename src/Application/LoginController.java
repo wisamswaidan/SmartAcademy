@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+
 public class LoginController {
     //PreparedStatement
     PreparedStatement preparedStatement = null;
@@ -74,6 +75,7 @@ public class LoginController {
             }
             else {
                 JOptionPane.showMessageDialog(null, "Welcome " + userName);
+
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/main.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
                 Stage stage = new Stage();

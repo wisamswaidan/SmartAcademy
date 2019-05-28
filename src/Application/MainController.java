@@ -16,7 +16,7 @@ public class MainController {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
-    
+
     public void ShowEduOptions(ActionEvent LoginEvent) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/education.fxml"));
         Parent root = (Parent) fxmlLoader.load();

@@ -21,7 +21,7 @@ public class JDBC {
     public String loginTSQL(){
 
         //SQL_Query to read the user name and the password from the database .
-        String sql = "SELECT * from tblUser where fldUserName = ? and fldPassword = ?";
+        String sql = "SELECT * from tbl_Users where fld_UserName = ? and fld_Password = ?";
         return sql;
     }
 
