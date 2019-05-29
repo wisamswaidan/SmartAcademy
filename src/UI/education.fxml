@@ -15,7 +15,7 @@
       </ImageView>
       <Button layoutX="365.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Delete Educations" />
       <Button layoutX="365.0" layoutY="206.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Create Educations" />
-      <Button layoutX="365.0" layoutY="169.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="View Educations" />
+      <Button layoutX="365.0" layoutY="169.0" mnemonicParsing="false" onAction="#handelView" prefHeight="25.0" prefWidth="149.0" text="View Educations" />
       <Button layoutX="365.0" layoutY="242.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Edit Educations" />
    </children>
 </Pane>

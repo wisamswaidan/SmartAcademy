@@ -19,10 +19,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 
-public class LoginController {
+public class LoginController  {
     //PreparedStatement
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
+
 
     /**
      * TextField where the username_TextField is entered.
@@ -75,7 +76,6 @@ public class LoginController {
             }
             else {
                 JOptionPane.showMessageDialog(null, "Welcome " + userName);
-
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/main.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
                 Stage stage = new Stage();
