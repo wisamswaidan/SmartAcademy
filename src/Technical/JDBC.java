@@ -31,10 +31,10 @@ public class JDBC {
      * All the JDBC command to related to the users.
      */
 
-    public String CreateUserTSQL(){
+    public String CheckUserTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "SELECT* from tbl_Users where fld_UserName = ?";
         return sql;
     }
 
