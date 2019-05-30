@@ -16,7 +16,7 @@
                   <Image url="@Images/Education.jpg" />
                </image>
             </ImageView>
-            <Button fx:id="buttonView" layoutX="279.0" layoutY="355.0" mnemonicParsing="false" text="View" />
+            <Button fx:id="buttonView" layoutX="279.0" layoutY="355.0" mnemonicParsing="false" onAction="#viewUserList" text="View" />
             <ListView fx:id="listViewUser" layoutX="14.0" layoutY="89.0" prefHeight="256.0" prefWidth="545.0" />
          </children>
       </Pane>

@@ -41,7 +41,7 @@ public class JDBC {
     public String ViewUserTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "SELECT * from tbl_Users ";
         return sql;
     }
 
