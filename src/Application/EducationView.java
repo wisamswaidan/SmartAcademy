@@ -4,25 +4,20 @@ package Application;
 import Foundation.DB;
 import Technical.JDBC;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.fxml.*;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
-import javax.swing.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+
 import java.sql.SQLException;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,13 +25,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javafx.collections.FXCollections.*;
-
 
 public class EducationView {
+
     //Start the connection to DB.
     Connection con = DB.connect();
-
     //PreparedStatement
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
@@ -46,12 +39,13 @@ public class EducationView {
     private Button buttonView;
 
     @FXML
-    private ListView listViewtest;
+    private ListView listViewEdu;
 
     public void viewEduListView(){
         //Create the Array List for the leftListView.
-         List<String> allSongsList = new ArrayList<>();
-         ListProperty<String> allSongslistProperty = new SimpleListProperty<>();
+         List<String> allEducationList = new ArrayList<>();
+         ListProperty<String> allEducationProp = new SimpleListProperty<>();
+
 
 
         //Create an object from JBDC class to view the educations from the database .
@@ -80,16 +74,20 @@ public class EducationView {
                 System.out.println("Information : " + fld_Information);
                 String AllEducation  = "AMU : "+ fld_AMU + " " + "Title : "+ fld_Title + " " + "Provider : "+ fld_Provider +" " + "NumOfDays : "+ fld_NumOfDays+ " " + "Type : "
                         + fld_Type+ " " + "Information : " + fld_Information;
-                allSongsList.add(AllEducation);
+                allEducationList.add(AllEducation);
 
-                listViewtest.itemsProperty().bind(allSongslistProperty);
-                allSongslistProperty.set(FXCollections.observableArrayList(allSongsList));
+                listViewEdu.itemsProperty().bind(allEducationProp);
+                allEducationProp.set(FXCollections.observableArrayList(allEducationList));
+
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+
+
+
+        }
     }
 
-}
