@@ -1,84 +1,70 @@
 package Application;
 
 
+import Domain.EducationViewTable;
 import Foundation.DB;
 import Technical.JDBC;
 
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
-import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 
+import javafx.fxml.*;
+import javafx.scene.control.*;
+import javafx.fxml.FXML;
+
+import java.net.URL;
 import java.sql.SQLException;
+
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ResourceBundle;
 
 
-public class EducationView {
-
-    //Start the connection to DB.
+public class EducationView implements  Initializable{
     Connection con = DB.connect();
-    //PreparedStatement
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
 
     @FXML
-    private Button buttonView;
-
+    private TableView <EducationViewTable> table;
     @FXML
-    private ListView listViewEdu;
+    private TableColumn <EducationViewTable, String> col_amu;
+    @FXML
+    private TableColumn <EducationViewTable, String> col_title;
+    @FXML
+    private TableColumn <EducationViewTable, String> col_provier;
+    @FXML
+    private TableColumn <EducationViewTable, String> col_numofday;
+    @FXML
+    private TableColumn <EducationViewTable, String> col_type;
+    @FXML
+    private TableColumn <EducationViewTable, String> col_info;
 
-    public void viewEduListView(){
-        //Create the Array List for the leftListView.
-         List<String> allEducationList = new ArrayList<>();
-         ListProperty<String> allEducationProp = new SimpleListProperty<>();
+    ObservableList<EducationViewTable> oblist = FXCollections.observableArrayList();
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
-
-        //Create an object from JBDC class to view the educations from the database .
         JDBC viewEducations = new JDBC();
         viewEducations.ViewEducationTSQL();
 
         try {
 
-            //Start the JDBC read query and view the educations from database
             preparedStatement = con.prepareStatement(viewEducations.ViewEducationTSQL());
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                String fld_AMU = resultSet.getString("fld_AMU");
-                String fld_Title = resultSet.getString("fld_Title");
-                String fld_Provider = resultSet.getString("fld_Provider");
-                String fld_NumOfDays = resultSet.getString("fld_NumOfDays");
-                String fld_Type = resultSet.getString("fld_Type");
-                String fld_Information = resultSet.getString("fld_Information");
-
-                System.out.println("AMU : " + fld_AMU);
-                System.out.println("Title : " + fld_Title);
-                System.out.println("Provider : " + fld_Provider);
-                System.out.println("NumOfDays : " + fld_NumOfDays);
-                System.out.println("Type : " + fld_Type);
-                System.out.println("Information : " + fld_Information);
-                String AllEducation  = "AMU : "+ fld_AMU + " " + "Title : "+ fld_Title + " " + "Provider : "+ fld_Provider +" " + "NumOfDays : "+ fld_NumOfDays+ " " + "Type : "
-                        + fld_Type+ " " + "Information : " + fld_Information;
-                allEducationList.add(AllEducation);
-
-                listViewEdu.itemsProperty().bind(allEducationProp);
-                allEducationProp.set(FXCollections.observableArrayList(allEducationList));
-
+                oblist.add(new EducationViewTable(
+                        resultSet.getString("fld_AMU"),
+                        resultSet.getString("fld_Title"),
+                        resultSet.getString("fld_Provider"),
+                        resultSet.getString("fld_NumOfDays"),
+                        resultSet.getString("fld_Type"),
+                        resultSet.getString("fld_Information")));
             }
 
         } catch (SQLException e) {
@@ -86,8 +72,13 @@ public class EducationView {
         }
 
 
+        col_amu.setCellValueFactory(new PropertyValueFactory<>("AMU"));
+        col_title.setCellValueFactory(new PropertyValueFactory<>("Title"));
+        col_provier.setCellValueFactory(new PropertyValueFactory<>("Provider"));
+        col_numofday.setCellValueFactory(new PropertyValueFactory<>("NumOfDays"));
+        col_type.setCellValueFactory(new PropertyValueFactory<>("Type"));
+        col_info.setCellValueFactory(new PropertyValueFactory<>("information"));
 
-
-        }
+        table.setItems(oblist);
     }
-
+}

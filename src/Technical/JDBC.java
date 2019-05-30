@@ -75,7 +75,7 @@ public class JDBC {
     public String ViewEducationTSQL(){
 
         //SQL_Query to......
-        String sql = "SELECT * from tbl_Educations ";
+        String sql = "SELECT * from tbl_Educations";
         return sql;
     }
 
