@@ -13,15 +13,7 @@
             <Image url="@Images/Education.jpg" />
          </image>
       </ImageView>
-      <TableView fx:id="table" prefHeight="346.0" prefWidth="600.0">
-        <columns>
-          <TableColumn fx:id="col_amu" prefWidth="75.0" text="AMU" />
-          <TableColumn fx:id="col_title" prefWidth="75.0" text="Title" />
-            <TableColumn fx:id="col_provier" prefWidth="75.0" text="Provider" />
-            <TableColumn fx:id="col_numofday" prefWidth="104.0" text="NumOfDays" />
-            <TableColumn fx:id="col_type" prefWidth="73.0" text="Type" />
-            <TableColumn fx:id="col_info" prefWidth="197.0" text="Information" />
-        </columns>
-      </TableView>
+      <Button fx:id="buttonView" layoutX="255.0" layoutY="356.0" mnemonicParsing="false" onAction="#viewEduListView" text="View" />
+      <ListView fx:id="listViewEdu" layoutX="11.0" layoutY="92.0" prefHeight="256.0" prefWidth="545.0" />
    </children>
 </Pane>
