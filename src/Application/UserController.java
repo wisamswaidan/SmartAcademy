@@ -24,6 +24,7 @@ public class UserController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
+
     }
 
     public void handelEdit(ActionEvent LoginEvent) throws Exception {}

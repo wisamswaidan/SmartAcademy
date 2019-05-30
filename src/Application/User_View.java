@@ -73,8 +73,6 @@ public class User_View {
                 String fld_UserName = resultSet.getString("fld_UserName");
                 String fld_UserType = resultSet.getString("fld_UserType");
 
-                System.out.println("AMU : " + fld_FirstName);
-                System.out.println("Title : " + fld_LastName);
                 String AllEducation  = "Firstname : "+ fld_FirstName + " " + "Lastname : "+ fld_LastName + " " + "Phone : "+ fld_TelephoneNumber +" " + "Address : "+ fld_Address+ " " + "Zipcode : "
                         + fld_Zipcode+ " " + "Username : " + fld_UserName + " " + "Usertype :" + fld_UserType;
                 allSongsList.add(AllEducation);
@@ -88,5 +86,7 @@ public class User_View {
         }
 
     }
+
+
 
 }

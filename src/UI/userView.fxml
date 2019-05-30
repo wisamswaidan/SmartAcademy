@@ -16,8 +16,10 @@
                   <Image url="@Images/Education.jpg" />
                </image>
             </ImageView>
-            <Button fx:id="buttonView" layoutX="279.0" layoutY="355.0" mnemonicParsing="false" onAction="#viewUserList" text="View" />
+            <Button fx:id="buttonView" layoutX="338.0" layoutY="353.0" mnemonicParsing="false" onAction="#viewUserList" text="View" />
             <ListView fx:id="listViewUser" layoutX="14.0" layoutY="89.0" prefHeight="256.0" prefWidth="545.0" />
+            <Button fx:id="buttonView1" layoutX="277.0" layoutY="353.0" mnemonicParsing="false" onAction="#viewUserList" text="Delete" />
+            <Button fx:id="buttonView2" layoutX="227.0" layoutY="353.0" mnemonicParsing="false" onAction="#viewUserList" text="Edit" />
          </children>
       </Pane>
    </children>
