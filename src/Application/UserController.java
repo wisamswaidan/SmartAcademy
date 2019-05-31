@@ -16,7 +16,14 @@ public class UserController {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
-    public void handelCreate(ActionEvent LoginEvent) throws Exception {}
+    public void handelCreate(ActionEvent LoginEvent) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/createUser.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    }
 
     public void handelUserView(ActionEvent LoginEvent) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/userView.fxml"));
