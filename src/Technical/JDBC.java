@@ -68,7 +68,7 @@ public class JDBC {
     public String CreateEducationTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "INSERT INTO tbl_Educations VALUES (? , ? , ? , ? , ? , ?)";
         return sql;
     }
 
@@ -89,7 +89,6 @@ public class JDBC {
     public String DeleteEducationTSQL(){
 
         //SQL_Query to......
-        //String sql = "SET NOCOUNT ON DELETE FROM tbl_Educations WHERE fld_AMU=?";
         String sql = "DELETE FROM tbl_Educations WHERE fld_AMU=?";
 
         return sql;
