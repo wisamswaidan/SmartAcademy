@@ -6,16 +6,14 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.EducationController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.EducationController">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0">
+      <ImageView fitHeight="500.0" fitWidth="800.0">
          <image>
             <Image url="@Images/Education.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="365.0" layoutY="276.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Delete Educations" />
-      <Button layoutX="365.0" layoutY="206.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Create Educations" />
-      <Button layoutX="365.0" layoutY="169.0" mnemonicParsing="false" onAction="#handelView" prefHeight="25.0" prefWidth="149.0" text="View Educations" />
-      <Button layoutX="365.0" layoutY="242.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Edit Educations" />
+      <Button layoutX="532.0" layoutY="294.0" mnemonicParsing="false" onAction="#handelCreate" prefHeight="25.0" prefWidth="149.0" text="Create Educations" />
+      <Button layoutX="532.0" layoutY="257.0" mnemonicParsing="false" onAction="#handelView" prefHeight="25.0" prefWidth="149.0" text="View Educations" />
    </children>
 </Pane>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.EducationController">
+   <children>
+      <ImageView fitHeight="500.0" fitWidth="800.0">
+         <image>
+            <Image url="@Images/Education.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="538.0" layoutY="433.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Create Educations" />
+      <TextField layoutX="421.0" layoutY="109.0" promptText="AMU" />
+      <TextField layoutX="421.0" layoutY="145.0" promptText="Provider" />
+      <TextField layoutX="613.0" layoutY="109.0" promptText="Title" />
+      <TextField layoutX="613.0" layoutY="145.0" promptText="Username" />
+      <TextField layoutX="421.0" layoutY="181.0" promptText="Number of Days" />
+      <TextField layoutX="421.0" layoutY="217.0" prefHeight="182.0" prefWidth="339.0" promptText="Information" />
+      <TextField layoutX="613.0" layoutY="181.0" promptText="Type" />
+   </children>
+</Pane>

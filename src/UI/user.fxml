@@ -6,16 +6,16 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.LoginController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.LoginController">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0">
+      <ImageView fitHeight="500.0" fitWidth="800.0">
          <image>
             <Image url="@Images/User.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="437.0" layoutY="101.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Create Users" />
-      <Button layoutX="437.0" layoutY="64.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="View Users" />
-      <Button layoutX="437.0" layoutY="137.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Edit Users" />
-      <Button layoutX="437.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Delete Users" />
+      <Button layoutX="492.0" layoutY="301.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Create Users" />
+      <Button layoutX="492.0" layoutY="264.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="View Users" />
+      <Button layoutX="492.0" layoutY="337.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Edit Users" />
+      <Button layoutX="492.0" layoutY="375.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Delete Users" />
    </children>
 </Pane>
