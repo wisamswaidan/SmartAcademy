@@ -50,7 +50,7 @@ public class EducationView implements  Initializable{
     private TableColumn <EducationViewTable, String> col_info;
 
     ObservableList<EducationViewTable> oblist = FXCollections.observableArrayList();
-    //List<String> mainPlaylists = new ArrayList<String>();
+    List<String> mainPlaylists = new ArrayList<String>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -72,6 +72,7 @@ public class EducationView implements  Initializable{
                         resultSet.getString("fld_NumOfDays"),
                         resultSet.getString("fld_Type"),
                         resultSet.getString("fld_Information")));
+                        mainPlaylists.add(resultSet.getString("fld_AMU"));
             }
 
         } catch (SQLException e) {
@@ -95,31 +96,50 @@ public class EducationView implements  Initializable{
         //Create an object for selection cells...
         TablePosition pos = table.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
-
         //Item here is the table view type:
         EducationViewTable item = table.getItems().get(row);
         TableColumn col = pos.getTableColumn();
-
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
         System.out.println(data);
-        String chooseAMU = data;
+
 
         //JBDC
         JDBC deleteEducations = new JDBC();
         deleteEducations.ViewEducationTSQL();
 
-        try {
-            preparedStatement = con.prepareStatement(deleteEducations.DeleteEducationTSQL());
-            preparedStatement.setString(1,chooseAMU);
+        //Check Method if the user select the correct column to start the Delete process .
+        boolean matchBoolena = false;
+        String resultMatch = "";
 
-            //We use executeUpdate() instead of executeQuery() because we dont expect any return .
-            preparedStatement.executeUpdate();
-            System.out.println("Delete Done for " + chooseAMU);
+        for(int i = 0 ; i < mainPlaylists.size() ; i++){
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+            String amuSearchMatch = mainPlaylists.get(i);
+            if (data.equals(amuSearchMatch)){
+                //System.out.println("match found " + amuSearchMatch);
+                amuSearchMatch = resultMatch;
+                matchBoolena = true;
+
+                if(matchBoolena == true){
+                    try {
+                        preparedStatement = con.prepareStatement(deleteEducations.DeleteEducationTSQL());
+                        preparedStatement.setString(1,resultMatch);
+                        //We use executeUpdate() instead of executeQuery() because we dont expect any return .
+                        preparedStatement.executeUpdate();
+                        //System.out.println("Delete Done for " + chooseAMU);
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
+
+        if(matchBoolena == false){
+            JOptionPane.showMessageDialog(null, "Please choose AMU column " );
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Delete Done" );
 
     }
 
