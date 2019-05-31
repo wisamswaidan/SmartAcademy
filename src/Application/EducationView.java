@@ -9,8 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javafx.fxml.*;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.fxml.FXML;
 
@@ -18,8 +16,6 @@ import java.net.URL;
 import java.sql.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
