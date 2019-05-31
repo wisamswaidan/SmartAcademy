@@ -66,8 +66,9 @@ public class EducationView implements  Initializable{
                         resultSet.getString("fld_Title"),
                         resultSet.getString("fld_Provider"),
                         resultSet.getString("fld_NumOfDays"),
-                        resultSet.getString("fld_Type"),
-                        resultSet.getString("fld_Information")));
+                        resultSet.getString("fld_Information"),
+                        resultSet.getString("fld_Type")));
+
                         mainPlaylists.add(resultSet.getString("fld_AMU"));
             }
 
@@ -101,8 +102,8 @@ public class EducationView implements  Initializable{
 
 
         //JBDC
-        JDBC deleteEducations = new JDBC();
-        deleteEducations.ViewEducationTSQL();
+        JDBC deleteEdu = new JDBC();
+        deleteEdu.DeleteEducationTSQL();
 
         //Check Method if the user select the correct column to start the Delete process .
         boolean matchBoolena = false;
@@ -113,16 +114,17 @@ public class EducationView implements  Initializable{
             String amuSearchMatch = mainPlaylists.get(i);
             if (data.equals(amuSearchMatch)){
                 //System.out.println("match found " + amuSearchMatch);
-                amuSearchMatch = resultMatch;
+                resultMatch = amuSearchMatch;
                 matchBoolena = true;
 
                 if(matchBoolena == true){
                     try {
-                        preparedStatement = con.prepareStatement(deleteEducations.DeleteEducationTSQL());
+                        preparedStatement = con.prepareStatement(deleteEdu.DeleteEducationTSQL());
                         preparedStatement.setString(1,resultMatch);
                         //We use executeUpdate() instead of executeQuery() because we dont expect any return .
                         preparedStatement.executeUpdate();
                         //System.out.println("Delete Done for " + chooseAMU);
+                        JOptionPane.showMessageDialog(null, "Delete Done" );
 
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -133,10 +135,7 @@ public class EducationView implements  Initializable{
 
         if(matchBoolena == false){
             JOptionPane.showMessageDialog(null, "Please choose AMU column " );
-        }
-        else
-            JOptionPane.showMessageDialog(null, "Delete Done" );
-
     }
 
+    }
 }
