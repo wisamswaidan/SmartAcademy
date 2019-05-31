@@ -23,5 +23,6 @@
             <TableColumn fx:id="col_info" prefWidth="197.0" text="Information" />
         </columns>
       </TableView>
+      <Button fx:id="removeBut" layoutX="231.0" layoutY="355.0" mnemonicParsing="false" onAction="#removeEdu" text="Select AMU to Remove" />
    </children>
 </Pane>

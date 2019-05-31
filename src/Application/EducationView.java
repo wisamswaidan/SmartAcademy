@@ -9,17 +9,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javafx.fxml.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.fxml.FXML;
 
 import java.net.URL;
-import java.sql.SQLException;
+import java.sql.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -28,6 +31,8 @@ public class EducationView implements  Initializable{
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
+    @FXML
+    private Button removeBut;
 
     @FXML
     private TableView <EducationViewTable> table;
@@ -45,6 +50,7 @@ public class EducationView implements  Initializable{
     private TableColumn <EducationViewTable, String> col_info;
 
     ObservableList<EducationViewTable> oblist = FXCollections.observableArrayList();
+    //List<String> mainPlaylists = new ArrayList<String>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -59,6 +65,7 @@ public class EducationView implements  Initializable{
 
             while (resultSet.next()) {
                 oblist.add(new EducationViewTable(
+
                         resultSet.getString("fld_AMU"),
                         resultSet.getString("fld_Title"),
                         resultSet.getString("fld_Provider"),
@@ -71,7 +78,6 @@ public class EducationView implements  Initializable{
             e.printStackTrace();
         }
 
-
         col_amu.setCellValueFactory(new PropertyValueFactory<>("AMU"));
         col_title.setCellValueFactory(new PropertyValueFactory<>("Title"));
         col_provier.setCellValueFactory(new PropertyValueFactory<>("Provider"));
@@ -80,5 +86,41 @@ public class EducationView implements  Initializable{
         col_info.setCellValueFactory(new PropertyValueFactory<>("information"));
 
         table.setItems(oblist);
+
     }
+
+
+    @FXML
+    public void removeEdu(){
+        //Create an object for selection cells...
+        TablePosition pos = table.getSelectionModel().getSelectedCells().get(0);
+        int row = pos.getRow();
+
+        //Item here is the table view type:
+        EducationViewTable item = table.getItems().get(row);
+        TableColumn col = pos.getTableColumn();
+
+        // Gives the value in the selected cell:
+        String data = (String) col.getCellObservableValue(item).getValue();
+        System.out.println(data);
+        String chooseAMU = data;
+
+        //JBDC
+        JDBC deleteEducations = new JDBC();
+        deleteEducations.ViewEducationTSQL();
+
+        try {
+            preparedStatement = con.prepareStatement(deleteEducations.DeleteEducationTSQL());
+            preparedStatement.setString(1,chooseAMU);
+
+            //We use executeUpdate() instead of executeQuery() because we dont expect any return .
+            preparedStatement.executeUpdate();
+            System.out.println("Delete Done for " + chooseAMU);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }
