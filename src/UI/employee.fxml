@@ -6,16 +6,16 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.LoginController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.LoginController">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0">
+      <ImageView fitHeight="500.0" fitWidth="800.0">
          <image>
             <Image url="@Images/employee.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="374.0" layoutY="127.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Create Employee" />
-      <Button layoutX="374.0" layoutY="90.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="View Employee" />
-      <Button layoutX="374.0" layoutY="163.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Edit Employee" />
-      <Button layoutX="374.0" layoutY="201.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Delete Employee" />
+      <Button layoutX="551.0" layoutY="307.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Create Employee" />
+      <Button layoutX="551.0" layoutY="270.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="View Employee" />
+      <Button layoutX="551.0" layoutY="343.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Edit Employee" />
+      <Button layoutX="551.0" layoutY="381.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Delete Employee" />
    </children>
 </Pane>

@@ -18,8 +18,13 @@ public class EducationController {
 
 
 
-    public void handelCreate(ActionEvent LoginEvent) throws Exception {}
-
+    public void handelCreate(ActionEvent LoginEvent) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/education_create.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
     public void handelView(ActionEvent LoginEvent) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/education_view.fxml"));
         Parent root = (Parent) fxmlLoader.load();
@@ -27,8 +32,6 @@ public class EducationController {
         stage.setScene(new Scene(root));
         stage.show();
     }
-
     public void handelEdit(ActionEvent LoginEvent) throws Exception {}
-
     public void handelDelete(ActionEvent LoginEvent) throws Exception {}
 }
