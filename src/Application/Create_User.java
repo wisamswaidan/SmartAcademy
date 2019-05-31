@@ -1,26 +1,18 @@
 package Application;
 import Domain.EducationViewTable;
 import Foundation.DB;
-import Technical.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
+
 import javax.swing.*;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 public class Create_User {
 
@@ -41,10 +33,8 @@ public class Create_User {
     private TextField username_TextField;
 
     @FXML
-    private ChoiceBox<?> accessBox;
+    private ChoiceBox<String> accessBox;
 
-    ObservableList<ChoiceBox> oblist = FXCollections.observableArrayList();
-    
     @FXML
     private TextField lastname_TextField;
 
@@ -53,6 +43,31 @@ public class Create_User {
 
     @FXML
     private TextField firstname_TextField;
+
+    @FXML
+    private void initialize(){
+
+        ObservableList<String> accessStatus = FXCollections.observableArrayList();
+
+
+        DB.selectSQL("SELECT fld_UserType from tbl_UsersType");
+        do
+        {
+            String data = DB.getDisplayData();
+            if (data.equals(DB.NOMOREDATA))
+            {
+                break;
+            }
+            else
+            {
+                accessStatus.add(data.trim());
+                accessBox.setValue("Admin");
+                accessBox.setItems(accessStatus);
+            }
+        } while (true);
+
+
+    }
 
     @FXML
     public void addUser(ActionEvent event) throws Exception {
