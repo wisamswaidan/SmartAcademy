@@ -89,7 +89,9 @@ public class JDBC {
     public String DeleteEducationTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        //String sql = "SET NOCOUNT ON DELETE FROM tbl_Educations WHERE fld_AMU=?";
+        String sql = "DELETE FROM tbl_Educations WHERE fld_AMU=?";
+
         return sql;
     }
 
