@@ -24,6 +24,6 @@
         </columns>
       </TableView>
       <Button fx:id="removeBut" layoutX="637.0" layoutY="422.0" mnemonicParsing="false" onAction="#removeEdu" prefHeight="25.0" prefWidth="140.0" text="Delete Educations" />
-      <Button layoutX="637.0" layoutY="382.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Edit Educations" />
+      <Button fx:id="editBut" layoutX="637.0" layoutY="382.0" mnemonicParsing="false" onAction="#editEdu" prefHeight="25.0" prefWidth="140.0" text="Edit Educations" />
    </children>
 </Pane>

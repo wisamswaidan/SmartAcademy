@@ -9,26 +9,34 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javafx.fxml.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.fxml.FXML;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
 public class EducationView implements  Initializable{
+
     Connection con = DB.connect();
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
     @FXML
     private Button removeBut;
+    @FXML
+    private Button editBut;
+
 
     @FXML
     private TableView <EducationViewTable> table;
@@ -45,7 +53,10 @@ public class EducationView implements  Initializable{
     @FXML
     private TableColumn <EducationViewTable, String> col_info;
 
+
+
     ObservableList<EducationViewTable> oblist = FXCollections.observableArrayList();
+
     List<String> mainPlaylists = new ArrayList<String>();
 
     @Override
@@ -87,7 +98,6 @@ public class EducationView implements  Initializable{
 
     }
 
-
     @FXML
     public void removeEdu(){
         //Create an object for selection cells...
@@ -98,14 +108,13 @@ public class EducationView implements  Initializable{
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
-        System.out.println(data);
-
+        //System.out.println(data);
 
         //JBDC
         JDBC deleteEdu = new JDBC();
         deleteEdu.DeleteEducationTSQL();
 
-        //Check Method if the user select the correct column to start the Delete process .
+        //Check Method if the user select the AMU column to start the Delete process .
         boolean matchBoolena = false;
         String resultMatch = "";
 
@@ -115,6 +124,7 @@ public class EducationView implements  Initializable{
             if (data.equals(amuSearchMatch)){
                 //System.out.println("match found " + amuSearchMatch);
                 resultMatch = amuSearchMatch;
+
                 matchBoolena = true;
 
                 if(matchBoolena == true){
@@ -136,6 +146,72 @@ public class EducationView implements  Initializable{
         if(matchBoolena == false){
             JOptionPane.showMessageDialog(null, "Please choose AMU column " );
     }
+    }
+
+
+
+    @FXML
+    public void editEdu(){
+        //Create an object for selection cells...
+        TablePosition pos = table.getSelectionModel().getSelectedCells().get(0);
+        int row = pos.getRow();
+        //Item here is the table view type:
+        EducationViewTable item = table.getItems().get(row);
+        TableColumn col = pos.getTableColumn();
+        // Gives the value in the selected cell:
+        String data = (String) col.getCellObservableValue(item).getValue();
+        //System.out.println(data);
+
+        //Check Method if the user select the AMU column to start the Delete process .
+        boolean matchBoolena = false;
+        String resultMatch = "";
+
+        for(int i = 0 ; i < mainPlaylists.size() ; i++){
+
+            String amuSearchMatch = mainPlaylists.get(i);
+            if (data.equals(amuSearchMatch)){
+
+                resultMatch = amuSearchMatch;
+                System.out.println(resultMatch);
+                matchBoolena = true;
+
+                if(matchBoolena == true){
+
+                    //DB.selectSQL("SELECT * from tbl_Educations where fld_AMU = '" + resultMatch + "'");
+                    //String sql =  "SELECT * from tbl_Educations where fld_AMU =?";
+                    try {
+                        JDBC editEdu = new JDBC();
+                        editEdu.EditEducationTSQL();
+                        preparedStatement = con.prepareStatement(editEdu.EditEducationTSQL());
+                        preparedStatement.setInt(1,Integer.parseInt(resultMatch));
+                        resultSet = preparedStatement.executeQuery();
+                        //Problem is show only first column//
+                        //https://dzone.com/articles/editable-tables-in-javafx//
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/education_edit.fxml"));
+                    Parent root = null;
+                    try {
+                        root = (Parent) fxmlLoader.load();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                }
+            }
+        }
+
+        if(matchBoolena == false){
+            JOptionPane.showMessageDialog(null, "Please choose AMU column " );
+        }
+
+
 
     }
+
 }

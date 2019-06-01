@@ -8,11 +8,12 @@ import javafx.stage.Stage;
 
 import static javafx.application.Application.*;
 
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/UI/login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/UI/education_view.fxml"));
         primaryStage.setTitle("SmartAcademy");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

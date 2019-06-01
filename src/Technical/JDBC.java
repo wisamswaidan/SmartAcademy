@@ -82,7 +82,7 @@ public class JDBC {
     public String EditEducationTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "SELECT * from tbl_Educations where fld_AMU =?";
         return sql;
     }
 
