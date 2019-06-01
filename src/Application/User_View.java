@@ -1,39 +1,34 @@
 package Application;
 
-
+import Domain.EducationViewTable;
 import Foundation.DB;
 import Technical.JDBC;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.*;
-import javafx.scene.Parent;
-import javafx.scene.control.Button;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
-import javax.swing.*;
+
+import java.net.URL;
 import java.sql.SQLException;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
-import static javafx.collections.FXCollections.*;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 
-public class User_View {
+public class User_View implements Initializable{
+
+
     //Start the connection to DB.
     Connection con = DB.connect();
 
@@ -41,52 +36,67 @@ public class User_View {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
+    @FXML
+    private TableView<EducationViewTable> tableUserView;
 
     @FXML
-    private Button buttonView;
+    private TableColumn<EducationViewTable, String> col_username;
 
     @FXML
-    private ListView listViewUser;
+    private TableColumn<EducationViewTable, String> col_address;
 
-    public void viewUserList(){
-        //Create the Array List for the leftListView.
-        List<String> allSongsList = new ArrayList<>();
-        ListProperty<String> allSongslistProperty = new SimpleListProperty<>();
+    @FXML
+    private TableColumn<EducationViewTable, String> col_name;
 
+    @FXML
+    private TableColumn<EducationViewTable, String> col_phone;
 
-        //Create an object from JBDC class to view the educations from the database .
-        JDBC viewUser = new JDBC();
-        viewUser.ViewUserTSQL();
+    @FXML
+    private TableColumn<EducationViewTable, String> col_usertype;
+
+    @FXML
+    private TableColumn<EducationViewTable, String> col_password;
+
+    ObservableList<EducationViewTable> oblist1 = FXCollections.observableArrayList();
+    List<String> mainPlaylists = new ArrayList<String>();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        JDBC viewUserList = new JDBC();
+        viewUserList.ViewUserTSQL();
 
         try {
 
-            //Start the JDBC read query and view the educations from database
-            preparedStatement = con.prepareStatement(viewUser.ViewUserTSQL());
+            preparedStatement = con.prepareStatement(viewUserList.ViewUserTSQL());
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                String fld_FirstName = resultSet.getString("fld_FirstName");
-                String fld_LastName = resultSet.getString("fld_LastName");
-                String fld_TelephoneNumber = resultSet.getString("fld_TelephoneNumber");
-                String fld_Address = resultSet.getString("fld_Address");
-                String fld_Zipcode = resultSet.getString("fld_ZipCode");
-                String fld_UserName = resultSet.getString("fld_UserName");
-                String fld_UserType = resultSet.getString("fld_UserType");
+                boolean add = oblist1.add(new EducationViewTable(
+                        resultSet.getString("fld_FirstName"),
+                        resultSet.getString("fld_UserName"),
+                        resultSet.getString("fld_Address"),
+                        resultSet.getString("fld_TelephoneNumber"),
+                        resultSet.getString("fld_UserType"),
+                        resultSet.getString("fld_Password")));
 
-                String AllEducation  = "Firstname : "+ fld_FirstName + " " + "Lastname : "+ fld_LastName + " " + "Phone : "+ fld_TelephoneNumber +" " + "Address : "+ fld_Address+ " " + "Zipcode : "
-                        + fld_Zipcode+ " " + "Username : " + fld_UserName + " " + "Usertype :" + fld_UserType;
-                allSongsList.add(AllEducation);
-
-                listViewUser.itemsProperty().bind(allSongslistProperty);
-                allSongslistProperty.set(FXCollections.observableArrayList(allSongsList));
+                mainPlaylists.add(resultSet.getString("fld_FirstName"));
+                System.out.println(mainPlaylists);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-    }
 
+        col_name.setCellValueFactory(new PropertyValueFactory<>("FirstName"));
+        col_username.setCellValueFactory(new PropertyValueFactory<>("UserName"));
+        col_address.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        col_phone.setCellValueFactory(new PropertyValueFactory<>("TelephoneNumber"));
+        col_usertype.setCellValueFactory(new PropertyValueFactory<>("UserType"));
+
+        tableUserView.setItems(oblist1);
+    }
 
 
 }

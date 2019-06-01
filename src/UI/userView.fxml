@@ -8,19 +8,28 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.User_View">
-   <children>
-      <Pane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
-         <children>
-            <ImageView fitHeight="400.0" fitWidth="600.0">
-               <image>
-                  <Image url="@Images/Education.jpg" />
-               </image>
-            </ImageView>
-            <Button fx:id="buttonView" layoutX="338.0" layoutY="353.0" mnemonicParsing="false" onAction="#viewUserList" text="View" />
-            <ListView fx:id="listViewUser" layoutX="14.0" layoutY="89.0" prefHeight="256.0" prefWidth="545.0" />
-            <Button fx:id="buttonView1" layoutX="277.0" layoutY="353.0" mnemonicParsing="false" onAction="#viewUserList" text="Delete" />
-            <Button fx:id="buttonView2" layoutX="227.0" layoutY="353.0" mnemonicParsing="false" onAction="#viewUserList" text="Edit" />
-         </children>
-      </Pane>
-   </children>
+    <children>
+        <Pane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+            <children>
+                <ImageView fitHeight="400.0" fitWidth="600.0">
+                    <image>
+                        <Image url="@Images/Education.jpg" />
+                    </image>
+                </ImageView>
+                <Button fx:id="buttonView" layoutX="338.0" layoutY="353.0" mnemonicParsing="false" text="View" />
+                <Button fx:id="buttonView1" layoutX="277.0" layoutY="353.0" mnemonicParsing="false" text="Delete" />
+                <Button fx:id="buttonView2" layoutX="227.0" layoutY="353.0" mnemonicParsing="false" text="Edit" />
+            </children>
+        </Pane>
+        <TableView fx:id="tableUserView" layoutX="5.0" layoutY="10.0" prefHeight="346.0" prefWidth="600.0">
+            <columns>
+                <TableColumn fx:id="col_name" prefWidth="75.0" text="Name" />
+                <TableColumn fx:id="col_username" prefWidth="75.0" text="Username" />
+                <TableColumn fx:id="col_address" prefWidth="75.0" text="Address" />
+                <TableColumn fx:id="col_phone" prefWidth="104.0" text="Phone" />
+                <TableColumn fx:id="col_usertype" prefWidth="73.0" text="Usertype" />
+                <TableColumn fx:id="col_password" prefWidth="197.0" text="Password" />
+            </columns>
+        </TableView>
+    </children>
 </AnchorPane>
