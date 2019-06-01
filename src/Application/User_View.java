@@ -1,6 +1,7 @@
 package Application;
 
 import Domain.EducationViewTable;
+import Domain.UserViewTable;
 import Foundation.DB;
 import Technical.JDBC;
 
@@ -37,27 +38,35 @@ public class User_View implements Initializable{
     ResultSet resultSet = null;
 
     @FXML
-    private TableView<EducationViewTable> tableUserView;
+    private TableView<UserViewTable> tableUserView;
 
     @FXML
-    private TableColumn<EducationViewTable, String> col_username;
+    private TableColumn<UserViewTable, String> col_firstname;
 
     @FXML
-    private TableColumn<EducationViewTable, String> col_address;
+    private TableColumn<UserViewTable, String> col_lastname;
 
     @FXML
-    private TableColumn<EducationViewTable, String> col_name;
+    private TableColumn<UserViewTable, String> col_phone;
 
     @FXML
-    private TableColumn<EducationViewTable, String> col_phone;
+    private TableColumn<UserViewTable, String> col_address;
 
     @FXML
-    private TableColumn<EducationViewTable, String> col_usertype;
+    private TableColumn<UserViewTable, String> col_zipcode;
 
     @FXML
-    private TableColumn<EducationViewTable, String> col_password;
+    private TableColumn<UserViewTable, String> col_username;
 
-    ObservableList<EducationViewTable> oblist1 = FXCollections.observableArrayList();
+    @FXML
+    private TableColumn<UserViewTable, String> col_password;
+
+    @FXML
+    private TableColumn<UserViewTable, String> col_usertype;
+
+
+
+    ObservableList<UserViewTable> oblist1 = FXCollections.observableArrayList();
     List<String> mainPlaylists = new ArrayList<String>();
 
     @Override
@@ -72,15 +81,17 @@ public class User_View implements Initializable{
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                boolean add = oblist1.add(new EducationViewTable(
-                        resultSet.getString("fld_FirstName"),
-                        resultSet.getString("fld_UserName"),
-                        resultSet.getString("fld_Address"),
-                        resultSet.getString("fld_TelephoneNumber"),
-                        resultSet.getString("fld_UserType"),
-                        resultSet.getString("fld_Password")));
+                boolean add = oblist1.add(new UserViewTable(
+                        resultSet.getString("fld_firstname"),
+                        resultSet.getString("fld_lastname"),
+                        resultSet.getString("fld_telephonenumber"),
+                        resultSet.getString("fld_address"),
+                        resultSet.getString("fld_zipcode"),
+                        resultSet.getString("fld_username"),
+                        resultSet.getString("fld_password"),
+                        resultSet.getString("fld_usertype")));
 
-                mainPlaylists.add(resultSet.getString("fld_FirstName"));
+                mainPlaylists.add(resultSet.getString("fld_firstname"));
                 System.out.println(mainPlaylists);
             }
 
@@ -89,10 +100,13 @@ public class User_View implements Initializable{
         }
 
 
-        col_name.setCellValueFactory(new PropertyValueFactory<>("FirstName"));
-        col_username.setCellValueFactory(new PropertyValueFactory<>("UserName"));
-        col_address.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        col_firstname.setCellValueFactory(new PropertyValueFactory<>("FirstName"));
+        col_lastname.setCellValueFactory(new PropertyValueFactory<>("LastName"));
         col_phone.setCellValueFactory(new PropertyValueFactory<>("TelephoneNumber"));
+        col_address.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        col_zipcode.setCellValueFactory(new PropertyValueFactory<>("Zipcode"));
+        col_username.setCellValueFactory(new PropertyValueFactory<>("UserName"));
+        col_password.setCellValueFactory(new PropertyValueFactory<>("Password"));
         col_usertype.setCellValueFactory(new PropertyValueFactory<>("UserType"));
 
         tableUserView.setItems(oblist1);

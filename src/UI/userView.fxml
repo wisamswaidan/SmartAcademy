@@ -19,17 +19,19 @@
                 <Button fx:id="buttonView" layoutX="338.0" layoutY="353.0" mnemonicParsing="false" text="View" />
                 <Button fx:id="buttonView1" layoutX="277.0" layoutY="353.0" mnemonicParsing="false" text="Delete" />
                 <Button fx:id="buttonView2" layoutX="227.0" layoutY="353.0" mnemonicParsing="false" text="Edit" />
+              <TableView fx:id="tableUserView" layoutX="7.0" layoutY="4.0" prefHeight="346.0" prefWidth="577.0">
+                  <columns>
+                      <TableColumn fx:id="col_firstname" prefWidth="40.0" text="Firstname" />
+                      <TableColumn fx:id="col_lastname" prefWidth="52.0" text="Lastname" />
+                      <TableColumn fx:id="col_phone" prefWidth="58.0" text="Phone" />
+                      <TableColumn fx:id="col_address" prefWidth="70.0" text="Address" />
+                      <TableColumn fx:id="col_zipcode" prefWidth="43.0" text="ZipCode" />
+                  <TableColumn fx:id="col_username" prefWidth="100.0" text="Username" />
+                  <TableColumn fx:id="col_password" prefWidth="107.0" text="Password" />
+                  <TableColumn fx:id="col_usertype" prefWidth="105.0" text="Usertype" />
+                  </columns>
+              </TableView>
             </children>
         </Pane>
-        <TableView fx:id="tableUserView" layoutX="5.0" layoutY="10.0" prefHeight="346.0" prefWidth="600.0">
-            <columns>
-                <TableColumn fx:id="col_name" prefWidth="75.0" text="Name" />
-                <TableColumn fx:id="col_username" prefWidth="75.0" text="Username" />
-                <TableColumn fx:id="col_address" prefWidth="75.0" text="Address" />
-                <TableColumn fx:id="col_phone" prefWidth="104.0" text="Phone" />
-                <TableColumn fx:id="col_usertype" prefWidth="73.0" text="Usertype" />
-                <TableColumn fx:id="col_password" prefWidth="197.0" text="Password" />
-            </columns>
-        </TableView>
     </children>
 </AnchorPane>
