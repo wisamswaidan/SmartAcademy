@@ -16,8 +16,8 @@
                         <Image url="@Images/Education.jpg" />
                     </image>
                 </ImageView>
-                <Button fx:id="buttonView" layoutX="338.0" layoutY="353.0" mnemonicParsing="false" text="View" />
-                <Button fx:id="buttonView1" layoutX="277.0" layoutY="353.0" mnemonicParsing="false" text="Delete" />
+                <Button fx:id="buttonView" layoutX="338.0" layoutY="353.0" mnemonicParsing="false" text="Back" />
+                <Button fx:id="removeUse" layoutX="277.0" layoutY="353.0" mnemonicParsing="false" onAction="#removeUser" text="Delete" />
                 <Button fx:id="buttonView2" layoutX="227.0" layoutY="353.0" mnemonicParsing="false" text="Edit" />
               <TableView fx:id="tableUserView" layoutX="7.0" layoutY="4.0" prefHeight="346.0" prefWidth="577.0">
                   <columns>

@@ -123,7 +123,7 @@ public class EducationView implements  Initializable{
                         preparedStatement.setString(1,resultMatch);
                         //We use executeUpdate() instead of executeQuery() because we dont expect any return .
                         preparedStatement.executeUpdate();
-                        //System.out.println("Delete Done for " + chooseAMU);
+                        System.out.println("Delete Done for " + resultMatch);
                         JOptionPane.showMessageDialog(null, "Delete Done" );
 
                     } catch (SQLException e) {

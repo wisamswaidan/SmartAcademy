@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import java.net.URL;
 import java.sql.SQLException;
 
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.Connection;
@@ -25,6 +26,8 @@ import java.util.ResourceBundle;
 
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+
+import javax.swing.*;
 
 
 public class User_View implements Initializable{
@@ -92,7 +95,6 @@ public class User_View implements Initializable{
                         resultSet.getString("fld_usertype")));
 
                 mainPlaylists.add(resultSet.getString("fld_firstname"));
-                System.out.println(mainPlaylists);
             }
 
         } catch (SQLException e) {
@@ -112,5 +114,61 @@ public class User_View implements Initializable{
         tableUserView.setItems(oblist1);
     }
 
+    @FXML
+    public void removeUser(){
+        //Create an object for selection cells...
+        TablePosition pos = tableUserView.getSelectionModel().getSelectedCells().get(0);
+        int row = pos.getRow();
+        //Item here is the table view type:
+        UserViewTable item = tableUserView.getItems().get(row);
+        TableColumn col = pos.getTableColumn();
+        // Gives the value in the selected cell:
+        String data = (String) col.getCellObservableValue(item).getValue();
+        System.out.println(data);
 
+//        TableView.TableViewSelectionModel selectionModel = tableUserView.getSelectionModel();
+//        ObservableList selectedCells = selectionModel.getSelectedCells();
+//        TablePosition tablePosition = (TablePosition) selectedCells.get(0);
+//        int newValue = 0;
+//        Object val = tablePosition.getTableColumn().getCellData(newValue);
+//        System.out.println("Selected Value" + val);
+
+
+        //JBDC
+        JDBC deleteUser = new JDBC();
+        deleteUser.DeleteUserTSQL();
+
+        //Check Method if the user select the correct column to start the Delete process .
+        boolean matchBoolena = false;
+        String resultMatch = "";
+
+        for(int i = 0 ; i < mainPlaylists.size() ; i++){
+
+            String userSearchMatch = mainPlaylists.get(i);
+            if (data.equals(userSearchMatch)){
+                System.out.println("match found " + userSearchMatch);
+                resultMatch = userSearchMatch;
+                matchBoolena = true;
+
+                if(matchBoolena == true){
+                    try {
+                        preparedStatement = con.prepareStatement(deleteUser.DeleteUserTSQL());
+                        preparedStatement.setString(1,resultMatch);
+                        //We use executeUpdate() instead of executeQuery() because we don't expect any return .
+                        preparedStatement.executeUpdate();
+                        System.out.println("Delete Done for " + userSearchMatch);
+                        JOptionPane.showMessageDialog(null, "Delete Done" );
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        if(matchBoolena == false){
+            JOptionPane.showMessageDialog(null, "Please choose UserName column " );
+        }
+
+    }
 }

@@ -55,7 +55,7 @@ public class JDBC {
     public String DeleteUserTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "DELETE FROM tbl_Users WHERE fld_UserName = ? ";
         return sql;
     }
 
