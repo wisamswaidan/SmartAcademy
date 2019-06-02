@@ -2,14 +2,8 @@ package Application;
 
 import Foundation.DB;
 import Technical.JDBC;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.fxml.FXML;
-import javafx.stage.Stage;
-
-import java.awt.event.ActionEvent;
 import java.sql.*;
 import javax.swing.*;
 

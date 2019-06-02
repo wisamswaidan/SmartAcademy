@@ -105,11 +105,6 @@ public class JDBC {
 
 
 
-
-
-    /**
-     * All the JDBC command to related to the Companies.
-     */
     public String CreateCompanyTSQL(){
 
         //SQL_Query to......

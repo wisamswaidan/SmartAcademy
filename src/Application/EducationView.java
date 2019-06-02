@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+
+
 public class EducationView implements  Initializable{
 
     Connection con = DB.connect();
@@ -48,6 +50,7 @@ public class EducationView implements  Initializable{
 
     ObservableList<EducationViewTable> oblist = FXCollections.observableArrayList();
     List<String> mainPlaylists = new ArrayList<String>();
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -176,7 +179,6 @@ public class EducationView implements  Initializable{
         JDBC edit_EduJDBC = new JDBC();
         edit_EduJDBC.EditEducationTSQL();
 
-
         //Create an object for selection cells...
         TablePosition pos = table.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
@@ -209,7 +211,6 @@ public class EducationView implements  Initializable{
                         preparedStatement.setInt(1,Integer.parseInt(resultMatch));
                         ResultSet rs = preparedStatement.executeQuery();
 
-
                         while (rs.next()) {
                             String table_amu = rs.getString("fld_AMU");
                             amu_TextField.setText(table_amu);
@@ -229,17 +230,11 @@ public class EducationView implements  Initializable{
 
                             String table_Type = rs.getString("fld_Type");
                             type_TextField.setText(table_Type);
-
                         }
-
-
 
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-
-
-
 
                     /*
                     DB.selectSQL("SELECT * from tbl_Educations where fld_AMU ='" + resultMatch + "' ");
@@ -261,11 +256,11 @@ public class EducationView implements  Initializable{
         }
     }
 
+
+
+
     @FXML
     public void editEdu(){
-        //Create an object from JBDC class
-        JDBC update_Edu = new JDBC();
-        update_Edu.UpdateEducationTSQL();
 
         String amu = amu_TextField.getText().trim();
         String title = title_TextField.getText().trim();
@@ -274,9 +269,15 @@ public class EducationView implements  Initializable{
         String information = information_TextField.getText().trim();
         String type = type_TextField.getText().trim();
 
+        //Create an object from JBDC class
+        JDBC update_Edu = new JDBC();
+        update_Edu.UpdateEducationTSQL();
+
+
         try {
             //Start the JDBC
             preparedStatement = con.prepareStatement(update_Edu.UpdateEducationTSQL());
+
             preparedStatement.setString(1,title);
             preparedStatement.setString(2,information);
             preparedStatement.setInt(3,Integer.parseInt(number_of_Days));
@@ -291,6 +292,8 @@ public class EducationView implements  Initializable{
             JOptionPane.showMessageDialog(null, "Wrong with Editing " );
             e.printStackTrace();
         }
+
+
 
     }
 
