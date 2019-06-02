@@ -4,23 +4,14 @@ package Application;
 import Domain.EducationViewTable;
 import Foundation.DB;
 import Technical.JDBC;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import javafx.fxml.*;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.fxml.FXML;
-
-import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +47,6 @@ public class EducationView implements  Initializable{
 
 
     ObservableList<EducationViewTable> oblist = FXCollections.observableArrayList();
-
     List<String> mainPlaylists = new ArrayList<String>();
 
     @Override
@@ -87,6 +77,7 @@ public class EducationView implements  Initializable{
             e.printStackTrace();
         }
 
+
         col_amu.setCellValueFactory(new PropertyValueFactory<>("AMU"));
         col_title.setCellValueFactory(new PropertyValueFactory<>("Title"));
         col_provier.setCellValueFactory(new PropertyValueFactory<>("Provider"));
@@ -95,11 +86,17 @@ public class EducationView implements  Initializable{
         col_info.setCellValueFactory(new PropertyValueFactory<>("information"));
 
         table.setItems(oblist);
+        //table.setItems (FXCollections.observableArrayList(oblist));
 
     }
 
+
+
+
+
     @FXML
     public void removeEdu(){
+
         //Create an object for selection cells...
         TablePosition pos = table.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
@@ -124,16 +121,15 @@ public class EducationView implements  Initializable{
             if (data.equals(amuSearchMatch)){
                 //System.out.println("match found " + amuSearchMatch);
                 resultMatch = amuSearchMatch;
-
                 matchBoolena = true;
 
                 if(matchBoolena == true){
                     try {
                         preparedStatement = con.prepareStatement(deleteEdu.DeleteEducationTSQL());
                         preparedStatement.setString(1,resultMatch);
+
                         //We use executeUpdate() instead of executeQuery() because we dont expect any return .
                         preparedStatement.executeUpdate();
-                        //System.out.println("Delete Done for " + chooseAMU);
                         JOptionPane.showMessageDialog(null, "Delete Done" );
 
                     } catch (SQLException e) {
@@ -144,14 +140,43 @@ public class EducationView implements  Initializable{
         }
 
         if(matchBoolena == false){
-            JOptionPane.showMessageDialog(null, "Please choose AMU column " );
+            JOptionPane.showMessageDialog(null, "Please choose AMU column " ); }
+
+
+
     }
-    }
+
+
 
 
 
     @FXML
-    public void editEdu(){
+    private TextField amu_TextField;
+
+    @FXML
+    private TextField title_TextField;
+
+    @FXML
+    private TextField provider_TextField;
+
+    @FXML
+    private TextField number_of_Days_TextField;
+
+    @FXML
+    private TextField information_TextField;
+
+    @FXML
+    private TextField type_TextField;
+
+
+    @FXML
+    public void selectToEditEdu(){
+
+        //Create an object from JBDC class
+        JDBC edit_EduJDBC = new JDBC();
+        edit_EduJDBC.EditEducationTSQL();
+
+
         //Create an object for selection cells...
         TablePosition pos = table.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
@@ -173,35 +198,60 @@ public class EducationView implements  Initializable{
 
                 resultMatch = amuSearchMatch;
                 System.out.println(resultMatch);
+
                 matchBoolena = true;
 
                 if(matchBoolena == true){
 
-                    //DB.selectSQL("SELECT * from tbl_Educations where fld_AMU = '" + resultMatch + "'");
-                    //String sql =  "SELECT * from tbl_Educations where fld_AMU =?";
                     try {
-                        JDBC editEdu = new JDBC();
-                        editEdu.EditEducationTSQL();
-                        preparedStatement = con.prepareStatement(editEdu.EditEducationTSQL());
+                        //Start the JDBC
+                        preparedStatement = con.prepareStatement(edit_EduJDBC.EditEducationTSQL());
                         preparedStatement.setInt(1,Integer.parseInt(resultMatch));
-                        resultSet = preparedStatement.executeQuery();
-                        //Problem is show only first column//
-                        //https://dzone.com/articles/editable-tables-in-javafx//
+                        ResultSet rs = preparedStatement.executeQuery();
+
+
+                        while (rs.next()) {
+                            String table_amu = rs.getString("fld_AMU");
+                            amu_TextField.setText(table_amu);
+                            amu_TextField.setDisable(true);
+
+                            String table_title = rs.getString("fld_Title");
+                            title_TextField.setText(table_title);
+
+                            String table_provider = rs.getString("fld_Provider");
+                            provider_TextField.setText(table_provider);
+
+                            String table_numberOfdays = rs.getString("fld_NumOfDays");
+                            number_of_Days_TextField.setText(table_numberOfdays);
+
+                            String table_Information = rs.getString("fld_Information");
+                            information_TextField.setText(table_Information);
+
+                            String table_Type = rs.getString("fld_Type");
+                            type_TextField.setText(table_Type);
+
+                        }
+
+
 
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
 
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/education_edit.fxml"));
-                    Parent root = null;
-                    try {
-                        root = (Parent) fxmlLoader.load();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(root));
-                    stage.show();
+
+
+
+                    /*
+                    DB.selectSQL("SELECT * from tbl_Educations where fld_AMU ='" + resultMatch + "' ");
+                    do
+                    {
+                        String datas = DB.getDisplayData();
+                        if (datas.equals(DB.NOMOREDATA))
+                        {break;}
+                        else System.out.println(datas);
+                    } while (true);
+
+                     */
                 }
             }
         }
@@ -209,8 +259,38 @@ public class EducationView implements  Initializable{
         if(matchBoolena == false){
             JOptionPane.showMessageDialog(null, "Please choose AMU column " );
         }
+    }
 
+    @FXML
+    public void editEdu(){
+        //Create an object from JBDC class
+        JDBC update_Edu = new JDBC();
+        update_Edu.UpdateEducationTSQL();
 
+        String amu = amu_TextField.getText().trim();
+        String title = title_TextField.getText().trim();
+        String provider = provider_TextField.getText().trim();
+        String number_of_Days = number_of_Days_TextField.getText().trim();
+        String information = information_TextField.getText().trim();
+        String type = type_TextField.getText().trim();
+
+        try {
+            //Start the JDBC
+            preparedStatement = con.prepareStatement(update_Edu.UpdateEducationTSQL());
+            preparedStatement.setString(1,title);
+            preparedStatement.setString(2,information);
+            preparedStatement.setInt(3,Integer.parseInt(number_of_Days));
+            preparedStatement.setString(4,provider);
+            preparedStatement.setString(5,type);
+            preparedStatement.setInt(6,Integer.parseInt(amu));
+
+            preparedStatement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Edit Done" );
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Wrong with Editing " );
+            e.printStackTrace();
+        }
 
     }
 

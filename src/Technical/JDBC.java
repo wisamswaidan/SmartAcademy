@@ -94,6 +94,16 @@ public class JDBC {
         return sql;
     }
 
+    public String UpdateEducationTSQL(){
+
+        //SQL_Query to......
+        String sql = "UPDATE tbl_Educations SET fld_Title = ? , fld_Information = ? , fld_NumOfDays = ? , fld_Provider  = ? , fld_Type = ? where fld_AMU = ?";
+
+        return sql;
+    }
+
+
+
 
 
 
