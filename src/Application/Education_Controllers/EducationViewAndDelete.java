@@ -1,4 +1,4 @@
-package Application;
+package Application.Education_Controllers;
 
 
 import Domain.EducationViewTable;
@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 
 
 
-public class EducationView implements  Initializable{
+public class EducationViewAndDelete implements  Initializable{
 
     Connection con = DB.connect();
     PreparedStatement preparedStatement = null;

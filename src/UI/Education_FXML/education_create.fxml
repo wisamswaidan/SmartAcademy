@@ -6,11 +6,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.EducationCreate">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.Education_Controllers.EducationCreate">
    <children>
       <ImageView fitHeight="500.0" fitWidth="800.0">
          <image>
-            <Image url="@Images/Education.jpg" />
+            <Image url="@../Images/Education.jpg" />
          </image>
       </ImageView>
       <Button layoutX="516.0" layoutY="225.0" mnemonicParsing="false" onAction="#addEducation" prefHeight="25.0" prefWidth="149.0" text="Create Educations" />

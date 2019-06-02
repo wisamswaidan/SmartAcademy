@@ -1,4 +1,4 @@
-package Application;
+package Application.Education_Controllers;
 
 import Foundation.DB;
 import Technical.JDBC;
