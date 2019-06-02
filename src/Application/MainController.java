@@ -30,6 +30,7 @@ public class MainController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
+        
     }
     public void ShowEmployeesOptions(ActionEvent Event) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/employee.fxml"));
