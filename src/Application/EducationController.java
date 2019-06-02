@@ -1,7 +1,7 @@
-package Application.Education_Controllers;
+package Application;
 
 
-import Domain.EducationViewTable;
+import Domain.EducationConstructor;
 import Foundation.DB;
 import Technical.JDBC;
 import javafx.collections.FXCollections;
@@ -19,37 +19,47 @@ import java.util.ResourceBundle;
 
 
 
-public class EducationViewAndDelete implements  Initializable{
+public class EducationController implements  Initializable{
 
+    //Start connection to the Database.
     Connection con = DB.connect();
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
+    //Create Button
     @FXML
-    private Button removeBut;
+    private Button selectButton;
     @FXML
-    private Button editBut;
+    private Button editButton;
+    @FXML
+    private Button deleteButton;
+    @FXML
+    private Button createButton;
+
+    //Create tableView and TableColumns for tables
+    @FXML
+    private TableView <EducationConstructor> educations_table;
+    @FXML
+    private TableColumn <EducationConstructor, String> col_amu;
+    @FXML
+    private TableColumn <EducationConstructor, String> col_title;
+    @FXML
+    private TableColumn <EducationConstructor, String> col_provier;
+    @FXML
+    private TableColumn <EducationConstructor, String> col_numofday;
+    @FXML
+    private TableColumn <EducationConstructor, String> col_type;
+    @FXML
+    private TableColumn <EducationConstructor, String> col_info;
 
 
+    //FXML for TestFields
     @FXML
-    private TableView <EducationViewTable> table;
-    @FXML
-    private TableColumn <EducationViewTable, String> col_amu;
-    @FXML
-    private TableColumn <EducationViewTable, String> col_title;
-    @FXML
-    private TableColumn <EducationViewTable, String> col_provier;
-    @FXML
-    private TableColumn <EducationViewTable, String> col_numofday;
-    @FXML
-    private TableColumn <EducationViewTable, String> col_type;
-    @FXML
-    private TableColumn <EducationViewTable, String> col_info;
+    private TextField amu_TextField,title_TextField,provider_TextField, number_of_Days_TextField, information_TextField, type_TextField;
 
-
-
-    ObservableList<EducationViewTable> oblist = FXCollections.observableArrayList();
-    List<String> mainPlaylists = new ArrayList<String>();
+    //Create ObservableList to read data from database and add it to the list to control it (Select , Delete and Edit)
+    ObservableList<EducationConstructor> oblist = FXCollections.observableArrayList();
+    List<String> matchFoundList = new ArrayList<String>();
 
 
     @Override
@@ -64,7 +74,7 @@ public class EducationViewAndDelete implements  Initializable{
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                oblist.add(new EducationViewTable(
+                oblist.add(new EducationConstructor(
 
                         resultSet.getString("fld_AMU"),
                         resultSet.getString("fld_Title"),
@@ -73,7 +83,7 @@ public class EducationViewAndDelete implements  Initializable{
                         resultSet.getString("fld_Information"),
                         resultSet.getString("fld_Type")));
 
-                        mainPlaylists.add(resultSet.getString("fld_AMU"));
+                        matchFoundList.add(resultSet.getString("fld_AMU"));
             }
 
         } catch (SQLException e) {
@@ -88,23 +98,20 @@ public class EducationViewAndDelete implements  Initializable{
         col_type.setCellValueFactory(new PropertyValueFactory<>("Type"));
         col_info.setCellValueFactory(new PropertyValueFactory<>("information"));
 
-        table.setItems(oblist);
-        //table.setItems (FXCollections.observableArrayList(oblist));
+        educations_table.setItems(oblist);
+        //educations_table.setItems (FXCollections.observableArrayList(oblist));
 
     }
 
-
-
-
-
+    //Method to Remove the education
     @FXML
     public void removeEdu(){
 
         //Create an object for selection cells...
-        TablePosition pos = table.getSelectionModel().getSelectedCells().get(0);
+        TablePosition pos = educations_table.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
-        //Item here is the table view type:
-        EducationViewTable item = table.getItems().get(row);
+        //Item here is the educations_table view type:
+        EducationConstructor item = educations_table.getItems().get(row);
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
@@ -118,9 +125,9 @@ public class EducationViewAndDelete implements  Initializable{
         boolean matchBoolena = false;
         String resultMatch = "";
 
-        for(int i = 0 ; i < mainPlaylists.size() ; i++){
+        for(int i = 0; i < matchFoundList.size() ; i++){
 
-            String amuSearchMatch = mainPlaylists.get(i);
+            String amuSearchMatch = matchFoundList.get(i);
             if (data.equals(amuSearchMatch)){
                 //System.out.println("match found " + amuSearchMatch);
                 resultMatch = amuSearchMatch;
@@ -149,29 +156,7 @@ public class EducationViewAndDelete implements  Initializable{
 
     }
 
-
-
-
-
-    @FXML
-    private TextField amu_TextField;
-
-    @FXML
-    private TextField title_TextField;
-
-    @FXML
-    private TextField provider_TextField;
-
-    @FXML
-    private TextField number_of_Days_TextField;
-
-    @FXML
-    private TextField information_TextField;
-
-    @FXML
-    private TextField type_TextField;
-
-
+    //Method to select the education wants to edit
     @FXML
     public void selectToEditEdu(){
 
@@ -180,10 +165,10 @@ public class EducationViewAndDelete implements  Initializable{
         edit_EduJDBC.EditEducationTSQL();
 
         //Create an object for selection cells...
-        TablePosition pos = table.getSelectionModel().getSelectedCells().get(0);
+        TablePosition pos = educations_table.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
-        //Item here is the table view type:
-        EducationViewTable item = table.getItems().get(row);
+        //Item here is the educations_table view type:
+        EducationConstructor item = educations_table.getItems().get(row);
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
@@ -193,9 +178,9 @@ public class EducationViewAndDelete implements  Initializable{
         boolean matchBoolena = false;
         String resultMatch = "";
 
-        for(int i = 0 ; i < mainPlaylists.size() ; i++){
+        for(int i = 0; i < matchFoundList.size() ; i++){
 
-            String amuSearchMatch = mainPlaylists.get(i);
+            String amuSearchMatch = matchFoundList.get(i);
             if (data.equals(amuSearchMatch)){
 
                 resultMatch = amuSearchMatch;
@@ -256,9 +241,7 @@ public class EducationViewAndDelete implements  Initializable{
         }
     }
 
-
-
-
+    //Method to Edit any education
     @FXML
     public void editEdu(){
 
@@ -295,6 +278,62 @@ public class EducationViewAndDelete implements  Initializable{
 
 
 
+    }
+
+    //Method to create a new education
+    @FXML
+    public void addEducation(){
+
+        //Text field read the javafx fields .
+        String amu = amu_TextField.getText().trim();
+        String title = title_TextField.getText().trim();
+        String provider = provider_TextField.getText().trim();
+        String number_of_Days = number_of_Days_TextField.getText().trim();
+        String information = information_TextField.getText().trim();
+        String type = type_TextField.getText().trim();
+
+
+
+        //Start the connection to DB.
+        Connection con = DB.connect();
+
+        //Create an object from JBDC class
+        JDBC create_Edu = new JDBC();
+        create_Edu.CreateEducationTSQL();
+
+        if (amu.equals("") || title.equals("") || provider.equals("")  || number_of_Days.equals("") || information.equals("") || type.equals("")) {
+            JOptionPane.showMessageDialog(null, "Please fill all fields, some are empty");
+
+        } else {
+            DB.selectSQL("SELECT fld_AMU from tbl_Educations where fld_AMU = '" + amu + "'");
+            String un = DB.getData();
+
+            if (un.equals(amu.toLowerCase())){
+                JOptionPane.showMessageDialog(null, "AMU already exist");
+            }
+            else{
+                //SQL statement
+                //DB.insertSQL("INSERT INTO tbl_Educations VALUES('" + amu + "', '" + title + "', '" + provider + "' , '" + number_of_Days + "', '" + information + "')");
+
+                try {
+                    //Start the JDBC
+                    preparedStatement = con.prepareStatement(create_Edu.CreateEducationTSQL());
+                    preparedStatement.setInt(1,Integer.parseInt(amu));
+                    preparedStatement.setString(2,title);
+                    preparedStatement.setString(3,provider);
+                    preparedStatement.setInt(4,Integer.parseInt(number_of_Days));
+                    preparedStatement.setString(5,information);
+                    preparedStatement.setString(6,type);
+
+                    preparedStatement.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Create Done" );
+
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Wrong with creating" );
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }

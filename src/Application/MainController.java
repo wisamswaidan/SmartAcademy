@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class MainController {
 
     public void ShowEduOptions(ActionEvent Event) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/Education_FXML/education.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/education.fxml"));
         Parent root = (Parent) fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -30,7 +30,7 @@ public class MainController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-        
+
     }
     public void ShowEmployeesOptions(ActionEvent Event) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/employee.fxml"));
