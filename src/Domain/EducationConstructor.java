@@ -1,9 +1,9 @@
 package Domain;
 
-public class EducationViewTable {
+public class EducationConstructor {
     String AMU , Title , Provider , NumOfDays , Type , information;
 
-    public EducationViewTable(String AMU, String title, String provider, String numOfDays, String type, String information) {
+    public EducationConstructor(String AMU, String title, String provider, String numOfDays, String type, String information) {
         this.AMU = AMU;
         Title = title;
         Provider = provider;

@@ -6,16 +6,36 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.LoginController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.CompanyController">
    <children>
       <ImageView fitHeight="500.0" fitWidth="800.0">
          <image>
             <Image url="@Images/Company.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="33.0" layoutY="171.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Create Company" />
-      <Button layoutX="33.0" layoutY="134.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="View Company" />
-      <Button layoutX="33.0" layoutY="207.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Edit Company" />
-      <Button layoutX="33.0" layoutY="241.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Delete Company" />
+      <Button fx:id="createButton" layoutX="343.0" layoutY="37.0" mnemonicParsing="false" onAction="#addComp" prefHeight="25.0" prefWidth="114.0" text="Create" />
+      <Button fx:id="editButton" layoutX="213.0" layoutY="70.0" mnemonicParsing="false" onAction="#editComp" prefHeight="25.0" prefWidth="114.0" text="Edit" />
+      <TextField fx:id="companyID_TextField" layoutX="14.0" layoutY="421.0" prefHeight="25.0" prefWidth="114.0" promptText="CompanyID" />
+      <TextField fx:id="address_TextField" layoutX="264.0" layoutY="421.0" prefHeight="25.0" prefWidth="375.0" promptText="Address" />
+      <TextField fx:id="cvr_TextField" layoutX="137.0" layoutY="421.0" prefHeight="25.0" prefWidth="114.0" promptText="CVR" />
+      <TextField fx:id="zipcode_TextField" layoutX="660.0" layoutY="421.0" prefHeight="25.0" prefWidth="114.0" promptText="Zipcode" />
+      <TextField fx:id="numEmployees_TextField" layoutX="660.0" layoutY="452.0" prefHeight="25.0" prefWidth="114.0" promptText="Employees num" />
+      <TextField fx:id="name_TextField" layoutX="14.0" layoutY="452.0" prefHeight="25.0" prefWidth="114.0" promptText="Name" />
+      <Button fx:id="selectButton" layoutX="213.0" layoutY="37.0" mnemonicParsing="false" onAction="#selectToEditComp" prefHeight="25.0" prefWidth="114.0" text="Select" />
+      <Button fx:id="deleteButton" layoutX="343.0" layoutY="70.0" mnemonicParsing="false" onAction="#removeComp" prefHeight="25.0" prefWidth="114.0" text="Delete" />
+      <TableView fx:id="companies_table" layoutX="14.0" layoutY="129.0" prefHeight="287.0" prefWidth="743.0">
+         <columns>
+            <TableColumn fx:id="col_id" prefWidth="37.0" text="ID" />
+            <TableColumn fx:id="col_name" prefWidth="88.0" text="Name" />
+            <TableColumn fx:id="col_cvr" prefWidth="69.0" text="CVR" />
+            <TableColumn fx:id="col_TeleNumber" prefWidth="92.0" text="TeleNumber" />
+            <TableColumn fx:id="col_address" prefWidth="123.0" text="Address" />
+            <TableColumn fx:id="col_zipcode" prefWidth="58.0" text="Zipcode" />
+            <TableColumn fx:id="col_employeNum" prefWidth="142.0" text="NumOfEmplyees" />
+            <TableColumn fx:id="col_information" prefWidth="133.0" text="Information" />
+         </columns>
+      </TableView>
+      <TextField fx:id="tele_TextField" layoutX="137.0" layoutY="452.0" prefHeight="25.0" prefWidth="114.0" promptText="Tele Number" />
+      <TextField fx:id="information_TextField" layoutX="264.0" layoutY="452.0" prefHeight="25.0" prefWidth="375.0" promptText="Information" />
    </children>
 </Pane>

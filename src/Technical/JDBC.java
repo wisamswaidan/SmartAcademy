@@ -82,7 +82,7 @@ public class JDBC {
     public String EditEducationTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "SELECT * from tbl_Educations where fld_AMU =?";
         return sql;
     }
 
@@ -94,7 +94,13 @@ public class JDBC {
         return sql;
     }
 
+    public String UpdateEducationTSQL(){
 
+        //SQL_Query to......
+        String sql = "UPDATE tbl_Educations SET fld_Title = ? , fld_Information = ? , fld_NumOfDays = ? , fld_Provider  = ? , fld_Type = ? where fld_AMU = ?";
+
+        return sql;
+    }
 
 
     /**
@@ -103,28 +109,36 @@ public class JDBC {
     public String CreateCompanyTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "INSERT INTO tbl_Companies VALUES (? , ? , ? , ? , ? , ? , ? , ?)";
         return sql;
     }
 
     public String ViewCompanyTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "SELECT * from tbl_Companies";
         return sql;
     }
 
     public String EditCompanyTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "SELECT * from tbl_Companies where fld_CompanyID =?";
         return sql;
     }
 
     public String DeleteCompanyTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "DELETE FROM tbl_Companies WHERE fld_CompanyID=?";
+        return sql;
+    }
+
+    public String UpdateCompanyTSQL(){
+
+        //SQL_Query to......
+        String sql = "UPDATE tbl_Companies SET fld_Name = ? , fld_CVR = ? , fld_TelephoneNumber = ? , fld_Address  = ? , fld_Zipcode = ?  , fld_NumberOfEmployees = ? , fld_Information = ? where fld_CompanyID = ?";
+
         return sql;
     }
 
