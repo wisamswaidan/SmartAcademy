@@ -136,8 +136,7 @@ public class UserController implements Initializable{
                         resultSet.getString("fld_username"),
                         resultSet.getString("fld_password"),
                         resultSet.getString("fld_usertype")));
-
-                mainPlaylists.add(resultSet.getString("fld_firstname"));
+                        mainPlaylists.add(resultSet.getString("fld_username"));
             }
 
         } catch (SQLException e) {
