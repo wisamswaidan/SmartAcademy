@@ -1,9 +1,9 @@
 package Domain;
 
-public class UserViewTable {
+public class UserConstructor {
     String FirstName, LastName, TelephoneNumber, Address, Zipcode, UserName, Password, UserType;
 
-    public UserViewTable(String firstName, String lastName, String telephoneNumber, String address, String zipcode, String userName, String password, String userType) {
+    public UserConstructor(String firstName, String lastName, String telephoneNumber, String address, String zipcode, String userName, String password, String userType) {
         FirstName = firstName;
         LastName = lastName;
         TelephoneNumber = telephoneNumber;

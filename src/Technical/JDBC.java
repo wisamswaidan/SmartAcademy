@@ -59,13 +59,13 @@ public class JDBC {
         return sql;
     }
 
-//    public String UpdateUserTSQL(){
-//
-//        //SQL_Query to......
-//        String sql = "UPDATE tbl_Educations SET fld_Title = ? , fld_Information = ? , fld_NumOfDays = ? , fld_Provider  = ? , fld_Type = ? where fld_AMU = ?";
-//
-//        return sql;
-//    }
+    public String UpdateUserTSQL(){
+
+        //SQL_Query to......
+        String sql = "UPDATE tbl_Users SET fld_FirstName = ? , fld_LastName = ? , fld_TelephoneNumber = ? , fld_Address  = ? , fld_Zipcode = ? , fld_Password = ? , fld_UserType = ? where fld_UserName = ? ";
+
+        return sql;
+    }
 
 
     /**
