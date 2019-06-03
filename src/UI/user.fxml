@@ -1,21 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+        <?import javafx.scene.text.*?>
+        <?import javafx.scene.image.*?>
+        <?import java.lang.*?>
+        <?import java.util.*?>
+        <?import javafx.scene.*?>
+        <?import javafx.scene.control.*?>
+        <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.UserController">
-   <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0">
-         <image>
-            <Image url="@Images/User.jpg" />
-         </image>
-      </ImageView>
-      <Button layoutX="437.0" layoutY="101.0" mnemonicParsing="false" onAction="#handelCreate" prefHeight="25.0" prefWidth="149.0" text="Create Users" />
-      <Button layoutX="437.0" layoutY="64.0" mnemonicParsing="false" onAction="#handelUserView" prefHeight="25.0" prefWidth="149.0" text="View Users" />
-      <Button layoutX="437.0" layoutY="137.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Edit Users" />
-      <Button layoutX="437.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Delete Users" />
-   </children>
-</Pane>
+
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.UserController">
+<children>
+   <ImageView fitHeight="768.0" fitWidth="1024.0">
+      <image>
+         <Image url="@Images/Education.jpg" />
+      </image>
+   </ImageView>
+   <TableView fx:id="tableUserView" layoutX="14.0" layoutY="159.0" prefHeight="554.0" prefWidth="660.0">
+      <columns>
+         <TableColumn fx:id="col_firstname" text="Firstname" />
+         <TableColumn fx:id="col_lastname" prefWidth="74.0" text="Lastname" />
+         <TableColumn fx:id="col_phone" prefWidth="93.0" text="Phone" />
+         <TableColumn fx:id="col_address" prefWidth="61.0" text="Address" />
+         <TableColumn fx:id="col_zipcode" prefWidth="61.0" text="ZipCode" />
+         <TableColumn fx:id="col_username" prefWidth="91.0" text="Username" />
+         <TableColumn fx:id="col_password" prefWidth="93.0" text="Password" />
+         <TableColumn fx:id="col_usertype" prefWidth="106.0" text="Usertype" />
+      </columns>
+   </TableView>
+   <Button fx:id="buttonView2" layoutX="717.0" layoutY="688.0" mnemonicParsing="false" text="Edit" />
+   <Button fx:id="removeUse" layoutX="767.0" layoutY="688.0" mnemonicParsing="false" onAction="#removeUser" text="Delete" />
+   <Button fx:id="buttonView" layoutX="828.0" layoutY="688.0" mnemonicParsing="false" text="Back" />
+   <ChoiceBox fx:id="accessBox" layoutX="719.0" layoutY="406.0" prefWidth="150.0" />
+   <TextField fx:id="password_TextField" layoutX="720.0" layoutY="371.0" promptText="Password" />
+   <TextField fx:id="username_TextField" layoutX="720.0" layoutY="335.0" promptText="Username" />
+   <TextField fx:id="zipcode_TextField" layoutX="720.0" layoutY="301.0" promptText="Zipcode" />
+   <TextField fx:id="address_TextField" layoutX="720.0" layoutY="264.0" promptText="Address" />
+   <TextField fx:id="phone_TextField" layoutX="720.0" layoutY="230.0" promptText="Telephone" />
+   <TextField fx:id="lastname_TextField" layoutX="720.0" layoutY="193.0" promptText="Lastname" />
+   <TextField fx:id="firstname_TextField" layoutX="720.0" layoutY="159.0" promptText="Firstname" />
+   <Button layoutX="894.0" layoutY="264.0" mnemonicParsing="false" onAction="#addUser" text="Add" />
+   <Text layoutX="721.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Would you like to add a new EASVSMART user?" />
+</children>
+</AnchorPane>

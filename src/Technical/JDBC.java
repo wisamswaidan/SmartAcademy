@@ -48,7 +48,7 @@ public class JDBC {
     public String EditUserTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "SELECT * from tbl_Users WHERE fld_UserName = ?";
         return sql;
     }
 
@@ -59,7 +59,13 @@ public class JDBC {
         return sql;
     }
 
-
+//    public String UpdateUserTSQL(){
+//
+//        //SQL_Query to......
+//        String sql = "UPDATE tbl_Educations SET fld_Title = ? , fld_Information = ? , fld_NumOfDays = ? , fld_Provider  = ? , fld_Type = ? where fld_AMU = ?";
+//
+//        return sql;
+//    }
 
 
     /**
