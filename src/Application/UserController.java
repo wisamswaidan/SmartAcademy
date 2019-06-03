@@ -69,13 +69,54 @@ public class UserController implements Initializable{
     @FXML
     private TableColumn<UserViewTable, String> col_usertype;
 
+    @FXML
+    private TextField phone_TextField;
+
+    @FXML
+    private TextField address_TextField;
+
+    @FXML
+    private TextField zipcode_TextField;
+
+    @FXML
+    private TextField username_TextField;
+
+    @FXML
+    private ChoiceBox<String> accessBox;
+
+    @FXML
+    private TextField lastname_TextField;
+
+    @FXML
+    private TextField password_TextField;
+
+    @FXML
+    private TextField firstname_TextField;
+
 
 
     ObservableList<UserViewTable> oblist1 = FXCollections.observableArrayList();
+    ObservableList<String> accessStatus = FXCollections.observableArrayList();
     List<String> mainPlaylists = new ArrayList<String>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        DB.selectSQL("SELECT fld_UserType from tbl_UsersType");
+        do
+        {
+            String data = DB.getDisplayData();
+            if (data.equals(DB.NOMOREDATA))
+            {
+                break;
+            }
+            else
+            {
+                accessStatus.add(data.trim());
+                accessBox.setValue("Admin");
+                accessBox.setItems(accessStatus);
+            }
+        } while (true);
 
         JDBC viewUserList = new JDBC();
         viewUserList.ViewUserTSQL();
@@ -173,58 +214,6 @@ public class UserController implements Initializable{
         }
 
     }
-}
-
-class Create_User {
-
-    @FXML
-    private TextField phone_TextField;
-
-    @FXML
-    private TextField address_TextField;
-
-    @FXML
-    private TextField zipcode_TextField;
-
-    @FXML
-    private TextField username_TextField;
-
-    @FXML
-    private ChoiceBox<String> accessBox;
-
-    @FXML
-    private TextField lastname_TextField;
-
-    @FXML
-    private TextField password_TextField;
-
-    @FXML
-    private TextField firstname_TextField;
-
-    @FXML
-    private void initialize(){
-
-        ObservableList<String> accessStatus = FXCollections.observableArrayList();
-
-
-        DB.selectSQL("SELECT fld_UserType from tbl_UsersType");
-        do
-        {
-            String data = DB.getDisplayData();
-            if (data.equals(DB.NOMOREDATA))
-            {
-                break;
-            }
-            else
-            {
-                accessStatus.add(data.trim());
-                accessBox.setValue("Admin");
-                accessBox.setItems(accessStatus);
-            }
-        } while (true);
-
-
-    }
 
     @FXML
     public void addUser(ActionEvent event) throws Exception {
@@ -264,5 +253,4 @@ class Create_User {
         }
 
     }
-
 }
