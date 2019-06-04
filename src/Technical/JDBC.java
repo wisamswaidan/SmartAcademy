@@ -188,30 +188,24 @@ public class JDBC {
     public String CreateAssignTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "INSERT INTO tbl_AssignUsers VALUES (? , ? )";
         return sql;
     }
 
     public String ViewAssignTSQL(){
 
         //SQL_Query to......
-        String sql = "";
-        return sql;
-    }
-
-    public String EditAssignTSQL(){
-
-        //SQL_Query to......
-        String sql = "";
+        String sql = "select * from tbl_AssignUsers";
         return sql;
     }
 
     public String DeleteAssignTSQL(){
-
         //SQL_Query to......
-        String sql = "";
+        String sql = "DELETE FROM tbl_AssignUsers WHERE fld_ComapnyID=? AND fld_UserName =?";
         return sql;
     }
+
+
 
 
     /**
