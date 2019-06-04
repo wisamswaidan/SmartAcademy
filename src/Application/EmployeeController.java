@@ -72,7 +72,7 @@ public class EmployeeController implements Initializable {
         JDBC viewEmpList = new JDBC();
         viewEmpList.ViewEmployeeTSQL();
 
-        DB.selectSQL("SELECT fld_CompanyID from tbl_CompanyEmployees");
+        DB.selectSQL("SELECT fld_CompanyID from tbl_Companies");
         do
         {
             String dataUserType = DB.getDisplayData();
