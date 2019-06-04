@@ -23,15 +23,15 @@
             <TableColumn fx:id="col_info" prefWidth="140.0" text="Information" />
         </columns>
       </TableView>
-      <Button fx:id="deleteButton" layoutX="521.0" layoutY="326.0" mnemonicParsing="false" onAction="#removeEdu" prefHeight="25.0" prefWidth="114.0" text="Delete" />
-      <Button fx:id="selectButton" layoutX="521.0" layoutY="283.0" mnemonicParsing="false" onAction="#selectToEditEdu" prefHeight="25.0" prefWidth="114.0" text="Select" />
+      <Button fx:id="removeBut" layoutX="521.0" layoutY="326.0" mnemonicParsing="false" onAction="#removeEdu" prefHeight="25.0" prefWidth="114.0" text="Delete" />
+      <Button fx:id="selectBut" layoutX="521.0" layoutY="283.0" mnemonicParsing="false" onAction="#selectToEditEdu" prefHeight="25.0" prefWidth="114.0" text="Select" />
       <TextField fx:id="type_TextField" layoutX="658.0" layoutY="130.0" prefHeight="25.0" prefWidth="114.0" promptText="Type" />
       <TextField fx:id="information_TextField" layoutX="521.0" layoutY="243.0" prefHeight="25.0" prefWidth="252.0" promptText="Information" />
       <TextField fx:id="number_of_Days_TextField" layoutX="658.0" layoutY="203.0" prefHeight="25.0" prefWidth="114.0" promptText="Number of Days" />
       <TextField fx:id="title_TextField" layoutX="521.0" layoutY="165.0" prefHeight="25.0" prefWidth="252.0" promptText="Title" />
       <TextField fx:id="provider_TextField" layoutX="521.0" layoutY="203.0" prefHeight="25.0" prefWidth="114.0" promptText="Provider" />
       <TextField fx:id="amu_TextField" layoutX="521.0" layoutY="130.0" prefHeight="25.0" prefWidth="114.0" promptText="AMU" />
-      <Button fx:id="editButton" layoutX="658.0" layoutY="283.0" mnemonicParsing="false" onAction="#editEdu" prefHeight="25.0" prefWidth="114.0" text="Edit" />
-      <Button fx:id="createButton" layoutX="659.0" layoutY="326.0" mnemonicParsing="false" onAction="#addEducation" prefHeight="25.0" prefWidth="114.0" text="Create" />
+      <Button fx:id="editBut" layoutX="658.0" layoutY="283.0" mnemonicParsing="false" onAction="#editEdu" prefHeight="25.0" prefWidth="114.0" text="Edit" />
+      <Button fx:id="addBut" layoutX="659.0" layoutY="326.0" mnemonicParsing="false" onAction="#addEducation" prefHeight="25.0" prefWidth="114.0" text="Create" />
    </children>
 </Pane>

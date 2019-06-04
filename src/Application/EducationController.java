@@ -1,6 +1,5 @@
 package Application;
 
-
 import Domain.EducationConstructor;
 import Foundation.DB;
 import Technical.JDBC;
@@ -23,18 +22,13 @@ public class EducationController implements  Initializable{
 
     //Start connection to the Database.
     Connection con = DB.connect();
+    //Create preparedStatement Object
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
     //Create Button
     @FXML
-    private Button selectButton;
-    @FXML
-    private Button editButton;
-    @FXML
-    private Button deleteButton;
-    @FXML
-    private Button createButton;
+    private Button addBut , selectBut, editBut ,removeBut;
 
     //Create tableView and TableColumns for tables
     @FXML
@@ -82,7 +76,7 @@ public class EducationController implements  Initializable{
                         resultSet.getString("fld_NumOfDays"),
                         resultSet.getString("fld_Information"),
                         resultSet.getString("fld_Type")));
-
+                        // Add the value we need to check for a match with to the list
                         matchFoundList.add(resultSet.getString("fld_AMU"));
             }
 
@@ -98,6 +92,7 @@ public class EducationController implements  Initializable{
         col_type.setCellValueFactory(new PropertyValueFactory<>("Type"));
         col_info.setCellValueFactory(new PropertyValueFactory<>("information"));
 
+        //View the list in TableView
         educations_table.setItems(oblist);
         //educations_table.setItems (FXCollections.observableArrayList(oblist));
 
@@ -284,6 +279,10 @@ public class EducationController implements  Initializable{
     @FXML
     public void addEducation(){
 
+        //Create an object from JBDC class
+        JDBC create_Edu = new JDBC();
+        create_Edu.CreateEducationTSQL();
+
         //Text field read the javafx fields .
         String amu = amu_TextField.getText().trim();
         String title = title_TextField.getText().trim();
@@ -291,15 +290,6 @@ public class EducationController implements  Initializable{
         String number_of_Days = number_of_Days_TextField.getText().trim();
         String information = information_TextField.getText().trim();
         String type = type_TextField.getText().trim();
-
-
-
-        //Start the connection to DB.
-        Connection con = DB.connect();
-
-        //Create an object from JBDC class
-        JDBC create_Edu = new JDBC();
-        create_Edu.CreateEducationTSQL();
 
         if (amu.equals("") || title.equals("") || provider.equals("")  || number_of_Days.equals("") || information.equals("") || type.equals("")) {
             JOptionPane.showMessageDialog(null, "Please fill all fields, some are empty");

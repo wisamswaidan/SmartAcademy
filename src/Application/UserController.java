@@ -1,6 +1,5 @@
 package Application;
 
-import Domain.CompanyConstructor;
 import Domain.UserConstructor;
 import Foundation.DB;
 import Technical.JDBC;
@@ -26,39 +25,30 @@ public class UserController implements Initializable{
 
     //Start the connection to DB.
     Connection con = DB.connect();
-
-    //PreparedStatement
+    //Create preparedStatement Object
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
     @FXML
-    private Button selectBut , editBut;
+    private Button addBut , selectBut, editBut ,removeBut;
 
     //Create tableView and TableColumns for tables
     @FXML
     private TableView<UserConstructor> tableUserView;
-
     @FXML
     private TableColumn<UserConstructor, String> col_firstname;
-
     @FXML
     private TableColumn<UserConstructor, String> col_lastname;
-
     @FXML
     private TableColumn<UserConstructor, String> col_phone;
-
     @FXML
     private TableColumn<UserConstructor, String> col_address;
-
     @FXML
     private TableColumn<UserConstructor, String> col_zipcode;
-
     @FXML
     private TableColumn<UserConstructor, String> col_username;
-
     @FXML
     private TableColumn<UserConstructor, String> col_password;
-
     @FXML
     private TableColumn<UserConstructor, String> col_usertype;
 
@@ -73,7 +63,7 @@ public class UserController implements Initializable{
     //Create ObservableList to read user access level from database and use it for Drop menu
     ObservableList<String> accessStatus = FXCollections.observableArrayList();
     //Create ObservableList to read data from database and add it to the list to control it (Select , Delete and Edit)
-    ObservableList<UserConstructor> oblist1 = FXCollections.observableArrayList();
+    ObservableList<UserConstructor> oblistUser = FXCollections.observableArrayList();
     List<String> matchFoundList = new ArrayList<String>();
 
     @Override
@@ -90,25 +80,20 @@ public class UserController implements Initializable{
             else
             {
                 accessStatus.add(dataUserType.trim());
-                //accessBox.setValue("Admin");
                 accessBox.setItems(accessStatus);
 
             }
         } while (true);
 
-        //selectBut.setOnAction(e -> getChoice(accessStatus));
-        
         
         JDBC viewUserList = new JDBC();
         viewUserList.ViewUserTSQL();
 
         try {
-
             preparedStatement = con.prepareStatement(viewUserList.ViewUserTSQL());
             resultSet = preparedStatement.executeQuery();
-
             while (resultSet.next()) {
-                boolean add = oblist1.add(new UserConstructor(
+                oblistUser.add(new UserConstructor(
                         resultSet.getString("fld_firstname"),
                         resultSet.getString("fld_lastname"),
                         resultSet.getString("fld_telephonenumber"),
@@ -117,9 +102,9 @@ public class UserController implements Initializable{
                         resultSet.getString("fld_username"),
                         resultSet.getString("fld_password"),
                         resultSet.getString("fld_usertype")));
+                        // Add the value we need to check for a match with to the list
                         matchFoundList.add(resultSet.getString("fld_username"));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -134,11 +119,18 @@ public class UserController implements Initializable{
         col_password.setCellValueFactory(new PropertyValueFactory<>("Password"));
         col_usertype.setCellValueFactory(new PropertyValueFactory<>("UserType"));
 
-        tableUserView.setItems(oblist1);
+        //View the list in TableView
+        tableUserView.setItems(oblistUser);
     }
 
+    //Method to Remove the company from DB
     @FXML
     public void removeUser(){
+
+        //JDBC
+        JDBC deleteUser = new JDBC();
+        deleteUser.DeleteUserTSQL();
+
         //Create an object for selection cells...
         TablePosition pos = tableUserView.getSelectionModel().getSelectedCells().get(0);
         int row = pos.getRow();
@@ -148,11 +140,6 @@ public class UserController implements Initializable{
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
         System.out.println(data);
-
-
-        //JBDC
-        JDBC deleteUser = new JDBC();
-        deleteUser.DeleteUserTSQL();
 
         //Check Method if the user select the correct column to start the Delete process .
         boolean matchBoolena = false;
@@ -253,7 +240,7 @@ public class UserController implements Initializable{
 
                             String fld_UserType = rs.getString("fld_UserType");
 
-                            //Add the the user type inside the Drop menu
+                            //Set the user type inside the Drop menu
                             accessBox.setValue(fld_UserType.trim());
 
                         }
@@ -277,6 +264,11 @@ public class UserController implements Initializable{
     @FXML
     public void editUser(){
 
+        //Create an object from JBDC class
+        JDBC update_User = new JDBC();
+        update_User.UpdateUserTSQL();
+
+        // Get the choosen data from Drop Menu
         String UserAccessLevel = accessBox.getValue();
 
         String firstname = firstname_TextField.getText().trim();
@@ -288,9 +280,6 @@ public class UserController implements Initializable{
         String password = password_TextField.getText().trim();
 
 
-        //Create an object from JBDC class
-        JDBC update_User = new JDBC();
-        update_User.UpdateUserTSQL();
 
         try {
             //Start the JDBC
@@ -314,13 +303,14 @@ public class UserController implements Initializable{
             JOptionPane.showMessageDialog(null, "Wrong with Editing " );
             e.printStackTrace();
         }
-
-
-
     }
 
     @FXML
     public void addUser(ActionEvent event) throws Exception {
+
+        //Create an object from JBDC class
+        JDBC createUser = new JDBC();
+        createUser.CreateUserTSQL();
 
         String UserAccessLevel = accessBox.getValue();
 
@@ -340,23 +330,30 @@ public class UserController implements Initializable{
             DB.selectSQL("SELECT fld_UserName from tbl_Users where fld_UserName = '" + username + "'");
             String un = DB.getData();
 
-            do{
-                if (un.equals(username.toLowerCase())){
-                    JOptionPane.showMessageDialog(null, "Username already exist");
-                    break;
-                }else{
-                    JOptionPane.showMessageDialog(null, "Create Done");
-                    DB.insertSQL("INSERT INTO tbl_Users VALUES('" + firstname + "', '" + lastname + "', '" + phone + "' , '" + address + "', '" + zipcode + "' , '" + username + "', '" + password + "', '" + UserAccessLevel + "')");
+            if (un.equals(username.toLowerCase())){
+                JOptionPane.showMessageDialog(null, "Username already exist");
+            }
+            else{
+                try {
+                    //Start the JDBC
+                    preparedStatement = con.prepareStatement(createUser.CreateUserTSQL());
+                    preparedStatement.setString(1,firstname);
+                    preparedStatement.setString(2,lastname);
+                    preparedStatement.setInt(3, Integer.parseInt(phone));
+                    preparedStatement.setString(4, address);
+                    preparedStatement.setInt(5, Integer.parseInt(zipcode));
+                    preparedStatement.setString(6,username);
+                    preparedStatement.setString(7,password);
+                    preparedStatement.setString(8,UserAccessLevel);
 
-                    break;
+                    preparedStatement.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Create Done" );
+
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Wrong with creating" );
+                    e.printStackTrace();
                 }
-
-            }while (true);
+            }
         }
-
     }
-
-
-
-
 }

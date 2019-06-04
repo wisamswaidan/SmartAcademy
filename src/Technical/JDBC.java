@@ -8,12 +8,6 @@ public class JDBC {
     Here we need to add the JDBC commands to Add , Edit and Delete from Database
      */
 
-    //maybe need to for later ... just keep it for now
-    //PreparedStatement
-    //Connection con = null;
-    //PreparedStatement preparedStatement = null;
-    //ResultSet resultSet = null;
-
     /**
      * All the JDBC command related to login by searching for match between javafx textFields and the db.
      */
@@ -26,15 +20,14 @@ public class JDBC {
     }
 
 
-
     /**
      * All the JDBC command to related to the users.
      */
 
-    public String CheckUserTSQL(){
+    public String CreateUserTSQL(){
 
         //SQL_Query to......
-        String sql = "SELECT* from tbl_Users where fld_UserName = ?";
+        String sql = "INSERT INTO tbl_Users VALUES( ? ,  ? , ?  , ? , ? , ? , ? ,? )";
         return sql;
     }
 
@@ -156,32 +149,37 @@ public class JDBC {
     public String CreateEmployeeTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "INSERT INTO tbl_CompanyEmployees VALUES (? , ? , ? , ? , ? , ? , ? , ?)";
         return sql;
     }
 
     public String ViewEmployeeTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "SELECT * from tbl_CompanyEmployees";
         return sql;
     }
 
     public String EditEmployeeTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "SELECT * from tbl_CompanyEmployees where fld_Mobile =?";
         return sql;
     }
 
     public String DeleteEmployeeTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "DELETE FROM tbl_CompanyEmployees WHERE fld_Mobile=?";
         return sql;
     }
 
+    public String UpdateEmpTSQL(){
 
+        //SQL_Query to......
+        String sql = "UPDATE tbl_CompanyEmployees SET fld_FirstName = ? , fld_LastName = ? , fld_Email = ? , fld_Address  = ? , fld_Zipcode = ? ,fld_Information = ? , fld_CompanyID =? WHERE fld_Mobile = ?";
+        return sql;
+    }
 
 
     /**
@@ -216,8 +214,6 @@ public class JDBC {
     }
 
 
-
-
     /**
      * All the JDBC command to related to the EducationPlane .
      */
@@ -248,12 +244,6 @@ public class JDBC {
         String sql = "";
         return sql;
     }
-
-
-
-
-
-
 
 
 }

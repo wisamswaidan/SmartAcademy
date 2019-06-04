@@ -28,7 +28,7 @@
       </columns>
    </TableView>
    <Button fx:id="editBut" layoutX="767.0" layoutY="688.0" mnemonicParsing="false" onAction="#editUser" text="Edit" />
-   <Button fx:id="removeUse" layoutX="817.0" layoutY="688.0" mnemonicParsing="false" onAction="#removeUser" text="Delete" />
+   <Button fx:id="removeBut" layoutX="817.0" layoutY="688.0" mnemonicParsing="false" onAction="#removeUser" text="Delete" />
    <Button fx:id="buttonView" layoutX="878.0" layoutY="688.0" mnemonicParsing="false" text="Back" />
    <ChoiceBox fx:id="accessBox" layoutX="719.0" layoutY="433.0" prefWidth="150.0" />
    <TextField fx:id="password_TextField" layoutX="720.0" layoutY="398.0" promptText="Password" />
@@ -38,7 +38,7 @@
    <TextField fx:id="phone_TextField" layoutX="720.0" layoutY="257.0" promptText="Telephone" />
    <TextField fx:id="lastname_TextField" layoutX="720.0" layoutY="220.0" promptText="Lastname" />
    <TextField fx:id="firstname_TextField" layoutX="720.0" layoutY="186.0" promptText="Firstname" />
-   <Button layoutX="894.0" layoutY="291.0" mnemonicParsing="false" onAction="#addUser" text="Add" />
+   <Button fx:id="addBut" layoutX="894.0" layoutY="291.0" mnemonicParsing="false" onAction="#addUser" text="Add" />
    <Text layoutX="721.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Would you like to add a new EASVSMART user?" />
       <Button fx:id="selectBut" layoutX="707.0" layoutY="688.0" mnemonicParsing="false" onAction="#selectToEditUser" text="Select" />
 </children>

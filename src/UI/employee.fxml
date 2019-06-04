@@ -1,21 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.LoginController">
-   <children>
-      <ImageView fitHeight="500.0" fitWidth="800.0">
-         <image>
-            <Image url="@Images/employee.jpg" />
-         </image>
-      </ImageView>
-      <Button layoutX="551.0" layoutY="307.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Create Employee" />
-      <Button layoutX="551.0" layoutY="270.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="View Employee" />
-      <Button layoutX="551.0" layoutY="343.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Edit Employee" />
-      <Button layoutX="551.0" layoutY="381.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Delete Employee" />
-   </children>
-</Pane>
+<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.EmployeeController">
+<children>
+   <ImageView fitHeight="768.0" fitWidth="1024.0">
+      <image>
+         <Image url="@Images/Education.jpg" />
+      </image>
+   </ImageView>
+   <TableView fx:id="tableEmpView" layoutX="14.0" layoutY="159.0" prefHeight="554.0" prefWidth="660.0">
+      <columns>
+         <TableColumn fx:id="col_firstname" text="Firstname" />
+         <TableColumn fx:id="col_lastname" prefWidth="74.0" text="Lastname" />
+         <TableColumn fx:id="col_email" prefWidth="93.0" text="Email" />
+         <TableColumn fx:id="col_mobile" prefWidth="61.0" text="Mobile" />
+         <TableColumn fx:id="col_address" prefWidth="61.0" text="Address" />
+         <TableColumn fx:id="col_zipcode" prefWidth="91.0" text="Zipcode" />
+         <TableColumn fx:id="col_information" prefWidth="93.0" text="Information" />
+         <TableColumn fx:id="col_companyID" prefWidth="106.0" text="CompanyID" />
+      </columns>
+   </TableView>
+   <Button fx:id="editBut" layoutX="767.0" layoutY="688.0" mnemonicParsing="false" onAction="#editEmp" text="Edit" />
+   <Button fx:id="removeBut" layoutX="817.0" layoutY="688.0" mnemonicParsing="false" onAction="#removeEmp" text="Delete" />
+   <Button fx:id="buttonView" layoutX="878.0" layoutY="688.0" mnemonicParsing="false" text="Back" />
+   <ChoiceBox fx:id="accessBox" layoutX="720.0" layoutY="496.0" prefWidth="150.0" />
+   <TextField fx:id="information_TextField" layoutX="720.0" layoutY="400.0" promptText="Information" />
+   <TextField fx:id="zipcode_TextField" layoutX="720.0" layoutY="366.0" promptText="Zipcode" />
+   <TextField fx:id="address_TextField" layoutX="720.0" layoutY="329.0" promptText="Address" />
+   <TextField fx:id="email_TextField" layoutX="720.0" layoutY="257.0" promptText="Email" />
+   <TextField fx:id="lastname_TextField" layoutX="720.0" layoutY="220.0" promptText="Lastname" />
+   <TextField fx:id="firstname_TextField" layoutX="720.0" layoutY="186.0" promptText="Firstname" />
+   <Button fx:id="addBut" layoutX="894.0" layoutY="291.0" mnemonicParsing="false" onAction="#addEmp" text="Add" />
+   <Text layoutX="721.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Would you like to add a new Employee?" />
+      <Button fx:id="selectBut" layoutX="707.0" layoutY="688.0" mnemonicParsing="false" onAction="#selectToEditEmp" text="Select" />
+      <Text layoutX="721.0" layoutY="482.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Company" />
+      <TextField fx:id="mobile_TextField" layoutX="720.0" layoutY="293.0" promptText="Mobile" />
+</children>
+</AnchorPane>

@@ -1,7 +1,6 @@
 package Application;
 
 import Domain.CompanyConstructor;
-import Domain.EducationConstructor;
 import Foundation.DB;
 import Technical.JDBC;
 import javafx.collections.FXCollections;
@@ -9,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.fxml.FXML;
-
 import java.net.URL;
 import java.sql.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -17,28 +15,21 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class CompanyController implements  Initializable{
 
-
     //Start connection to the Database.
     Connection con = DB.connect();
+    //Create preparedStatement Object
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
     //Create Button
     @FXML
-    private Button selectButton;
-    @FXML
-    private Button editButton;
-    @FXML
-    private Button deleteButton;
-    @FXML
-    private Button createButton;
+    private Button selectButton , editButton , deleteButton , createButton;
 
     //Create tableView and TableColumns for tables
     @FXML
@@ -60,7 +51,6 @@ public class CompanyController implements  Initializable{
     @FXML
     private TableColumn <CompanyConstructor, String> col_information;
 
-
     //FXML for TestFields
     @FXML
     private TextField companyID_TextField,name_TextField,cvr_TextField, tele_TextField,address_TextField ,information_TextField, zipcode_TextField,numEmployees_TextField ;
@@ -76,10 +66,8 @@ public class CompanyController implements  Initializable{
         viewCompanies.ViewCompanyTSQL();
 
         try {
-
             preparedStatement = con.prepareStatement(viewCompanies.ViewCompanyTSQL());
             resultSet = preparedStatement.executeQuery();
-
             while (resultSet.next()) {
                 oblist.add(new CompanyConstructor(
                         resultSet.getString("fld_CompanyID"),
@@ -90,14 +78,13 @@ public class CompanyController implements  Initializable{
                         resultSet.getString("fld_Zipcode"),
                         resultSet.getString("fld_NumberOfEmployees"),
                         resultSet.getString("fld_Information")));
-
+                        // Add the value we need to check for a match with to the list
                         matchFoundList.add(resultSet.getString("fld_CompanyID"));
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
         col_id.setCellValueFactory(new PropertyValueFactory<>("ID"));
         col_name.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -108,13 +95,17 @@ public class CompanyController implements  Initializable{
         col_employeNum.setCellValueFactory(new PropertyValueFactory<>("NumOfEmplyees"));
         col_information.setCellValueFactory(new PropertyValueFactory<>("Information"));
 
+        //View the list in TableView
         companies_table.setItems(oblist);
-        //educations_table.setItems (FXCollections.observableArrayList(oblist));
     }
 
     //Method to Remove the company
     @FXML
     public void removeComp(){
+
+        //JBDC
+        JDBC deleteComp = new JDBC();
+        deleteComp.DeleteCompanyTSQL();
 
         //Create an object for selection cells...
         TablePosition pos = companies_table.getSelectionModel().getSelectedCells().get(0);
@@ -126,9 +117,6 @@ public class CompanyController implements  Initializable{
         String data = (String) col.getCellObservableValue(item).getValue();
         //System.out.println(data);
 
-        //JBDC
-        JDBC deleteComp = new JDBC();
-        deleteComp.DeleteCompanyTSQL();
 
         //Check Method if the user select the AMU column to start the Delete process .
         boolean matchBoolena = false;
@@ -250,6 +238,10 @@ public class CompanyController implements  Initializable{
     @FXML
     public void editComp(){
 
+        //Create an object from JBDC class
+        JDBC update_Comp = new JDBC();
+        update_Comp.UpdateCompanyTSQL();
+
         String id = companyID_TextField.getText().trim();
         String name = name_TextField.getText().trim();
         String cvr = cvr_TextField.getText().trim();
@@ -258,11 +250,6 @@ public class CompanyController implements  Initializable{
         String zipcode = zipcode_TextField.getText().trim();
         String numEmployees = numEmployees_TextField.getText().trim();
         String information = information_TextField.getText().trim();
-
-        //Create an object from JBDC class
-        JDBC update_Comp = new JDBC();
-        update_Comp.UpdateCompanyTSQL();
-
 
         try {
             //Start the JDBC
@@ -293,6 +280,10 @@ public class CompanyController implements  Initializable{
     @FXML
     public void addComp(){
 
+        //Create an object from JBDC class
+        JDBC createComp = new JDBC();
+        createComp.CreateCompanyTSQL();
+
         //Text field read the javafx fields .
         String id = companyID_TextField.getText().trim();
         String name = name_TextField.getText().trim();
@@ -303,14 +294,6 @@ public class CompanyController implements  Initializable{
         String numEmployees = numEmployees_TextField.getText().trim();
         String information = information_TextField.getText().trim();
 
-
-
-        //Start the connection to DB.
-        Connection con = DB.connect();
-
-        //Create an object from JBDC class
-        JDBC createComp = new JDBC();
-        createComp.CreateCompanyTSQL();
 
         if (id.equals("") || name.equals("") || cvr.equals("")  || tele_number.equals("") || address.equals("") || zipcode.equals("") | numEmployees.equals("") | information.equals("") ) {
             JOptionPane.showMessageDialog(null, "Please fill all fields, some are empty");
