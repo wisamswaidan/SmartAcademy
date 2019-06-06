@@ -36,7 +36,7 @@ public class AssignController implements Initializable {
 
 
     @FXML
-    private Button assignBut , deleteBut , backBut;
+    private Button assignBut, deleteBut, backBut;
     @FXML
     private ChoiceBox<String> companyBox;
     @FXML
@@ -61,15 +61,11 @@ public class AssignController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         DB.selectSQL("SELECT fld_CompanyID from tbl_Companies");
-        do
-        {
+        do {
             String companyID = DB.getDisplayData();
-            if (companyID.equals(DB.NOMOREDATA))
-            {
+            if (companyID.equals(DB.NOMOREDATA)) {
                 break;
-            }
-            else
-            {
+            } else {
                 companyIDList.add(companyID.trim());
                 companyBox.setItems(companyIDList);
 
@@ -78,21 +74,16 @@ public class AssignController implements Initializable {
 
         //
         DB.selectSQL("SELECT fld_UserName from tbl_Users");
-        do
-        {
+        do {
             String userID = DB.getDisplayData();
-            if (userID.equals(DB.NOMOREDATA))
-            {
+            if (userID.equals(DB.NOMOREDATA)) {
                 break;
-            }
-            else
-            {
+            } else {
                 userIDList.add(userID.trim());
                 userBox.setItems(userIDList);
 
             }
         } while (true);
-
 
 
         //JDBC
@@ -108,9 +99,9 @@ public class AssignController implements Initializable {
                 oblist.add(new AssignUserContractor(
                         resultSet.getString("fld_ComapnyID"),
                         resultSet.getString("fld_UserName")));
-                        // Add the value we need to check for a match with to the list
-                        companyIDSearch.add(resultSet.getString("fld_ComapnyID"));
-                        usernameSearch.add(resultSet.getString("fld_UserName"));
+                // Add the value we need to check for a match with to the list
+                companyIDSearch.add(resultSet.getString("fld_ComapnyID"));
+                usernameSearch.add(resultSet.getString("fld_UserName"));
 
 
             }
@@ -129,29 +120,44 @@ public class AssignController implements Initializable {
     @FXML
     public void assignUserToCom() throws SQLException {
 
-        // Get the chosen data from Drop Menu
-        String getCompanyID = companyBox.getValue();
-        String getUserList = userBox.getValue();
+        JDBC checkUserVsCompany = new JDBC();
+        checkUserVsCompany.CheckUserVSCompanyTSQL();
 
-        //Create an object from JBDC class
         JDBC createAssign = new JDBC();
         createAssign.CreateAssignTSQL();
 
+        // Get the chosen data
+        String getCompanyID = companyBox.getValue();
+        String getUserList = userBox.getValue();
+
         try {
-            preparedStatement = con.prepareStatement(createAssign.CreateAssignTSQL());
-            preparedStatement.setInt(1, Integer.parseInt(getCompanyID));
+            //Start the JDBC read company id and username CheckUserVSCompanyTSQL
+            preparedStatement = con.prepareStatement(checkUserVsCompany.CheckUserVSCompanyTSQL());
+            preparedStatement.setString(1, getCompanyID);
             preparedStatement.setString(2, getUserList);
-            preparedStatement.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Assign Done" );
+            resultSet = preparedStatement.executeQuery();
+
+            //Check for match from text fields and the date from database.
+            if (!resultSet.next()) {
+                preparedStatement = con.prepareStatement(createAssign.CreateAssignTSQL());
+                preparedStatement.setInt(1, Integer.parseInt(getCompanyID));
+                preparedStatement.setString(2, getUserList);
+                preparedStatement.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Assign Done" );
+
+            } else {
+                JOptionPane.showMessageDialog(null, "This user is already assigned to the company");
+
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-
-
     }
+    
+
 
     @FXML
     public void removeAssigned(){

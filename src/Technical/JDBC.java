@@ -205,6 +205,12 @@ public class JDBC {
         return sql;
     }
 
+    public String CheckUserVSCompanyTSQL(){
+
+        //SQL_Query to read the user name and the password from the database .
+        String sql = "SELECT * from tbl_AssignUsers where fld_ComapnyID = ? and fld_UserName = ?";
+        return sql;
+    }
 
 
     /**

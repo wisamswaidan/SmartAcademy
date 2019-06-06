@@ -85,8 +85,6 @@ public class LoginController  {
                 Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 showApp.setScene(showScene);
                 showApp.show();
-
-
             }
 
         } catch (SQLException e) {
