@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainController {
+    
 
     public void ShowEduOptions(ActionEvent Event) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/education.fxml"));

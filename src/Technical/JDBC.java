@@ -207,7 +207,6 @@ public class JDBC {
 
 
 
-
     /**
      * All the JDBC command to related to the EducationPlane .
      */

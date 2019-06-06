@@ -6,13 +6,13 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.LoginController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.EducationSchController">
    <children>
       <ImageView fitHeight="500.0" fitWidth="800.0">
          <image>
             <Image url="@Images/EduSch.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="559.0" layoutY="366.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="???" />
+      <Button layoutX="559.0" layoutY="366.0" mnemonicParsing="false" onAction="#launchSwing" prefHeight="25.0" prefWidth="149.0" text="Calender" />
    </children>
 </Pane>
