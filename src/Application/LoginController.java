@@ -5,6 +5,7 @@ import Foundation.DB;
 import Technical.JDBC;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.fxml.FXML;
@@ -51,7 +52,8 @@ public class LoginController  {
      */
 
     @FXML
-    public void handelLogin(ActionEvent LoginEvent) throws Exception {
+    public void handelLogin(ActionEvent event) throws Exception {
+
         //Start the connection to DB.
         Connection con = DB.connect();
 
@@ -77,11 +79,14 @@ public class LoginController  {
             }
             else {
                 JOptionPane.showMessageDialog(null, "Welcome " + userName);
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/main.fxml"));
-                Parent root = (Parent) fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.show();
+
+                Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));
+                Scene showScene = new Scene(showPage);
+                Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                showApp.setScene(showScene);
+                showApp.show();
+
+
             }
 
         } catch (SQLException e) {

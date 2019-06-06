@@ -124,5 +124,5 @@ public class EducationSchController {
     private static boolean removeSelectedDates(ObservableList<LocalDate> selectedDates, ListView<LocalDate> dateList) {
         return selectedDates.removeAll(dateList.getSelectionModel().getSelectedItems());
     }
-    
+
 }

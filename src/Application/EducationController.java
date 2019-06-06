@@ -5,12 +5,18 @@ import Foundation.DB;
 import Technical.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.*;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.fxml.FXML;
 import java.net.URL;
 import java.sql.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +34,7 @@ public class EducationController implements  Initializable{
 
     //Create Button
     @FXML
-    private Button addBut , selectBut, editBut ,removeBut;
+    private Button addBut , selectBut, editBut ,removeBut , backBut;
 
     //Create tableView and TableColumns for tables
     @FXML
@@ -324,6 +330,16 @@ public class EducationController implements  Initializable{
                 }
             }
         }
+    }
+
+    //Method to back to the main scene
+    public void backButton(ActionEvent event) throws Exception {
+        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));
+        Scene showScene = new Scene(showPage);
+        Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        showApp.setScene(showScene);
+        showApp.show();
+
     }
 
 }

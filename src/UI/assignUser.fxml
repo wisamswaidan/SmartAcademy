@@ -25,5 +25,6 @@
         </columns>
       </TableView>
       <Button fx:id="deleteBut" layoutX="433.0" layoutY="274.0" mnemonicParsing="false" onAction="#removeAssigned" text="Delete" />
+      <Button fx:id="backBut" layoutX="706.0" layoutY="416.0" mnemonicParsing="false" onAction="#backButton" text="Back" />
    </children>
 </Pane>

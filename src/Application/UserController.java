@@ -9,6 +9,10 @@ import javafx.fxml.*;
 import javafx.fxml.FXML;
 import java.net.URL;
 import java.sql.SQLException;
+
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.sql.Connection;
@@ -19,6 +23,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.*;
 import javafx.event.ActionEvent;
+import javafx.stage.Stage;
 
 
 public class UserController implements Initializable{
@@ -30,7 +35,7 @@ public class UserController implements Initializable{
     ResultSet resultSet = null;
 
     @FXML
-    private Button addBut , selectBut, editBut ,removeBut;
+    private Button addBut , selectBut, editBut ,removeBut , backBut;
 
     //Create tableView and TableColumns for tables
     @FXML
@@ -355,5 +360,16 @@ public class UserController implements Initializable{
                 }
             }
         }
+    }
+
+
+    //Method to back to the main scene
+    public void backButton(ActionEvent event) throws Exception {
+        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));
+        Scene showScene = new Scene(showPage);
+        Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        showApp.setScene(showScene);
+        showApp.show();
+
     }
 }

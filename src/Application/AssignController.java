@@ -5,10 +5,17 @@ import Foundation.DB;
 import Technical.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+
 import javax.swing.*;
 import java.net.URL;
 import java.sql.Connection;
@@ -29,7 +36,7 @@ public class AssignController implements Initializable {
 
 
     @FXML
-    private Button assignBut , deleteBut;
+    private Button assignBut , deleteBut , backBut;
     @FXML
     private ChoiceBox<String> companyBox;
     @FXML
@@ -201,6 +208,17 @@ public class AssignController implements Initializable {
 
 
 
+
+    }
+
+
+    //Method to back to the main scene
+    public void backButton(ActionEvent event) throws Exception {
+        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));
+        Scene showScene = new Scene(showPage);
+        Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        showApp.setScene(showScene);
+        showApp.show();
 
     }
 }
