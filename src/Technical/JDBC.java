@@ -210,17 +210,19 @@ public class JDBC {
     /**
      * All the JDBC command to related to the EducationPlane .
      */
-    public String CreateEducationPlaneTSQL(){
+    public String CreateEducationSchTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+       // String sql = "INSERT INTO tbl_EduSchGenerate VALUES ? INSERT INTO tbl_EducationSchedule VALUES (?,?,?)";
+        String sql = "INSERT INTO tbl_EducationSchedule VALUES (?,?,?)";
+
         return sql;
     }
 
-    public String ViewEducationPlaneTSQL(){
+    public String ViewEducationSchTSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "select * from tbl_EducationSchedule";
         return sql;
     }
 
@@ -231,10 +233,10 @@ public class JDBC {
         return sql;
     }
 
-    public String DeleteEducationPlaneTSQL(){
+    public String DeleteEducationSchSQL(){
 
         //SQL_Query to......
-        String sql = "";
+        String sql = "DELETE FROM tbl_EducationSchedule WHERE fld_EduSch_ID = ?";
         return sql;
     }
 

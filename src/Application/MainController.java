@@ -12,7 +12,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    
 
     public void ShowEduOptions(ActionEvent event) throws Exception {
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/education.fxml"));

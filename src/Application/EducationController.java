@@ -16,7 +16,6 @@ import java.net.URL;
 import java.sql.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;

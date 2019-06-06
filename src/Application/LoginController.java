@@ -26,7 +26,6 @@ public class LoginController  {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
-
     /**
      * TextField where the username_TextField is entered.
      */

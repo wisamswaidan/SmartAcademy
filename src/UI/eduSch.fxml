@@ -13,6 +13,20 @@
             <Image url="@Images/EduSch.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="559.0" layoutY="366.0" mnemonicParsing="false" onAction="#launchSwing" prefHeight="25.0" prefWidth="149.0" text="Calender" />
+      <Button fx:id="addDateBut" layoutX="307.0" layoutY="140.0" mnemonicParsing="false" onAction="#launchSwing" prefHeight="25.0" prefWidth="117.0" text="Add date" />
+      <TableView fx:id="schEduTable" layoutX="448.0" layoutY="44.0" prefHeight="326.0" prefWidth="332.0">
+        <columns>
+          <TableColumn fx:id="col_id" prefWidth="45.0" text="ID" />
+          <TableColumn fx:id="col_amu" prefWidth="157.0" text="AMU" />
+            <TableColumn fx:id="col_date" prefWidth="160.0" text="Date" />
+        </columns>
+      </TableView>
+      <ChoiceBox fx:id="amuBox" layoutX="307.0" layoutY="101.0" prefHeight="25.0" prefWidth="117.0" />
+      <Text layoutX="228.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose AMU" />
+      <Button fx:id="schEduBut" layoutX="307.0" layoutY="176.0" mnemonicParsing="false" onAction="#addEduSch" prefHeight="25.0" prefWidth="117.0" text="Create SchEdu" />
+      <Button fx:id="deleteBut" layoutX="701.0" layoutY="383.0" mnemonicParsing="false" onAction="#removeEduSch" prefHeight="25.0" prefWidth="79.0" text="Delete" />
+      <Button fx:id="backBut" layoutX="701.0" layoutY="432.0" mnemonicParsing="false" onAction="#backButton" prefHeight="25.0" prefWidth="79.0" text="Back" />
+      <ChoiceBox fx:id="idBox" layoutX="307.0" layoutY="67.0" prefHeight="25.0" prefWidth="117.0" />
+      <Text layoutX="228.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose ID" wrappingWidth="59.544921875" />
    </children>
 </Pane>
