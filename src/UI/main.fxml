@@ -19,5 +19,6 @@
       <Button layoutX="14.0" layoutY="277.0" mnemonicParsing="false" onAction="#ShowEduSchOptions" prefHeight="25.0" prefWidth="123.0" text="Education Schedule" />
       <Button layoutX="14.0" layoutY="237.0" mnemonicParsing="false" onAction="#ShowAssignUserOptions" prefHeight="25.0" prefWidth="123.0" text="Assign User" />
       <Button layoutX="14.0" layoutY="312.0" mnemonicParsing="false" onAction="#ShowEduPlanOptions" prefHeight="25.0" prefWidth="123.0" text="Education Plan" />
+      <Button layoutX="14.0" layoutY="350.0" mnemonicParsing="false" onAction="#logoutButton" prefHeight="25.0" prefWidth="123.0" text="Log out" />
    </children>
 </Pane>

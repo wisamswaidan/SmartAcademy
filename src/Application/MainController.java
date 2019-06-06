@@ -86,4 +86,13 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
     }
+
+    //Method to back to the main scene
+    public void logoutButton(ActionEvent event) throws Exception {
+        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/login.fxml"));
+        Scene showScene = new Scene(showPage);
+        Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        showApp.setScene(showScene);
+        showApp.show();
+    }
 }
