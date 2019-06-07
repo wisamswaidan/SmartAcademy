@@ -51,7 +51,9 @@ public class EducationSchController  implements Initializable {
     ResultSet resultSet = null;
 
     @FXML
-    Button addDateBut ,schEduBut  , deleteBut, backBut;
+    Button addDateBut ,schEduBut  , deleteBut, backBut , createIDBut , deleteIDBut;
+    @FXML
+    private TextField eduSchID_TextField;
 
     @FXML
     private ChoiceBox<String> amuBox;
@@ -202,8 +204,6 @@ public class EducationSchController  implements Initializable {
         if(matchBoolena == false){
             JOptionPane.showMessageDialog(null, "Please choose ID column " ); }
 
-
-
     }
 
     @FXML
@@ -323,6 +323,76 @@ public class EducationSchController  implements Initializable {
         JOptionPane.showMessageDialog(null, "Create Done" );
     }
 
+    @FXML
+    public void addEduSchID(){
+
+        //Create an object from JBDC class
+        JDBC createID = new JDBC();
+        createID.CreateEducationSchID();
+
+        String id = eduSchID_TextField.getText().trim();
+
+        if (id.equals("")) {
+            JOptionPane.showMessageDialog(null, "Please fill ID field");
+
+        } else {
+            DB.selectSQL("SELECT fld_EduSch_ID from tbl_EduSchGenerate where fld_EduSch_ID = '" + id + "'");
+            String un = DB.getData();
+
+            if (un.equals(id.toLowerCase())){
+                JOptionPane.showMessageDialog(null, "ID already exist");
+            }
+            else{
+                try {
+                    //Start the JDBC
+                    preparedStatement = con.prepareStatement(createID.CreateEducationSchID());
+                    preparedStatement.setInt(1, Integer.parseInt(id));
+                    preparedStatement.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Create Done" );
+
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Wrong with creating" );
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @FXML
+    public void RemoveEduSchID(){
+
+        //Create an object from JBDC class
+        JDBC removeID = new JDBC();
+        removeID.DeleteEducationSchID();
+
+        String id = eduSchID_TextField.getText().trim();
+
+        if (id.equals("")) {
+            JOptionPane.showMessageDialog(null, "Please fill ID field");
+
+        } else {
+            DB.selectSQL("SELECT fld_EduSch_ID from tbl_EduSchGenerate where fld_EduSch_ID = '" + id + "'");
+            String un = DB.getData();
+
+            if (un.equals(id.toLowerCase())){
+
+                try {
+                    //Start the JDBC
+                    preparedStatement = con.prepareStatement(removeID.DeleteEducationSchID());
+                    preparedStatement.setInt(1, Integer.parseInt(id));
+                    preparedStatement.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Delete Done" );
+
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Wrong with Deleting" );
+                    e.printStackTrace();
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "ID not found");
+            }
+        }
+    }
 
     public void backButton(ActionEvent event) throws Exception {
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));

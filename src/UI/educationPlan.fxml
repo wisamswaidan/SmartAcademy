@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.EducationPlanController">
+   <children>
+      <ImageView fitHeight="500.0" fitWidth="800.0">
+         <image>
+            <Image url="@Images/EduPlan.jpg" />
+         </image>
+      </ImageView>
+      <Text layoutX="14.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Would you like to add a new Education Plan ?" wrappingWidth="256.056640625" />
+      <Button fx:id="addBut" layoutX="265.0" layoutY="452.0" mnemonicParsing="false" onAction="#addEduPlan" prefHeight="25.0" prefWidth="69.0" text="Add" />
+      <TextField fx:id="planID_TextField" layoutX="14.0" layoutY="153.0" promptText="PlanID" />
+      <Button fx:id="backBut" layoutX="702.0" layoutY="452.0" mnemonicParsing="false" onAction="#backButton" prefHeight="25.0" prefWidth="69.0" text="Back" />
+      <Button fx:id="removeBut" layoutX="350.0" layoutY="452.0" mnemonicParsing="false" onAction="#removeEduPlan" prefHeight="25.0" prefWidth="69.0" text="Delete" />
+      <TableView fx:id="tableEduPlan" layoutX="265.0" layoutY="53.0" prefHeight="390.0" prefWidth="521.0">
+         <columns>
+            <TableColumn fx:id="col_PlanID" prefWidth="53.0" text="PlanID" />
+            <TableColumn fx:id="col_EducationAMU" prefWidth="102.0" text="EducationAMU" />
+            <TableColumn fx:id="col_EmployeeMobile" prefWidth="110.0" text="EmployeeMobile" />
+            <TableColumn fx:id="col_CompanyID" prefWidth="72.0" text="CompanyID" />
+            <TableColumn fx:id="col_Information" prefWidth="84.0" text="Information" />
+            <TableColumn fx:id="col_EduSch_ID" prefWidth="99.0" text="EduSch_ID" />
+         </columns>
+      </TableView>
+      <TextField fx:id="information_TextField" layoutX="14.0" layoutY="185.0" promptText="Information" />
+      <Text layoutX="14.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AMU" />
+      <ChoiceBox fx:id="eduAMUaccessBox" layoutX="12.0" layoutY="255.0" prefHeight="25.0" prefWidth="102.0" />
+      <ChoiceBox fx:id="empMobileAccessBox" layoutX="14.0" layoutY="310.0" prefHeight="25.0" prefWidth="102.0" />
+      <Text layoutX="16.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Mob" />
+      <ChoiceBox fx:id="companyIDaccessBox" layoutX="14.0" layoutY="367.0" prefHeight="25.0" prefWidth="102.0" />
+      <Text layoutX="16.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company ID" />
+      <ChoiceBox fx:id="eduSchaccessBox" layoutX="12.0" layoutY="427.0" prefHeight="25.0" prefWidth="102.0" />
+      <Text layoutX="14.0" layoutY="418.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edu Sch" />
+   </children>
+</Pane>

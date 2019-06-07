@@ -24,9 +24,13 @@
       <ChoiceBox fx:id="amuBox" layoutX="307.0" layoutY="101.0" prefHeight="25.0" prefWidth="117.0" />
       <Text layoutX="228.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose AMU" />
       <Button fx:id="schEduBut" layoutX="307.0" layoutY="176.0" mnemonicParsing="false" onAction="#addEduSch" prefHeight="25.0" prefWidth="117.0" text="Create SchEdu" />
-      <Button fx:id="deleteBut" layoutX="701.0" layoutY="383.0" mnemonicParsing="false" onAction="#removeEduSch" prefHeight="25.0" prefWidth="79.0" text="Delete" />
+      <Button fx:id="deleteBut" layoutX="307.0" layoutY="214.0" mnemonicParsing="false" onAction="#removeEduSch" prefHeight="25.0" prefWidth="117.0" text="Delete" />
       <Button fx:id="backBut" layoutX="701.0" layoutY="432.0" mnemonicParsing="false" onAction="#backButton" prefHeight="25.0" prefWidth="79.0" text="Back" />
       <ChoiceBox fx:id="idBox" layoutX="307.0" layoutY="67.0" prefHeight="25.0" prefWidth="117.0" />
       <Text layoutX="228.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose ID" wrappingWidth="59.544921875" />
+      <TextField fx:id="eduSchID_TextField" layoutX="24.0" layoutY="140.0" prefHeight="25.0" prefWidth="162.0" promptText="ID" />
+      <Button fx:id="createIDBut" layoutX="24.0" layoutY="178.0" mnemonicParsing="false" onAction="#addEduSchID" prefHeight="25.0" prefWidth="79.0" text="Create" />
+      <Button fx:id="deleteIDBut" layoutX="107.0" layoutY="178.0" mnemonicParsing="false" onAction="#RemoveEduSchID" prefHeight="25.0" prefWidth="79.0" text="Delete" />
+      <Text layoutX="28.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create/Remove ID" />
    </children>
 </Pane>

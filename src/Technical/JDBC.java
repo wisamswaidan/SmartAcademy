@@ -206,9 +206,8 @@ public class JDBC {
     }
 
 
-
     /**
-     * All the JDBC command to related to the EducationPlane .
+     * All the JDBC command to related to the EducationSch .
      */
     public String CreateEducationSchTSQL(){
 
@@ -226,19 +225,61 @@ public class JDBC {
         return sql;
     }
 
-    public String EditEducationPlaneTSQL(){
-
-        //SQL_Query to......
-        String sql = "";
-        return sql;
-    }
-
     public String DeleteEducationSchSQL(){
 
         //SQL_Query to......
         String sql = "DELETE FROM tbl_EducationSchedule WHERE fld_EduSch_ID = ?";
         return sql;
     }
+
+    public String CreateEducationSchID(){
+
+        //SQL_Query to......
+        String sql = "INSERT INTO tbl_EduSchGenerate (fld_EduSch_ID) VALUES (?);";
+        return sql;
+    }
+
+    public String DeleteEducationSchID(){
+
+        //SQL_Query to......
+        String sql = "DELETE FROM tbl_EduSchGenerate WHERE fld_EduSch_ID=?";
+        return sql;
+    }
+
+
+    /**
+     * All the JDBC command to related to the Education plan.
+     */
+    public String CreateEducationplanTSQL(){
+
+        //SQL_Query to......
+        String sql = "INSERT INTO tbl_EducationPlans VALUES (? , ? , ? , ? , ? , ?)";
+        return sql;
+    }
+
+    public String ViewEducationplanTSQL(){
+
+        //SQL_Query to......
+        String sql = "SELECT * from tbl_EducationPlans";
+        return sql;
+    }
+
+
+    public String DeleteEducationplanTSQL(){
+
+        //SQL_Query to......
+        String sql = "DELETE FROM tbl_EducationPlans WHERE fld_PlanID=?";
+        return sql;
+    }
+
+    public String UpdateEducationplanTSQL(){
+
+        //SQL_Query to......
+        String sql = "UPDATE tbl_EducationPlans SET fld_EducationAMU = ? , fld_EmployeeMobile = ? , fld_CompanyID = ? , fld_Information  = ? , fld_EduSch_ID = ? WHERE fld_PlanID = ?";
+        return sql;
+    }
+
+
 
 
 }
