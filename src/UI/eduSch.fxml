@@ -32,5 +32,6 @@
       <Button fx:id="createIDBut" layoutX="24.0" layoutY="178.0" mnemonicParsing="false" onAction="#addEduSchID" prefHeight="25.0" prefWidth="79.0" text="Create" />
       <Button fx:id="deleteIDBut" layoutX="107.0" layoutY="178.0" mnemonicParsing="false" onAction="#RemoveEduSchID" prefHeight="25.0" prefWidth="79.0" text="Delete" />
       <Text layoutX="28.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create/Remove ID" />
+      <Button fx:id="exportBut" layoutX="591.0" layoutY="432.0" mnemonicParsing="false" onAction="#exportExcel" text="Export to Excel" />
    </children>
 </Pane>

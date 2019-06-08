@@ -3,6 +3,7 @@ package Application;
 import Domain.EducationPlanConstractor;
 import Foundation.DB;
 import Technical.JDBC;
+import com.sun.rowset.internal.Row;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,7 +17,14 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import javax.swing.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,7 +42,7 @@ public class EducationPlanController implements Initializable {
     ResultSet resultSet = null;
 
     @FXML
-    private Button addBut  ,removeBut ,backBut;
+    private Button addBut  ,removeBut ,backBut , exportBut;
 
     //Create tableView and TableColumns for tables
     @FXML
@@ -183,9 +191,8 @@ public class EducationPlanController implements Initializable {
 
         //View the list in TableView
         tableEduPlan.setItems(oblist);
-
     }
-    
+
     @FXML
     public void removeEduPlan(){
 
@@ -295,5 +302,61 @@ public class EducationPlanController implements Initializable {
     }
 
 
+    public void exportExcel(){
 
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet sheet = wb.createSheet("Education Plan");
+        XSSFRow header = sheet.createRow(0);
+
+        header.createCell(0).setCellValue("PlanID");
+        header.createCell(1).setCellValue("EducationAMU");
+        header.createCell(2).setCellValue("EmployeeMobile");
+        header.createCell(3).setCellValue("CompanyID");
+        header.createCell(4).setCellValue("Information");
+        header.createCell(5).setCellValue("EduSch_ID");
+
+        sheet.autoSizeColumn(0);
+        sheet.autoSizeColumn(1);
+        sheet.autoSizeColumn(2);
+        sheet.autoSizeColumn(3);
+        sheet.autoSizeColumn(4);
+        sheet.autoSizeColumn(5);
+        sheet.setZoom(125);
+
+        int index = 1;
+
+        //JDBC
+        JDBC viewEduAMU = new JDBC();
+        viewEduAMU.ViewEducationplanTSQL();
+
+        try {
+            preparedStatement = con.prepareStatement(viewEduAMU.ViewEducationplanTSQL());
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                XSSFRow row = sheet.createRow(index);
+                row.createCell(0).setCellValue(resultSet.getString("fld_PlanID"));
+                row.createCell(1).setCellValue(resultSet.getString("fld_EducationAMU"));
+                row.createCell(2).setCellValue(resultSet.getString("fld_EmployeeMobile"));
+                row.createCell(3).setCellValue(resultSet.getString("fld_CompanyID"));
+                row.createCell(4).setCellValue(resultSet.getString("fld_Information"));
+                row.createCell(5).setCellValue(resultSet.getString("fld_EduSch_ID"));
+                index++;
+            }
+
+            FileOutputStream fileout = new FileOutputStream("EducationPlan.xlsx");
+            wb.write(fileout);
+            fileout.close();
+            JOptionPane.showMessageDialog(null, "Export Done" );
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

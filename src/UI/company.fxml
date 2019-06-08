@@ -38,5 +38,6 @@
       <TextField fx:id="tele_TextField" layoutX="137.0" layoutY="452.0" prefHeight="25.0" prefWidth="114.0" promptText="Tele Number" />
       <TextField fx:id="information_TextField" layoutX="264.0" layoutY="452.0" prefHeight="25.0" prefWidth="375.0" promptText="Information" />
       <Button fx:id="backBut" layoutX="716.0" layoutY="37.0" mnemonicParsing="false" onAction="#backButton" prefHeight="25.0" prefWidth="58.0" text="Back" />
+      <Button fx:id="exportBut" layoutX="476.0" layoutY="37.0" mnemonicParsing="false" onAction="#exportExcel" text="Export to Excel" />
    </children>
 </Pane>

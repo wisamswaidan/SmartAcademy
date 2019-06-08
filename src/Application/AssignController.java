@@ -211,7 +211,6 @@ public class AssignController implements Initializable {
 
     }
 
-
     //Method to back to the main scene
     public void backButton(ActionEvent event) throws Exception {
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));

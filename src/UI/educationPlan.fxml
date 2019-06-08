@@ -37,5 +37,6 @@
       <Text layoutX="16.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company ID" />
       <ChoiceBox fx:id="eduSchaccessBox" layoutX="12.0" layoutY="427.0" prefHeight="25.0" prefWidth="102.0" />
       <Text layoutX="14.0" layoutY="418.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edu Sch" />
+      <Button fx:id="exportBut" layoutX="433.0" layoutY="452.0" mnemonicParsing="false" onAction="#exportExcel" text="Export to Excel" />
    </children>
 </Pane>

@@ -12,10 +12,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.fxml.FXML;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -344,5 +351,71 @@ public class CompanyController implements  Initializable{
         showApp.show();
 
     }
+
+    public void exportExcel(){
+
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet sheet = wb.createSheet("Companies");
+        XSSFRow header = sheet.createRow(0);
+
+        header.createCell(0).setCellValue("fld_CompanyID");
+        header.createCell(1).setCellValue("fld_Name");
+        header.createCell(2).setCellValue("fld_CVR");
+        header.createCell(3).setCellValue("fld_TelephoneNumber");
+        header.createCell(4).setCellValue("fld_Address");
+        header.createCell(5).setCellValue("fld_Zipcode");
+        header.createCell(6).setCellValue("fld_NumberOfEmployees");
+        header.createCell(7).setCellValue("fld_Information");
+
+        sheet.autoSizeColumn(0);
+        sheet.autoSizeColumn(1);
+        sheet.autoSizeColumn(2);
+        sheet.autoSizeColumn(3);
+        sheet.autoSizeColumn(4);
+        sheet.autoSizeColumn(5);
+        sheet.autoSizeColumn(6);
+        sheet.autoSizeColumn(7);
+        sheet.setZoom(125);
+
+        int index = 1;
+
+        //JDBC
+        JDBC viewCompanies = new JDBC();
+        viewCompanies.ViewCompanyTSQL();
+
+        try {
+            preparedStatement = con.prepareStatement(viewCompanies.ViewCompanyTSQL());
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                XSSFRow row = sheet.createRow(index);
+                row.createCell(0).setCellValue(resultSet.getString("fld_CompanyID"));
+                row.createCell(1).setCellValue(resultSet.getString("fld_Name"));
+                row.createCell(2).setCellValue(resultSet.getString("fld_CVR"));
+                row.createCell(3).setCellValue(resultSet.getString("fld_TelephoneNumber"));
+                row.createCell(4).setCellValue(resultSet.getString("fld_Address"));
+                row.createCell(5).setCellValue(resultSet.getString("fld_Zipcode"));
+                row.createCell(6).setCellValue(resultSet.getString("fld_NumberOfEmployees"));
+                row.createCell(7).setCellValue(resultSet.getString("fld_Information"));
+
+                index++;
+            }
+
+            FileOutputStream fileout = new FileOutputStream("Companies.xlsx");
+            wb.write(fileout);
+            fileout.close();
+            JOptionPane.showMessageDialog(null, "Export Done" );
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 }

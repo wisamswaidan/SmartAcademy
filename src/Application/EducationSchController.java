@@ -22,6 +22,9 @@ import javafx.scene.input.KeyCode;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import javax.swing.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,8 +41,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-
-
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
 public class EducationSchController  implements Initializable {
@@ -393,6 +397,56 @@ public class EducationSchController  implements Initializable {
             }
         }
     }
+
+    public void exportExcel(){
+
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet sheet = wb.createSheet("Education Schedule");
+        XSSFRow header = sheet.createRow(0);
+
+        header.createCell(0).setCellValue("fld_EduSch_ID");
+        header.createCell(1).setCellValue("AMU");
+        header.createCell(2).setCellValue("fld_Date");
+
+        sheet.autoSizeColumn(0);
+        sheet.autoSizeColumn(1);
+        sheet.autoSizeColumn(2);
+        sheet.setZoom(125);
+
+        int index = 1;
+
+        //JDBC
+        JDBC viewEduSch = new JDBC();
+        viewEduSch.ViewEducationSchTSQL();
+
+        try {
+            preparedStatement = con.prepareStatement(viewEduSch.ViewEducationSchTSQL());
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                XSSFRow row = sheet.createRow(index);
+                row.createCell(0).setCellValue(resultSet.getString("fld_EduSch_ID"));
+                row.createCell(1).setCellValue(resultSet.getString("AMU"));
+                row.createCell(2).setCellValue(resultSet.getString("fld_Date"));
+                index++;
+            }
+
+            FileOutputStream fileout = new FileOutputStream("EducationSchedule.xlsx");
+            wb.write(fileout);
+            fileout.close();
+            JOptionPane.showMessageDialog(null, "Export Done" );
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     public void backButton(ActionEvent event) throws Exception {
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));

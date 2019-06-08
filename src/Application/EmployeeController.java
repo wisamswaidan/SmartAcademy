@@ -15,8 +15,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -363,7 +369,70 @@ public class EmployeeController implements Initializable {
         }
     }
 
+    public void exportExcel(){
 
+        XSSFWorkbook wb = new XSSFWorkbook();
+        XSSFSheet sheet = wb.createSheet("Employees");
+        XSSFRow header = sheet.createRow(0);
+
+        header.createCell(0).setCellValue("fld_FirstName");
+        header.createCell(1).setCellValue("fld_LastName");
+        header.createCell(2).setCellValue("fld_Email");
+        header.createCell(3).setCellValue("fld_Mobile");
+        header.createCell(4).setCellValue("fld_Address");
+        header.createCell(5).setCellValue("fld_Zipcode");
+        header.createCell(6).setCellValue("fld_Information");
+        header.createCell(7).setCellValue("fld_CompanyID");
+
+
+        sheet.autoSizeColumn(0);
+        sheet.autoSizeColumn(1);
+        sheet.autoSizeColumn(2);
+        sheet.autoSizeColumn(3);
+        sheet.autoSizeColumn(4);
+        sheet.autoSizeColumn(5);
+        sheet.autoSizeColumn(6);
+        sheet.autoSizeColumn(7);
+        sheet.setZoom(125);
+
+        int index = 1;
+
+        //JDBC
+        JDBC viewEmpList = new JDBC();
+        viewEmpList.ViewEmployeeTSQL();
+
+        try {
+            preparedStatement = con.prepareStatement(viewEmpList.ViewEmployeeTSQL());
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                XSSFRow row = sheet.createRow(index);
+                row.createCell(0).setCellValue(resultSet.getString("fld_FirstName"));
+                row.createCell(1).setCellValue(resultSet.getString("fld_LastName"));
+                row.createCell(2).setCellValue(resultSet.getString("fld_Email"));
+                row.createCell(3).setCellValue(resultSet.getString("fld_Mobile"));
+                row.createCell(4).setCellValue(resultSet.getString("fld_Address"));
+                row.createCell(5).setCellValue(resultSet.getString("fld_Zipcode"));
+                row.createCell(6).setCellValue(resultSet.getString("fld_Information"));
+                row.createCell(7).setCellValue(resultSet.getString("fld_CompanyID"));
+                index++;
+            }
+
+            FileOutputStream fileout = new FileOutputStream("Employees.xlsx");
+            wb.write(fileout);
+            fileout.close();
+            JOptionPane.showMessageDialog(null, "Export Done" );
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
     //Method to back to the main scene
     public void backButton(ActionEvent event) throws Exception {
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));

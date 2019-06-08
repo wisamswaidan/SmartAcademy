@@ -42,5 +42,6 @@
       <Button fx:id="selectBut" layoutX="707.0" layoutY="688.0" mnemonicParsing="false" onAction="#selectToEditEmp" text="Select" />
       <Text layoutX="721.0" layoutY="482.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Company" />
       <TextField fx:id="mobile_TextField" layoutX="720.0" layoutY="293.0" promptText="Mobile" />
+      <Button fx:id="exportBut" layoutX="708.0" layoutY="646.0" mnemonicParsing="false" onAction="#exportExcel" text="Export to Excel" />
 </children>
 </AnchorPane>
