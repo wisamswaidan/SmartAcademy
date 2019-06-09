@@ -41,10 +41,11 @@ public class EducationPlanController implements Initializable {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
+    //Initialize new Buttons.
     @FXML
     private Button addBut  ,removeBut ,backBut , exportBut;
 
-    //Create tableView and TableColumns for tables
+    //Initialize tableView and TableColumns for tables
     @FXML
     private TableView<EducationPlanConstractor> tableEduPlan;
     @FXML
@@ -60,6 +61,7 @@ public class EducationPlanController implements Initializable {
     @FXML
     private TableColumn<EducationPlanConstractor, String> col_EduSch_ID;
 
+    //Initialize ChoiceBox.
     @FXML
     private ChoiceBox<String> eduAMUaccessBox;
     @FXML
@@ -84,6 +86,9 @@ public class EducationPlanController implements Initializable {
     ObservableList<EducationPlanConstractor> oblist = FXCollections.observableArrayList();
     List<String> matchFoundList = new ArrayList<String>();
 
+    /**
+     * View Educations Plan data in TableView from the database.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -188,15 +193,16 @@ public class EducationPlanController implements Initializable {
         col_CompanyID.setCellValueFactory(new PropertyValueFactory<>("CompanyID"));
         col_Information.setCellValueFactory(new PropertyValueFactory<>("Information"));
         col_EduSch_ID.setCellValueFactory(new PropertyValueFactory<>("EduSch_ID"));
-
-        //View the list in TableView
         tableEduPlan.setItems(oblist);
     }
 
+    /**
+     * Remove an educations Plan.
+     */
     @FXML
     public void removeEduPlan(){
 
-        //JBDC
+        //JBDC to Delete an education plan
         JDBC deleteEduPlan = new JDBC();
         deleteEduPlan.DeleteEducationplanTSQL();
 
@@ -226,7 +232,6 @@ public class EducationPlanController implements Initializable {
                     try {
                         preparedStatement = con.prepareStatement(deleteEduPlan.DeleteEducationplanTSQL());
                         preparedStatement.setString(1,resultMatch);
-
                         //We use executeUpdate() instead of executeQuery() because we don't expect any return .
                         preparedStatement.executeUpdate();
                         JOptionPane.showMessageDialog(null, "Delete Done" );
@@ -241,9 +246,11 @@ public class EducationPlanController implements Initializable {
         if(matchBoolena == false){
             JOptionPane.showMessageDialog(null, "Please choose PlanID column " );
         }
-
     }
 
+    /**
+     * Create a new educations Plan.
+     */
     @FXML
     public void addEduPlan(ActionEvent event) throws Exception {
 
@@ -279,7 +286,6 @@ public class EducationPlanController implements Initializable {
                     preparedStatement.setInt(4, Integer.parseInt(getCom));
                     preparedStatement.setString(5,getInformation);
                     preparedStatement.setInt(6,Integer.parseInt(getEduSch));
-
                     preparedStatement.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Create Done" );
 
@@ -291,17 +297,20 @@ public class EducationPlanController implements Initializable {
         }
     }
 
-    //Method to back to the main scene
+    /**
+     * Back to the main scene .
+     */
     public void backButton(ActionEvent event) throws Exception {
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));
         Scene showScene = new Scene(showPage);
         Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
         showApp.setScene(showScene);
         showApp.show();
-
     }
 
-
+    /**
+     * Export to Excel file .
+     */
     public void exportExcel(){
 
         XSSFWorkbook wb = new XSSFWorkbook();
@@ -325,12 +334,12 @@ public class EducationPlanController implements Initializable {
 
         int index = 1;
 
-        //JDBC
-        JDBC viewEduAMU = new JDBC();
-        viewEduAMU.ViewEducationplanTSQL();
+        //JDBC to view the education AMU
+        JDBC viewEduPlan = new JDBC();
+        viewEduPlan.ViewEducationplanTSQL();
 
         try {
-            preparedStatement = con.prepareStatement(viewEduAMU.ViewEducationplanTSQL());
+            preparedStatement = con.prepareStatement(viewEduPlan.ViewEducationplanTSQL());
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {

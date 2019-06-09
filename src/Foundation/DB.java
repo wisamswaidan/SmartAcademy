@@ -68,7 +68,6 @@ public class DB {
 
     }
 
-
     private static void disconnect(){
         try {
             con.close();

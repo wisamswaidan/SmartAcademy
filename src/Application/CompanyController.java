@@ -40,11 +40,11 @@ public class CompanyController implements  Initializable{
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
-    //Create Button
+    //Initialize new Buttons.
     @FXML
     private Button selectButton , editButton , deleteButton , createButton , backBut;
 
-    //Create tableView and TableColumns for tables
+    //Initialize tableView and TableColumns
     @FXML
     private TableView <CompanyConstructor> companies_table;
     @FXML
@@ -72,7 +72,9 @@ public class CompanyController implements  Initializable{
     ObservableList<CompanyConstructor> oblist = FXCollections.observableArrayList();
     List<String> matchFoundList = new ArrayList<String>();
 
-
+    /**
+     * View companies data in TableView from the database.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         JDBC viewCompanies = new JDBC();
@@ -99,6 +101,8 @@ public class CompanyController implements  Initializable{
             e.printStackTrace();
         }
 
+
+        //Set the result in TableView
         col_id.setCellValueFactory(new PropertyValueFactory<>("ID"));
         col_name.setCellValueFactory(new PropertyValueFactory<>("Name"));
         col_cvr.setCellValueFactory(new PropertyValueFactory<>("CVR"));
@@ -107,16 +111,16 @@ public class CompanyController implements  Initializable{
         col_zipcode.setCellValueFactory(new PropertyValueFactory<>("Zipcode"));
         col_employeNum.setCellValueFactory(new PropertyValueFactory<>("NumOfEmplyees"));
         col_information.setCellValueFactory(new PropertyValueFactory<>("Information"));
-
-        //View the list in TableView
         companies_table.setItems(oblist);
     }
 
-    //Method to Remove the company
+    /**
+     * Remove a company.
+     */
     @FXML
     public void removeComp(){
 
-        //JBDC
+        // JDBC to delete a company .
         JDBC deleteComp = new JDBC();
         deleteComp.DeleteCompanyTSQL();
 
@@ -128,8 +132,6 @@ public class CompanyController implements  Initializable{
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
-        //System.out.println(data);
-
 
         //Check Method if the user select the AMU column to start the Delete process .
         boolean matchBoolena = false;
@@ -147,7 +149,6 @@ public class CompanyController implements  Initializable{
                     try {
                         preparedStatement = con.prepareStatement(deleteComp.DeleteCompanyTSQL());
                         preparedStatement.setString(1,resultMatch);
-
                         //We use executeUpdate() instead of executeQuery() because we dont expect any return .
                         preparedStatement.executeUpdate();
                         JOptionPane.showMessageDialog(null, "Delete Done" );
@@ -158,19 +159,17 @@ public class CompanyController implements  Initializable{
                 }
             }
         }
-
         if(matchBoolena == false){
             JOptionPane.showMessageDialog(null, "Please choose AMU column " ); }
-
-
-
     }
 
-    //Method to select the company wants to edit
+    /**
+     * select the company wants to edit.
+     */
     @FXML
     public void selectToEditComp(){
 
-        //Create an object from JBDC class
+        // JDBC to edit a company .
         JDBC edit_Comp = new JDBC();
         edit_Comp.EditCompanyTSQL();
 
@@ -182,7 +181,6 @@ public class CompanyController implements  Initializable{
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
-        //System.out.println(data);
 
         //Check Method if the user select the AMU column to start the Delete process .
         boolean matchBoolena = false;
@@ -247,14 +245,17 @@ public class CompanyController implements  Initializable{
         }
     }
 
-    //Method to Edit any company
+    /**
+     * Edit a company.
+     */
     @FXML
     public void editComp(){
 
-        //Create an object from JBDC class
+        // JDBC to edit a company .
         JDBC update_Comp = new JDBC();
         update_Comp.UpdateCompanyTSQL();
 
+        //Text field read the javafx fields .
         String id = companyID_TextField.getText().trim();
         String name = name_TextField.getText().trim();
         String cvr = cvr_TextField.getText().trim();
@@ -267,7 +268,6 @@ public class CompanyController implements  Initializable{
         try {
             //Start the JDBC
             preparedStatement = con.prepareStatement(update_Comp.UpdateCompanyTSQL());
-
             preparedStatement.setString(1,name);
             preparedStatement.setInt(2,Integer.parseInt(cvr));
             preparedStatement.setInt(3,Integer.parseInt(tele_number));
@@ -276,7 +276,6 @@ public class CompanyController implements  Initializable{
             preparedStatement.setInt(6,Integer.parseInt(numEmployees));
             preparedStatement.setString(7,information);
             preparedStatement.setInt(8,Integer.parseInt(id));
-
             preparedStatement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Edit Done" );
 
@@ -284,16 +283,15 @@ public class CompanyController implements  Initializable{
             JOptionPane.showMessageDialog(null, "Wrong with Editing " );
             e.printStackTrace();
         }
-
-
-
     }
 
-    //Method to create a new company
+    /**
+     * Create a new company.
+     */
     @FXML
     public void addComp(){
 
-        //Create an object from JBDC class
+        // JDBC to create new a company .
         JDBC createComp = new JDBC();
         createComp.CreateCompanyTSQL();
 
@@ -307,8 +305,8 @@ public class CompanyController implements  Initializable{
         String numEmployees = numEmployees_TextField.getText().trim();
         String information = information_TextField.getText().trim();
 
-
-        if (id.equals("") || name.equals("") || cvr.equals("")  || tele_number.equals("") || address.equals("") || zipcode.equals("") | numEmployees.equals("") | information.equals("") ) {
+        //Check if all the fields are not empty
+        if (id.equals("") || name.equals("") || cvr.equals("")  || tele_number.equals("") || address.equals("") || zipcode.equals("") || numEmployees.equals("") || information.equals("") ) {
             JOptionPane.showMessageDialog(null, "Please fill all fields, some are empty");
 
         } else {
@@ -330,7 +328,6 @@ public class CompanyController implements  Initializable{
                     preparedStatement.setInt(6,Integer.parseInt(zipcode));
                     preparedStatement.setInt(7,Integer.parseInt(numEmployees));
                     preparedStatement.setString(8,information);
-
                     preparedStatement.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Create Done" );
 
@@ -342,7 +339,9 @@ public class CompanyController implements  Initializable{
         }
     }
 
-    //Method to back to the main scene
+    /**
+     * Back to the main scene .
+     */
     public void backButton(ActionEvent event) throws Exception {
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));
         Scene showScene = new Scene(showPage);
@@ -352,6 +351,9 @@ public class CompanyController implements  Initializable{
 
     }
 
+    /**
+     * Export to Excel file .
+     */
     public void exportExcel(){
 
         XSSFWorkbook wb = new XSSFWorkbook();
@@ -367,6 +369,7 @@ public class CompanyController implements  Initializable{
         header.createCell(6).setCellValue("fld_NumberOfEmployees");
         header.createCell(7).setCellValue("fld_Information");
 
+        //Set the size to be auto.
         sheet.autoSizeColumn(0);
         sheet.autoSizeColumn(1);
         sheet.autoSizeColumn(2);
@@ -375,11 +378,12 @@ public class CompanyController implements  Initializable{
         sheet.autoSizeColumn(5);
         sheet.autoSizeColumn(6);
         sheet.autoSizeColumn(7);
+        //Set the zoom to 125%
         sheet.setZoom(125);
 
         int index = 1;
 
-        //JDBC
+        //JDBC to view the companies
         JDBC viewCompanies = new JDBC();
         viewCompanies.ViewCompanyTSQL();
 
@@ -397,7 +401,6 @@ public class CompanyController implements  Initializable{
                 row.createCell(5).setCellValue(resultSet.getString("fld_Zipcode"));
                 row.createCell(6).setCellValue(resultSet.getString("fld_NumberOfEmployees"));
                 row.createCell(7).setCellValue(resultSet.getString("fld_Information"));
-
                 index++;
             }
 
@@ -405,7 +408,6 @@ public class CompanyController implements  Initializable{
             wb.write(fileout);
             fileout.close();
             JOptionPane.showMessageDialog(null, "Export Done" );
-
 
         } catch (SQLException e) {
             e.printStackTrace();

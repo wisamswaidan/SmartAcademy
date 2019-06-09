@@ -9,7 +9,6 @@ import javafx.fxml.*;
 import javafx.fxml.FXML;
 import java.net.URL;
 import java.sql.SQLException;
-
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -58,7 +57,6 @@ public class UserController implements Initializable{
     private TableColumn<UserConstructor, String> col_usertype;
 
 
-
     //FXML for TestFields
     @FXML
     private TextField phone_TextField,address_TextField,zipcode_TextField,username_TextField,lastname_TextField,password_TextField,firstname_TextField ;
@@ -71,6 +69,10 @@ public class UserController implements Initializable{
     ObservableList<UserConstructor> oblistUser = FXCollections.observableArrayList();
     List<String> matchFoundList = new ArrayList<String>();
 
+
+    /**
+     * View Users in TableView from the database.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -90,7 +92,7 @@ public class UserController implements Initializable{
             }
         } while (true);
 
-        
+        //JDBC to view the users .
         JDBC viewUserList = new JDBC();
         viewUserList.ViewUserTSQL();
 
@@ -114,7 +116,7 @@ public class UserController implements Initializable{
             e.printStackTrace();
         }
 
-
+        //Set the result in TableView.
         col_firstname.setCellValueFactory(new PropertyValueFactory<>("FirstName"));
         col_lastname.setCellValueFactory(new PropertyValueFactory<>("LastName"));
         col_phone.setCellValueFactory(new PropertyValueFactory<>("TelephoneNumber"));
@@ -123,12 +125,12 @@ public class UserController implements Initializable{
         col_username.setCellValueFactory(new PropertyValueFactory<>("UserName"));
         col_password.setCellValueFactory(new PropertyValueFactory<>("Password"));
         col_usertype.setCellValueFactory(new PropertyValueFactory<>("UserType"));
-
-        //View the list in TableView
         tableUserView.setItems(oblistUser);
     }
 
-    //Method to Remove the company from DB
+    /**
+     * Remove User .
+     */
     @FXML
     public void removeUser(){
 
@@ -180,7 +182,9 @@ public class UserController implements Initializable{
 
     }
 
-    //Method to select the company wants to edit
+    /**
+     * Select User To Edit.
+     */
     @FXML
     public void selectToEditUser(){
 
@@ -265,7 +269,9 @@ public class UserController implements Initializable{
 
     }
 
-    //Method to Edit any company
+    /**
+     * Edit a User .
+     */
     @FXML
     public void editUser(){
 
@@ -310,6 +316,9 @@ public class UserController implements Initializable{
         }
     }
 
+    /**
+     * Create a new  User .
+     */
     @FXML
     public void addUser(ActionEvent event) throws Exception {
 
@@ -363,7 +372,9 @@ public class UserController implements Initializable{
     }
 
 
-    //Method to back to the main scene
+    /**
+     * Back to the main scene.
+     */
     public void backButton(ActionEvent event) throws Exception {
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));
         Scene showScene = new Scene(showPage);

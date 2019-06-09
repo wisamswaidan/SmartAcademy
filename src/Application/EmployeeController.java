@@ -43,7 +43,7 @@ public class EmployeeController implements Initializable {
     @FXML
     private Button addBut , selectBut, editBut ,removeBut ,backBut;
 
-    //Create tableView and TableColumns for tables
+    //Initialize a TableView and TableColumn.
     @FXML
     private TableView<EmployeeConstructor> tableEmpView;
     @FXML
@@ -63,8 +63,6 @@ public class EmployeeController implements Initializable {
     @FXML
     private TableColumn<EmployeeConstructor, String> col_companyID;
 
-
-
     //FXML for TestFields
     @FXML
     private TextField firstname_TextField,lastname_TextField,email_TextField,mobile_TextField,address_TextField,zipcode_TextField,information_TextField ;
@@ -77,10 +75,14 @@ public class EmployeeController implements Initializable {
     ObservableList<EmployeeConstructor> oblistEmp = FXCollections.observableArrayList();
     List<String> matchFoundList = new ArrayList<String>();
 
+
+    /**
+     * View Employees in TableView from the database.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        //JDBC
+        //JDBC to view the employees list
         JDBC viewEmpList = new JDBC();
         viewEmpList.ViewEmployeeTSQL();
 
@@ -120,10 +122,10 @@ public class EmployeeController implements Initializable {
             }
 
         } catch (SQLException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
 
-
+        //Set the result in TableView.
         col_firstname.setCellValueFactory(new PropertyValueFactory<>("Firstname"));
         col_lastname.setCellValueFactory(new PropertyValueFactory<>("Lastname"));
         col_email.setCellValueFactory(new PropertyValueFactory<>("Email"));
@@ -132,11 +134,12 @@ public class EmployeeController implements Initializable {
         col_zipcode.setCellValueFactory(new PropertyValueFactory<>("Zipcode"));
         col_information.setCellValueFactory(new PropertyValueFactory<>("Information"));
         col_companyID.setCellValueFactory(new PropertyValueFactory<>("CompanyID"));
-
-        //View the list in TableView
         tableEmpView.setItems(oblistEmp);
     }
 
+    /**
+     * Remove Employee .
+     */
     @FXML
     public void removeEmp(){
 
@@ -188,11 +191,13 @@ public class EmployeeController implements Initializable {
 
     }
 
-    //Method to select the company wants to edit
+    /**
+     * select the employee wants to edit .
+     */
     @FXML
     public void selectToEditEmp(){
 
-        //Create an object from JBDC class
+        //JDBC to edit employee
         JDBC editEmp = new JDBC();
         editEmp.EditEmployeeTSQL();
 
@@ -204,8 +209,6 @@ public class EmployeeController implements Initializable {
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
-        //System.out.println(data);
-
 
         //Check Method if the user select the AMU column to start the Delete process .
         boolean matchBoolena = false;
@@ -274,11 +277,13 @@ public class EmployeeController implements Initializable {
 
     }
 
-    //Method to Edit any company
+    /**
+     * Edit an Employee
+     */
     @FXML
     public void editEmp(){
 
-        //Create an object from JBDC class
+        //JDBC to update the employee information
         JDBC updateEmp = new JDBC();
         updateEmp.UpdateEmpTSQL();
 
@@ -316,10 +321,13 @@ public class EmployeeController implements Initializable {
 
     }
 
+    /**
+     * Create a new Employee
+     */
     @FXML
     public void addEmp(ActionEvent event) throws Exception {
 
-        //Create an object from JBDC class
+        //JDBC to create a new employee
         JDBC createEmp = new JDBC();
         createEmp.CreateEmployeeTSQL();
 
@@ -334,10 +342,10 @@ public class EmployeeController implements Initializable {
         String zipcode = zipcode_TextField.getText().trim();
         String information = information_TextField.getText().trim();
 
-
+        //check if there is any empty fields
         if (firstname.equals("") || lastname.equals("") || email.equals("") || mobile.equals("") || address.equals("") || zipcode.equals("") || information.equals("")) {
             JOptionPane.showMessageDialog(null, "Please fill all fields, some are empty");
-
+        //check for duplicate
         } else {
             DB.selectSQL("SELECT fld_Mobile from tbl_CompanyEmployees where fld_Mobile = '" + mobile + "'");
             String un = DB.getData();
@@ -357,7 +365,6 @@ public class EmployeeController implements Initializable {
                     preparedStatement.setInt(6,Integer.parseInt(zipcode));
                     preparedStatement.setString(7,information);
                     preparedStatement.setString(8,companyID);
-
                     preparedStatement.executeUpdate();
                     JOptionPane.showMessageDialog(null, "Create Done" );
 
@@ -369,6 +376,9 @@ public class EmployeeController implements Initializable {
         }
     }
 
+    /**
+     * Export to Excel file.
+     */
     public void exportExcel(){
 
         XSSFWorkbook wb = new XSSFWorkbook();
@@ -384,7 +394,7 @@ public class EmployeeController implements Initializable {
         header.createCell(6).setCellValue("fld_Information");
         header.createCell(7).setCellValue("fld_CompanyID");
 
-
+        //
         sheet.autoSizeColumn(0);
         sheet.autoSizeColumn(1);
         sheet.autoSizeColumn(2);
@@ -397,7 +407,7 @@ public class EmployeeController implements Initializable {
 
         int index = 1;
 
-        //JDBC
+        //JDBC to view employees .
         JDBC viewEmpList = new JDBC();
         viewEmpList.ViewEmployeeTSQL();
 
@@ -433,7 +443,10 @@ public class EmployeeController implements Initializable {
         }
 
     }
-    //Method to back to the main scene
+
+    /**
+     * Back to the main scene.
+     */
     public void backButton(ActionEvent event) throws Exception {
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));
         Scene showScene = new Scene(showPage);

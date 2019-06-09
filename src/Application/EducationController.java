@@ -31,11 +31,11 @@ public class EducationController implements  Initializable{
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
-    //Create Button
+    //Initialize new Buttons.
     @FXML
     private Button addBut , selectBut, editBut ,removeBut , backBut;
 
-    //Create tableView and TableColumns for tables
+    //Initialize TableView and TableColumns.
     @FXML
     private TableView <EducationConstructor> educations_table;
     @FXML
@@ -60,7 +60,9 @@ public class EducationController implements  Initializable{
     ObservableList<EducationConstructor> oblist = FXCollections.observableArrayList();
     List<String> matchFoundList = new ArrayList<String>();
 
-
+    /**
+     * View Educations data in TableView from the database.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -89,21 +91,20 @@ public class EducationController implements  Initializable{
             e.printStackTrace();
         }
 
-
+        //Set the result in TableView.
         col_amu.setCellValueFactory(new PropertyValueFactory<>("AMU"));
         col_title.setCellValueFactory(new PropertyValueFactory<>("Title"));
         col_provier.setCellValueFactory(new PropertyValueFactory<>("Provider"));
         col_numofday.setCellValueFactory(new PropertyValueFactory<>("NumOfDays"));
         col_type.setCellValueFactory(new PropertyValueFactory<>("Type"));
         col_info.setCellValueFactory(new PropertyValueFactory<>("information"));
-
-        //View the list in TableView
         educations_table.setItems(oblist);
-        //educations_table.setItems (FXCollections.observableArrayList(oblist));
 
     }
 
-    //Method to Remove the education
+    /**
+     * Remove a company.
+     */
     @FXML
     public void removeEdu(){
 
@@ -117,7 +118,7 @@ public class EducationController implements  Initializable{
         String data = (String) col.getCellObservableValue(item).getValue();
         //System.out.println(data);
 
-        //JBDC
+        //JBDC to delete education
         JDBC deleteEdu = new JDBC();
         deleteEdu.DeleteEducationTSQL();
 
@@ -129,7 +130,6 @@ public class EducationController implements  Initializable{
 
             String amuSearchMatch = matchFoundList.get(i);
             if (data.equals(amuSearchMatch)){
-                //System.out.println("match found " + amuSearchMatch);
                 resultMatch = amuSearchMatch;
                 matchBoolena = true;
 
@@ -137,7 +137,6 @@ public class EducationController implements  Initializable{
                     try {
                         preparedStatement = con.prepareStatement(deleteEdu.DeleteEducationTSQL());
                         preparedStatement.setString(1,resultMatch);
-
                         //We use executeUpdate() instead of executeQuery() because we dont expect any return .
                         preparedStatement.executeUpdate();
                         JOptionPane.showMessageDialog(null, "Delete Done" );
@@ -151,12 +150,11 @@ public class EducationController implements  Initializable{
 
         if(matchBoolena == false){
             JOptionPane.showMessageDialog(null, "Please choose AMU column " ); }
-
-
-
     }
 
-    //Method to select the education wants to edit
+    /**
+     * select the education wants to edit.
+     */
     @FXML
     public void selectToEditEdu(){
 
@@ -220,18 +218,6 @@ public class EducationController implements  Initializable{
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
-
-                    /*
-                    DB.selectSQL("SELECT * from tbl_Educations where fld_AMU ='" + resultMatch + "' ");
-                    do
-                    {
-                        String datas = DB.getDisplayData();
-                        if (datas.equals(DB.NOMOREDATA))
-                        {break;}
-                        else System.out.println(datas);
-                    } while (true);
-
-                     */
                 }
             }
         }
@@ -241,7 +227,9 @@ public class EducationController implements  Initializable{
         }
     }
 
-    //Method to Edit any education
+    /**
+     *  Edit an education.
+     */
     @FXML
     public void editEdu(){
 
@@ -260,14 +248,12 @@ public class EducationController implements  Initializable{
         try {
             //Start the JDBC
             preparedStatement = con.prepareStatement(update_Edu.UpdateEducationTSQL());
-
             preparedStatement.setString(1,title);
             preparedStatement.setString(2,information);
             preparedStatement.setInt(3,Integer.parseInt(number_of_Days));
             preparedStatement.setString(4,provider);
             preparedStatement.setString(5,type);
             preparedStatement.setInt(6,Integer.parseInt(amu));
-
             preparedStatement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Edit Done" );
 
@@ -275,12 +261,11 @@ public class EducationController implements  Initializable{
             JOptionPane.showMessageDialog(null, "Wrong with Editing " );
             e.printStackTrace();
         }
-
-
-
     }
 
-    //Method to create a new education
+    /**
+     *  Create a new education
+     */
     @FXML
     public void addEducation(){
 
@@ -331,7 +316,9 @@ public class EducationController implements  Initializable{
         }
     }
 
-    //Method to back to the main scene
+    /**
+     * Back to the main scene .
+     */
     public void backButton(ActionEvent event) throws Exception {
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));
         Scene showScene = new Scene(showPage);

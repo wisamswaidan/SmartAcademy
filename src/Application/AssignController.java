@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
 
 public class AssignController implements Initializable {
 
+
     //Start the connection to DB.
     Connection con = DB.connect();
     //Create preparedStatement Object
@@ -35,31 +36,41 @@ public class AssignController implements Initializable {
     ResultSet resultSet = null;
 
 
+    //Initialize new Buttons.
     @FXML
     private Button assignBut , deleteBut , backBut;
+
+    //Initialize ChoiceBox.
     @FXML
     private ChoiceBox<String> companyBox;
     @FXML
     private ChoiceBox<String> userBox;
+
+    //Initialize TableView.
     @FXML
     private TableView<AssignUserContractor> assignTable;
+
+    //Initialize TableColumns.
     @FXML
     private TableColumn<AssignUserContractor, String> col_Company;
     @FXML
     private TableColumn<AssignUserContractor, String> col_User;
 
-    //Create ObservableList to read user access level from database and use it for Drop menu
+    //Create ObservableList to save the data from database and use it for the drop menu.
     ObservableList<String> companyIDList = FXCollections.observableArrayList();
     ObservableList<String> userIDList = FXCollections.observableArrayList();
     ObservableList<AssignUserContractor> oblist = FXCollections.observableArrayList();
-
+    //Create Array List to save the data from database and use it for finding match when the users do the select.
     List<String> companyIDSearch = new ArrayList<String>();
     List<String> usernameSearch = new ArrayList<String>();
 
-
+     /**
+     * View Assigned users data in TableView from the database.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        //Get company id from database and show the results in drop menu
         DB.selectSQL("SELECT fld_CompanyID from tbl_Companies");
         do
         {
@@ -76,7 +87,7 @@ public class AssignController implements Initializable {
             }
         } while (true);
 
-        //
+        //Get username from database and show the results in drop menu
         DB.selectSQL("SELECT fld_UserName from tbl_Users");
         do
         {
@@ -94,8 +105,7 @@ public class AssignController implements Initializable {
         } while (true);
 
 
-
-        //JDBC
+        // JDBC to view the Assigned users from database .
         JDBC viewAssignedList = new JDBC();
         viewAssignedList.ViewAssignTSQL();
 
@@ -111,21 +121,22 @@ public class AssignController implements Initializable {
                         // Add the value we need to check for a match with to the list
                         companyIDSearch.add(resultSet.getString("fld_ComapnyID"));
                         usernameSearch.add(resultSet.getString("fld_UserName"));
-
-
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        //Set the result in TableView.
         col_Company.setCellValueFactory(new PropertyValueFactory<>("Company"));
         col_User.setCellValueFactory(new PropertyValueFactory<>("User"));
         assignTable.setItems(oblist);
-
-
     }
 
+
+    /**
+     * Create a new assign between users and companies .
+     */
     @FXML
     public void assignUserToCom() throws SQLException {
 
@@ -133,7 +144,7 @@ public class AssignController implements Initializable {
         String getCompanyID = companyBox.getValue();
         String getUserList = userBox.getValue();
 
-        //Create an object from JBDC class
+        // JDBC to create a new assign .
         JDBC createAssign = new JDBC();
         createAssign.CreateAssignTSQL();
 
@@ -150,23 +161,27 @@ public class AssignController implements Initializable {
             e.printStackTrace();
         }
 
-
     }
 
+
+    /**
+     * Remove the assigned between users and companies .
+     */
     @FXML
     public void removeAssigned(){
 
-        //JBDC
+        // JDBC to remove a assigned users .
         JDBC deleteAssigned = new JDBC();
         deleteAssigned.DeleteAssignTSQL();
 
         //Create an object for selection cells...
         TablePosition pos = assignTable.getSelectionModel().getSelectedCells().get(0);
+        //get the select position
         int row = pos.getRow();
-        //Item here is the table view type:
+        //Table view type:
         AssignUserContractor item = assignTable.getItems().get(row);
         TableColumn col = pos.getTableColumn();
-        // Gives the value in the selected cell:
+        // Set the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
 
         //Check Method if the user select the correct column to start the Delete process .
@@ -185,6 +200,7 @@ public class AssignController implements Initializable {
                 matchBoolena = true;
             }
         }
+
         //Start the Delete JDBC
         if(matchBoolena == true){
             try {
@@ -206,12 +222,11 @@ public class AssignController implements Initializable {
             System.out.println("Error");
         }
 
-
-
-
     }
 
-    //Method to back to the main scene
+    /**
+     * Back to the main scene .
+     */
     public void backButton(ActionEvent event) throws Exception {
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));
         Scene showScene = new Scene(showPage);

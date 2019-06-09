@@ -13,6 +13,9 @@ import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
 
+    /**
+     * Move to education scene.
+     */
     public void ShowEduOptions(ActionEvent event) throws Exception {
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/education.fxml"));
         Scene showScene = new Scene(showPage);
@@ -29,6 +32,9 @@ public class MainController implements Initializable {
 
          */
     }
+    /**
+     * Move to users scene.
+     */
     public void ShowUsersOptions(ActionEvent event) throws Exception {
 
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/user.fxml"));
@@ -38,6 +44,9 @@ public class MainController implements Initializable {
         showApp.show();
 
     }
+    /**
+     * Move to company scene.
+     */
     public void ShowCompaniesOptions(ActionEvent event) throws Exception {
 
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/company.fxml"));
@@ -47,6 +56,9 @@ public class MainController implements Initializable {
         showApp.show();
 
     }
+    /**
+     * Move to employee scene.
+     */
     public void ShowEmployeesOptions(ActionEvent event) throws Exception {
 
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/employee.fxml"));
@@ -56,6 +68,9 @@ public class MainController implements Initializable {
         showApp.show();
 
     }
+    /**
+     * Move to Assign user scene.
+     */
     public void ShowAssignUserOptions(ActionEvent event) throws Exception {
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/assignUser.fxml"));
         Scene showScene = new Scene(showPage);
@@ -64,6 +79,9 @@ public class MainController implements Initializable {
         showApp.show();
 
     }
+    /**
+     * Move to education Schedule scene.
+     */
     public void ShowEduSchOptions(ActionEvent event) throws Exception {
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/eduSch.fxml"));
         Scene showScene = new Scene(showPage);
@@ -72,6 +90,9 @@ public class MainController implements Initializable {
         showApp.show();
 
     }
+    /**
+     * Move to education plan scene.
+     */
     public void ShowEduPlanOptions(ActionEvent event) throws Exception {
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/educationPlan.fxml"));
         Scene showScene = new Scene(showPage);

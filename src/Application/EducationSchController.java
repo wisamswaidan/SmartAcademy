@@ -54,20 +54,21 @@ public class EducationSchController  implements Initializable {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
+    //Initialize new Buttons.
     @FXML
     Button addDateBut ,schEduBut  , deleteBut, backBut , createIDBut , deleteIDBut;
+    //Initialize a TextFields.
     @FXML
     private TextField eduSchID_TextField;
-
+    //Initialize a ChoiceBox.
     @FXML
     private ChoiceBox<String> amuBox;
     @FXML
     private ChoiceBox<String> idBox;
 
-
+    //Initialize a TableView and TableColumn.
     @FXML
     private TableView<EducationSchConstractor> schEduTable;
-
     @FXML
     private TableColumn <EducationSchConstractor, String> col_id;
     @FXML
@@ -80,15 +81,17 @@ public class EducationSchController  implements Initializable {
     ObservableList<String> amuList = FXCollections.observableArrayList();
     ObservableList<String> idList = FXCollections.observableArrayList();
 
-    //
+    //Create ObservableList to read data from database and add it to the list to control it (Select , Delete and Edit)
     ObservableList<EducationSchConstractor> oblist = FXCollections.observableArrayList();
     List<String> eduSchIDSearch = new ArrayList<String>();
 
-    //
+    //Create ObservableList to for selected Dates .
     ObservableList<LocalDate> selectedDates = FXCollections.observableArrayList();
     ListView<LocalDate>dateList = new ListView<>(selectedDates);
 
-
+    /**
+     * View Educations Schedule in TableView from the database.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -127,7 +130,7 @@ public class EducationSchController  implements Initializable {
 
 
 
-        //JDBC
+        //JDBC to View the Educations Schedule
         JDBC viewEduSch = new JDBC();
         viewEduSch.ViewEducationSchTSQL();
 
@@ -141,29 +144,28 @@ public class EducationSchController  implements Initializable {
                         resultSet.getString("fld_EduSch_ID"),
                         resultSet.getString("AMU"),
                         resultSet.getString("fld_Date")));
-
-                // Add the value we need to check for a match with to the list
-                eduSchIDSearch.add(resultSet.getString("fld_EduSch_ID"));
-
-
+                        // Add the value we need to check for a match with to the list
+                        eduSchIDSearch.add(resultSet.getString("fld_EduSch_ID"));
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        //Set the result in TableView.
         col_id.setCellValueFactory(new PropertyValueFactory<>("ID"));
         col_amu.setCellValueFactory(new PropertyValueFactory<>("AMU"));
         col_date.setCellValueFactory(new PropertyValueFactory<>("Date"));
-
         schEduTable.setItems(oblist);
     }
 
-    //Method to Remove the company
+    /**
+     * Remove Educations Schedule .
+     */
     @FXML
     public void removeEduSch(){
 
-        //JBDC
+        //JBDC to delete an educations Schedule
         JDBC deleteEduSch = new JDBC();
         deleteEduSch.DeleteEducationSchSQL();
 
@@ -175,8 +177,6 @@ public class EducationSchController  implements Initializable {
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
-        //System.out.println(data);
-
 
         //Check Method if the user select the AMU column to start the Delete process .
         boolean matchBoolena = false;
@@ -193,7 +193,6 @@ public class EducationSchController  implements Initializable {
                     try {
                         preparedStatement = con.prepareStatement(deleteEduSch.DeleteEducationSchSQL());
                         preparedStatement.setString(1,resultMatch);
-
                         //We use executeUpdate() instead of executeQuery() because we dont expect any return .
                         preparedStatement.executeUpdate();
                         JOptionPane.showMessageDialog(null, "Delete Done" );
@@ -210,6 +209,9 @@ public class EducationSchController  implements Initializable {
 
     }
 
+    /**
+     * Create a new date frame .
+     */
     @FXML
     public void launchSwing() {
         SwingUtilities.invokeLater(() -> {
@@ -223,6 +225,9 @@ public class EducationSchController  implements Initializable {
         });
     }
 
+    /**
+     * Create a new Scene .
+     */
     @FXML
     public Scene createScene() {
         Button addButton     = new Button("+");
@@ -291,10 +296,16 @@ public class EducationSchController  implements Initializable {
 
     }
 
+    /**
+     * Remove a date from JFrame .
+     */
     private static boolean removeSelectedDates(ObservableList<LocalDate> selectedDates, ListView<LocalDate> dateList) {
         return selectedDates.removeAll(dateList.getSelectionModel().getSelectedItems());
     }
 
+    /**
+     * Create a new Educations Schedule .
+     */
     @FXML
     public void addEduSch(){
 
@@ -327,6 +338,9 @@ public class EducationSchController  implements Initializable {
         JOptionPane.showMessageDialog(null, "Create Done" );
     }
 
+    /**
+     * Add the selected date to a list.
+     */
     @FXML
     public void addEduSchID(){
 
@@ -362,6 +376,9 @@ public class EducationSchController  implements Initializable {
         }
     }
 
+    /**
+     * Remove Educations Schedule id .
+     */
     @FXML
     public void RemoveEduSchID(){
 
@@ -398,6 +415,9 @@ public class EducationSchController  implements Initializable {
         }
     }
 
+    /**
+     * Export to Excel file.
+     */
     public void exportExcel(){
 
         XSSFWorkbook wb = new XSSFWorkbook();
@@ -447,7 +467,9 @@ public class EducationSchController  implements Initializable {
 
     }
 
-
+    /**
+     * Back to the main scene.
+     */
     public void backButton(ActionEvent event) throws Exception {
         Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));
         Scene showScene = new Scene(showPage);

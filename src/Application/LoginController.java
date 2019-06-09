@@ -44,7 +44,6 @@ public class LoginController  {
     @FXML
     private Button login_Button;
 
-
     /**
      * Check the username and the password TextField was entered from the login scene and start
      * the connection to database .
@@ -66,7 +65,7 @@ public class LoginController  {
 
 
         try {
-            //Start the JDBC read query and read the loginTSQL_query
+            //Start the JDBC read query and read the loginTSQL_query method
             preparedStatement = con.prepareStatement(login.loginTSQL());
             preparedStatement.setString(1,userName);
             preparedStatement.setString(2,password);
@@ -78,14 +77,11 @@ public class LoginController  {
             }
             else {
                 JOptionPane.showMessageDialog(null, "Welcome " + userName);
-
                 Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));
                 Scene showScene = new Scene(showPage);
                 Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 showApp.setScene(showScene);
                 showApp.show();
-
-
             }
 
         } catch (SQLException e) {
