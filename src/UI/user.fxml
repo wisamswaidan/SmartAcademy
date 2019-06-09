@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -8,14 +9,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.UserController">
+<AnchorPane prefHeight="800.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.UserController">
 <children>
-   <ImageView fitHeight="768.0" fitWidth="1024.0">
-      <image>
-         <Image url="@Images/Education.jpg" />
-      </image>
-   </ImageView>
-   <TableView fx:id="tableUserView" layoutX="14.0" layoutY="159.0" prefHeight="554.0" prefWidth="660.0">
+      <ImageView fitHeight="800.0" fitWidth="1050.0" layoutX="-1.0" layoutY="-1.0">
+         <image>
+            <Image url="@Images/user.jpg" />
+         </image>
+      </ImageView>
+   <TableView fx:id="tableUserView" layoutX="37.0" layoutY="123.0" prefHeight="554.0" prefWidth="660.0">
       <columns>
          <TableColumn fx:id="col_firstname" text="Firstname" />
          <TableColumn fx:id="col_lastname" prefWidth="74.0" text="Lastname" />
@@ -27,19 +28,29 @@
          <TableColumn fx:id="col_usertype" prefWidth="106.0" text="Usertype" />
       </columns>
    </TableView>
-   <Button fx:id="editBut" layoutX="767.0" layoutY="688.0" mnemonicParsing="false" onAction="#editUser" text="Edit" />
-   <Button fx:id="removeBut" layoutX="817.0" layoutY="688.0" mnemonicParsing="false" onAction="#removeUser" text="Delete" />
-   <Button fx:id="backBut" layoutX="878.0" layoutY="688.0" mnemonicParsing="false" onAction="#backButton" text="Back" />
-   <ChoiceBox fx:id="accessBox" layoutX="719.0" layoutY="433.0" prefWidth="150.0" />
-   <TextField fx:id="password_TextField" layoutX="720.0" layoutY="398.0" promptText="Password" />
-   <TextField fx:id="username_TextField" layoutX="720.0" layoutY="362.0" promptText="Username" />
-   <TextField fx:id="zipcode_TextField" layoutX="720.0" layoutY="328.0" promptText="Zipcode" />
-   <TextField fx:id="address_TextField" layoutX="720.0" layoutY="291.0" promptText="Address" />
-   <TextField fx:id="phone_TextField" layoutX="720.0" layoutY="257.0" promptText="Telephone" />
-   <TextField fx:id="lastname_TextField" layoutX="720.0" layoutY="220.0" promptText="Lastname" />
-   <TextField fx:id="firstname_TextField" layoutX="720.0" layoutY="186.0" promptText="Firstname" />
-   <Button fx:id="addBut" layoutX="894.0" layoutY="291.0" mnemonicParsing="false" onAction="#addUser" text="Add" />
-   <Text layoutX="721.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Would you like to add a new EASVSMART user?" />
-      <Button fx:id="selectBut" layoutX="707.0" layoutY="688.0" mnemonicParsing="false" onAction="#selectToEditUser" text="Select" />
+   <Button fx:id="editBut" layoutX="771.0" layoutY="553.0" mnemonicParsing="false" onAction="#editUser" prefHeight="25.0" prefWidth="149.0" text="Edit" />
+   <Button fx:id="removeBut" layoutX="771.0" layoutY="595.0" mnemonicParsing="false" onAction="#removeUser" prefHeight="25.0" prefWidth="149.0" text="Delete" />
+   <Button fx:id="backBut" layoutX="769.0" layoutY="637.0" mnemonicParsing="false" onAction="#backButton" prefHeight="25.0" prefWidth="149.0" text="Back" />
+   <ChoiceBox fx:id="accessBox" layoutX="769.0" layoutY="427.0" prefWidth="150.0" />
+   <TextField fx:id="password_TextField" layoutX="770.0" layoutY="392.0" promptText="Password" />
+   <TextField fx:id="username_TextField" layoutX="770.0" layoutY="356.0" promptText="Username" />
+   <TextField fx:id="zipcode_TextField" layoutX="770.0" layoutY="322.0" promptText="Zipcode" />
+   <TextField fx:id="address_TextField" layoutX="770.0" layoutY="285.0" promptText="Address" />
+   <TextField fx:id="phone_TextField" layoutX="770.0" layoutY="251.0" promptText="Telephone" />
+   <TextField fx:id="lastname_TextField" layoutX="770.0" layoutY="214.0" promptText="Lastname" />
+   <TextField fx:id="firstname_TextField" layoutX="770.0" layoutY="180.0" promptText="Firstname" />
+   <Button fx:id="addBut" layoutX="771.0" layoutY="470.0" mnemonicParsing="false" onAction="#addUser" prefHeight="17.0" prefWidth="149.0" text="Add" />
+   <Text layoutX="719.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Would you like to add a new EASVSMART user?">
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect></Text>
+      <Button fx:id="selectBut" layoutX="771.0" layoutY="511.0" mnemonicParsing="false" onAction="#selectToEditUser" prefHeight="25.0" prefWidth="149.0" text="Select" />
 </children>
 </AnchorPane>

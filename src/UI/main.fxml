@@ -5,19 +5,19 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.MainController">
    <children>
-      <ImageView fitHeight="500.0" fitWidth="800.0">
+      <ImageView fitHeight="800.0" fitWidth="1050.0">
          <image>
             <Image url="@Images/main.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="14.0" layoutY="88.0" mnemonicParsing="false" onAction="#ShowUsersOptions" prefHeight="25.0" prefWidth="123.0" text="Users" />
-      <Button layoutX="14.0" layoutY="125.0" mnemonicParsing="false" onAction="#ShowEduOptions" prefHeight="25.0" prefWidth="123.0" text="Educations" />
-      <Button layoutX="14.0" layoutY="161.0" mnemonicParsing="false" onAction="#ShowCompaniesOptions" prefHeight="25.0" prefWidth="123.0" text="Companies" />
-      <Button layoutX="14.0" layoutY="200.0" mnemonicParsing="false" onAction="#ShowEmployeesOptions" prefHeight="25.0" prefWidth="123.0" text="Employees" />
-      <Button layoutX="14.0" layoutY="277.0" mnemonicParsing="false" onAction="#ShowEduSchOptions" prefHeight="25.0" prefWidth="123.0" text="Education Schedule" />
-      <Button layoutX="14.0" layoutY="237.0" mnemonicParsing="false" onAction="#ShowAssignUserOptions" prefHeight="25.0" prefWidth="123.0" text="Assign User" />
-      <Button layoutX="14.0" layoutY="312.0" mnemonicParsing="false" onAction="#ShowEduPlanOptions" prefHeight="25.0" prefWidth="123.0" text="Education Plan" />
+      <Button layoutX="52.0" layoutY="220.0" mnemonicParsing="false" onAction="#ShowUsersOptions" prefHeight="25.0" prefWidth="123.0" text="Users" />
+      <Button layoutX="52.0" layoutY="257.0" mnemonicParsing="false" onAction="#ShowEduOptions" prefHeight="25.0" prefWidth="123.0" text="Educations" />
+      <Button layoutX="52.0" layoutY="293.0" mnemonicParsing="false" onAction="#ShowCompaniesOptions" prefHeight="25.0" prefWidth="123.0" text="Companies" />
+      <Button layoutX="52.0" layoutY="332.0" mnemonicParsing="false" onAction="#ShowEmployeesOptions" prefHeight="25.0" prefWidth="123.0" text="Employees" />
+      <Button layoutX="52.0" layoutY="409.0" mnemonicParsing="false" onAction="#ShowEduSchOptions" prefHeight="25.0" prefWidth="123.0" text="Education Schedule" />
+      <Button layoutX="52.0" layoutY="369.0" mnemonicParsing="false" onAction="#ShowAssignUserOptions" prefHeight="25.0" prefWidth="123.0" text="Assign User" />
+      <Button layoutX="52.0" layoutY="444.0" mnemonicParsing="false" onAction="#ShowEduPlanOptions" prefHeight="25.0" prefWidth="123.0" text="Education Plan" />
    </children>
 </Pane>

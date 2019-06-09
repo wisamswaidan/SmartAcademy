@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -22,9 +23,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.swing.*;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -351,13 +350,13 @@ public class EducationPlanController implements Initializable {
                 row.createCell(4).setCellValue(resultSet.getString("fld_Information"));
                 row.createCell(5).setCellValue(resultSet.getString("fld_EduSch_ID"));
                 index++;
+
             }
 
             FileOutputStream fileout = new FileOutputStream("EducationPlan.xlsx");
             wb.write(fileout);
             fileout.close();
             JOptionPane.showMessageDialog(null, "Export Done" );
-
 
         } catch (SQLException e) {
             e.printStackTrace();
