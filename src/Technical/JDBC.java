@@ -38,10 +38,11 @@ public class JDBC {
         return sql;
     }
 
-    public String EditUserTSQL(){
+    public static String EditUserTSQL(){
 
         //SQL_Query to......
         String sql = "SELECT * from tbl_Users WHERE fld_UserName = ?";
+        //String sql = "{ call ViewSpecificUser(?) }";
         return sql;
     }
 

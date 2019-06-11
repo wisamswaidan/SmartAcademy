@@ -22,15 +22,6 @@ public class MainController implements Initializable {
         Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
         showApp.setScene(showScene);
         showApp.show();
-
-        /*
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/UI/education.fxml"));
-        Parent root = (Parent) fxmlLoader.load();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
-
-         */
     }
     /**
      * Move to users scene.

@@ -3,20 +3,20 @@ package Application;
 import Domain.UserConstructor;
 import Foundation.DB;
 import Technical.JDBC;
+import Technical.StoredProcedures;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.*;
 import javafx.fxml.FXML;
 import java.net.URL;
-import java.sql.SQLException;
+import java.sql.*;
+
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -185,12 +185,9 @@ public class UserController implements Initializable{
     /**
      * Select User To Edit.
      */
+
     @FXML
     public void selectToEditUser(){
-
-        //Create an object from JBDC class
-        JDBC edit_user = new JDBC();
-        edit_user.EditUserTSQL();
 
         //Create an object for selection cells...
         TablePosition pos = tableUserView.getSelectionModel().getSelectedCells().get(0);
@@ -200,8 +197,6 @@ public class UserController implements Initializable{
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
-        //System.out.println(data);
-
 
         //Check Method if the user select the AMU column to start the Delete process .
         boolean matchBoolena = false;
@@ -212,19 +207,23 @@ public class UserController implements Initializable{
             String userSearchMatch = matchFoundList.get(i);
             if (data.equals(userSearchMatch)){
                 resultMatch = userSearchMatch;
-                //System.out.println(resultMatch);
 
                 matchBoolena = true;
 
                 if(matchBoolena == true){
 
                     try {
-                        //Start the JDBC
-                        preparedStatement = con.prepareStatement(edit_user.EditUserTSQL());
-                        preparedStatement.setString(1,resultMatch);
-                        ResultSet rs = preparedStatement.executeQuery();
 
-                        while (rs.next()) {
+                        //Start the StoredProcedures
+                        StoredProcedures.ViewSpecificUser();
+                        ResultSet rs;
+                        try (CallableStatement stmt = con.prepareCall(StoredProcedures.ViewSpecificUser())) {
+                            //pass all the parameters to the stored procedure.
+                            stmt.setString(1, resultMatch);
+                            rs = stmt.executeQuery();
+                            //Get the results
+                            while (rs.next()) {
+
                             String fld_FirstName = rs.getString("fld_FirstName");
                             firstname_TextField.setText(fld_FirstName);
 
@@ -251,7 +250,7 @@ public class UserController implements Initializable{
 
                             //Set the user type inside the Drop menu
                             accessBox.setValue(fld_UserType.trim());
-
+                            }
                         }
 
                     } catch (SQLException e) {

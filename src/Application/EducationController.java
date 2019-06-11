@@ -3,6 +3,7 @@ package Application;
 import Domain.EducationConstructor;
 import Foundation.DB;
 import Technical.JDBC;
+import Technical.StoredProcedures;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -244,7 +245,6 @@ public class EducationController implements  Initializable{
         JDBC update_Edu = new JDBC();
         update_Edu.UpdateEducationTSQL();
 
-
         try {
             //Start the JDBC
             preparedStatement = con.prepareStatement(update_Edu.UpdateEducationTSQL());
@@ -263,15 +263,14 @@ public class EducationController implements  Initializable{
         }
     }
 
+
     /**
      *  Create a new education
      */
     @FXML
     public void addEducation(){
-
-        //Create an object from JBDC class
-        JDBC create_Edu = new JDBC();
-        create_Edu.CreateEducationTSQL();
+        StoredProcedures.createNewEdu();
+        ResultSet rs;
 
         //Text field read the javafx fields .
         String amu = amu_TextField.getText().trim();
@@ -292,20 +291,15 @@ public class EducationController implements  Initializable{
                 JOptionPane.showMessageDialog(null, "AMU already exist");
             }
             else{
-                //SQL statement
-                //DB.insertSQL("INSERT INTO tbl_Educations VALUES('" + amu + "', '" + title + "', '" + provider + "' , '" + number_of_Days + "', '" + information + "')");
 
-                try {
-                    //Start the JDBC
-                    preparedStatement = con.prepareStatement(create_Edu.CreateEducationTSQL());
-                    preparedStatement.setInt(1,Integer.parseInt(amu));
-                    preparedStatement.setString(2,title);
-                    preparedStatement.setString(3,provider);
-                    preparedStatement.setInt(4,Integer.parseInt(number_of_Days));
-                    preparedStatement.setString(5,information);
-                    preparedStatement.setString(6,type);
-
-                    preparedStatement.executeUpdate();
+                try (CallableStatement stmt = con.prepareCall(StoredProcedures.createNewEdu())) {
+                    stmt.setInt(1,Integer.parseInt(amu));
+                    stmt.setString(2,title);
+                    stmt.setString(3,provider);
+                    stmt.setInt(4,Integer.parseInt(number_of_Days));
+                    stmt.setString(5,information);
+                    stmt.setString(6,type);
+                    rs = stmt.executeQuery();
                     JOptionPane.showMessageDialog(null, "Create Done" );
 
                 } catch (SQLException e) {
@@ -315,6 +309,7 @@ public class EducationController implements  Initializable{
             }
         }
     }
+
 
     /**
      * Back to the main scene .

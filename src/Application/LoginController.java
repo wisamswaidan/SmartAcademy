@@ -3,6 +3,7 @@ package Application;
 
 import Foundation.DB;
 import Technical.JDBC;
+import Technical.StoredProcedures;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.Node;
@@ -11,13 +12,10 @@ import javafx.scene.control.Button;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javax.swing.*;
-import java.sql.SQLException;
+import java.sql.*;
+
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 
 public class LoginController  {
@@ -55,24 +53,23 @@ public class LoginController  {
         //Start the connection to DB.
         Connection con = DB.connect();
 
-        //Create an object from JBDC class to read the user name and the password from the database .
-        JDBC login = new JDBC();
-        login.loginTSQL();
-
         //Text field read the username and password .
         String userName = username_TextField.getText().trim();
         String password = password_TextField.getText().trim();
 
+        //Start the StoredProcedures
+        StoredProcedures.checkLogin();
+        ResultSet rs;
 
-        try {
-            //Start the JDBC read query and read the loginTSQL_query method
-            preparedStatement = con.prepareStatement(login.loginTSQL());
-            preparedStatement.setString(1,userName);
-            preparedStatement.setString(2,password);
-            resultSet = preparedStatement.executeQuery();
+
+        try (CallableStatement stmt = con.prepareCall(StoredProcedures.checkLogin())){
+
+            stmt.setString(1,userName);
+            stmt.setString(2,password);
+            rs = stmt.executeQuery();
 
             //Check for match from text fields and the date from database.
-            if (!resultSet.next()) {
+            if (!rs.next()) {
                 JOptionPane.showMessageDialog(null, "Username or password is wrong" );
             }
             else {

@@ -14,8 +14,8 @@
          </image>
       </ImageView>
       <Text layoutX="572.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Would you like to add a new Education Plan ?" wrappingWidth="256.056640625" />
-      <Button fx:id="addBut" layoutX="572.0" layoutY="437.0" mnemonicParsing="false" onAction="#addEduPlan" prefHeight="25.0" prefWidth="149.0" text="Add" />
-      <TextField fx:id="planID_TextField" layoutX="572.0" layoutY="183.0" promptText="PlanID" />
+      <Button fx:id="addBut" layoutX="572.0" layoutY="482.0" mnemonicParsing="false" onAction="#addEduPlan" prefHeight="25.0" prefWidth="149.0" text="Add" />
+      <TextField fx:id="planID_TextField" layoutX="572.0" layoutY="228.0" promptText="PlanID" />
       <Button fx:id="backBut" layoutX="928.0" layoutY="747.0" mnemonicParsing="false" onAction="#backButton" prefHeight="25.0" prefWidth="94.0" text="Back" />
       <Button fx:id="removeBut" layoutX="24.0" layoutY="685.0" mnemonicParsing="false" onAction="#removeEduPlan" prefHeight="25.0" prefWidth="102.0" text="Delete" />
       <TableView fx:id="tableEduPlan" layoutX="24.0" layoutY="152.0" prefHeight="522.0" prefWidth="521.0">
@@ -28,15 +28,15 @@
             <TableColumn fx:id="col_EduSch_ID" prefWidth="99.0" text="EduSch_ID" />
          </columns>
       </TableView>
-      <TextField fx:id="information_TextField" layoutX="572.0" layoutY="222.0" promptText="Information" />
-      <Text layoutX="738.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AMU" />
-      <ChoiceBox fx:id="eduAMUaccessBox" layoutX="572.0" layoutY="260.0" prefHeight="25.0" prefWidth="149.0" />
-      <ChoiceBox fx:id="empMobileAccessBox" layoutX="572.0" layoutY="302.0" prefHeight="25.0" prefWidth="149.0" />
-      <Text layoutX="738.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Mobile" />
-      <ChoiceBox fx:id="companyIDaccessBox" layoutX="572.0" layoutY="345.0" prefHeight="25.0" prefWidth="149.0" />
-      <Text layoutX="738.0" layoutY="362.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company ID" />
-      <ChoiceBox fx:id="eduSchaccessBox" layoutX="572.0" layoutY="388.0" prefHeight="25.0" prefWidth="149.0" />
-      <Text layoutX="738.0" layoutY="405.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Education schedule" />
+      <TextField fx:id="information_TextField" layoutX="572.0" layoutY="267.0" promptText="Information" />
+      <Text layoutX="738.0" layoutY="322.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AMU" />
+      <ChoiceBox fx:id="eduAMUaccessBox" layoutX="572.0" layoutY="305.0" prefHeight="25.0" prefWidth="149.0" />
+      <ChoiceBox fx:id="empMobileAccessBox" layoutX="572.0" layoutY="347.0" prefHeight="25.0" prefWidth="149.0" />
+      <Text layoutX="738.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Mobile" />
+      <ChoiceBox fx:id="companyIDaccessBox" layoutX="572.0" layoutY="390.0" prefHeight="25.0" prefWidth="149.0" />
+      <Text layoutX="738.0" layoutY="407.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Company ID" />
+      <ChoiceBox fx:id="eduSchaccessBox" layoutX="572.0" layoutY="433.0" prefHeight="25.0" prefWidth="149.0" />
+      <Text layoutX="738.0" layoutY="450.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Education schedule" />
       <Button fx:id="exportBut" layoutX="28.0" layoutY="722.0" mnemonicParsing="false" onAction="#exportExcel" text="Export to Excel" />
    </children>
 </Pane>
