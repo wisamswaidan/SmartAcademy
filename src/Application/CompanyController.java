@@ -93,8 +93,7 @@ public class CompanyController implements  Initializable{
                         resultSet.getString("fld_Zipcode"),
                         resultSet.getString("fld_NumberOfEmployees"),
                         resultSet.getString("fld_Information")));
-                        // Add the value we need to check for a match with to the list
-                        matchFoundList.add(resultSet.getString("fld_CompanyID"));
+
             }
 
         } catch (SQLException e) {
@@ -129,38 +128,22 @@ public class CompanyController implements  Initializable{
         int row = pos.getRow();
         //Item here is the educations_table view type:
         CompanyConstructor item = companies_table.getItems().get(row);
+        String getIDField = item.getID();
+
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
 
-        //Check Method if the user select the AMU column to start the Delete process .
-        boolean matchBoolena = false;
-        String resultMatch = "";
+        try {
+            preparedStatement = con.prepareStatement(deleteComp.DeleteCompanyTSQL());
+            preparedStatement.setString(1,getIDField);
+            //We use executeUpdate() instead of executeQuery() because we dont expect any return .
+            preparedStatement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Delete Done" );
 
-        for(int i = 0; i < matchFoundList.size() ; i++){
-
-            String amuSearchMatch = matchFoundList.get(i);
-            if (data.equals(amuSearchMatch)){
-                //System.out.println("match found " + amuSearchMatch);
-                resultMatch = amuSearchMatch;
-                matchBoolena = true;
-
-                if(matchBoolena == true){
-                    try {
-                        preparedStatement = con.prepareStatement(deleteComp.DeleteCompanyTSQL());
-                        preparedStatement.setString(1,resultMatch);
-                        //We use executeUpdate() instead of executeQuery() because we dont expect any return .
-                        preparedStatement.executeUpdate();
-                        JOptionPane.showMessageDialog(null, "Delete Done" );
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        if(matchBoolena == false){
-            JOptionPane.showMessageDialog(null, "Please choose AMU column " ); }
     }
 
     /**
@@ -178,71 +161,49 @@ public class CompanyController implements  Initializable{
         int row = pos.getRow();
         //Item here is the educations_table view type:
         CompanyConstructor item = companies_table.getItems().get(row);
+        String getIDField = item.getID();
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
 
-        //Check Method if the user select the AMU column to start the Delete process .
-        boolean matchBoolena = false;
-        String resultMatch = "";
+        try {
+            //Start the JDBC
+            preparedStatement = con.prepareStatement(edit_Comp.EditCompanyTSQL());
+            preparedStatement.setInt(1,Integer.parseInt(getIDField));
+            ResultSet rs = preparedStatement.executeQuery();
 
-        for(int i = 0; i < matchFoundList.size() ; i++){
+            while (rs.next()) {
+                String table_id = rs.getString("fld_CompanyID");
+                companyID_TextField.setText(table_id);
+                companyID_TextField.setDisable(true);
 
-            String amuSearchMatch = matchFoundList.get(i);
-            if (data.equals(amuSearchMatch)){
+                String table_name = rs.getString("fld_Name");
+                name_TextField.setText(table_name);
 
-                resultMatch = amuSearchMatch;
-                System.out.println(resultMatch);
+                String table_cvr = rs.getString("fld_CVR");
+                cvr_TextField.setText(table_cvr);
 
-                matchBoolena = true;
+                String table_tele = rs.getString("fld_TelephoneNumber");
+                tele_TextField.setText(table_tele);
 
-                if(matchBoolena == true){
+                String table_address = rs.getString("fld_Address");
+                address_TextField.setText(table_address);
 
-                    try {
-                        //Start the JDBC
-                        preparedStatement = con.prepareStatement(edit_Comp.EditCompanyTSQL());
-                        preparedStatement.setInt(1,Integer.parseInt(resultMatch));
-                        ResultSet rs = preparedStatement.executeQuery();
+                String table_zipcode = rs.getString("fld_Zipcode");
+                zipcode_TextField.setText(table_zipcode);
 
-                        while (rs.next()) {
-                            String table_id = rs.getString("fld_CompanyID");
-                            companyID_TextField.setText(table_id);
-                            companyID_TextField.setDisable(true);
+                String table_NumberOfEmployees = rs.getString("fld_NumberOfEmployees");
+                numEmployees_TextField.setText(table_NumberOfEmployees);
 
-                            String table_name = rs.getString("fld_Name");
-                            name_TextField.setText(table_name);
+                String table_info = rs.getString("fld_Information");
+                information_TextField.setText(table_info);
 
-                            String table_cvr = rs.getString("fld_CVR");
-                            cvr_TextField.setText(table_cvr);
-
-                            String table_tele = rs.getString("fld_TelephoneNumber");
-                            tele_TextField.setText(table_tele);
-
-                            String table_address = rs.getString("fld_Address");
-                            address_TextField.setText(table_address);
-
-                            String table_zipcode = rs.getString("fld_Zipcode");
-                            zipcode_TextField.setText(table_zipcode);
-
-                            String table_NumberOfEmployees = rs.getString("fld_NumberOfEmployees");
-                            numEmployees_TextField.setText(table_NumberOfEmployees);
-
-                            String table_info = rs.getString("fld_Information");
-                            information_TextField.setText(table_info);
-
-                        }
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-
-                }
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        if(matchBoolena == false){
-            JOptionPane.showMessageDialog(null, "Please choose ID column " );
-        }
     }
 
     /**

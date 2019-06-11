@@ -178,8 +178,6 @@ public class EducationPlanController implements Initializable {
                         resultSet.getString("fld_Information"),
                         resultSet.getString("fld_EduSch_ID")));
 
-                        // Add the value we need to check for a match with to the list
-                        matchFoundList.add(resultSet.getString("fld_PlanID"));
                     }
 
         } catch (SQLException e) {
@@ -210,40 +208,22 @@ public class EducationPlanController implements Initializable {
         int row = pos.getRow();
         //Item here is the table view type:
         EducationPlanConstractor item = tableEduPlan.getItems().get(row);
+        String getPlanIDField = item.getPlanID();
+
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
         System.out.println(data);
 
-        //Check Method if the user select the correct column to start the Delete process .
-        boolean matchBoolena = false;
-        String resultMatch = "";
+        try {
+            preparedStatement = con.prepareStatement(deleteEduPlan.DeleteEducationplanTSQL());
+            preparedStatement.setString(1,getPlanIDField);
+            //We use executeUpdate() instead of executeQuery() because we don't expect any return .
+            preparedStatement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Delete Done" );
 
-        for(int i = 0; i < matchFoundList.size() ; i++){
-
-            String idSearchMatch = matchFoundList.get(i);
-            if (data.equals(idSearchMatch)){
-                System.out.println("match found " + idSearchMatch);
-                resultMatch = idSearchMatch;
-                matchBoolena = true;
-
-                if(matchBoolena == true){
-                    try {
-                        preparedStatement = con.prepareStatement(deleteEduPlan.DeleteEducationplanTSQL());
-                        preparedStatement.setString(1,resultMatch);
-                        //We use executeUpdate() instead of executeQuery() because we don't expect any return .
-                        preparedStatement.executeUpdate();
-                        JOptionPane.showMessageDialog(null, "Delete Done" );
-
-                    } catch (SQLException e) {
-                        JOptionPane.showMessageDialog(null, "Error" );
-                    }
-                }
-            }
-        }
-
-        if(matchBoolena == false){
-            JOptionPane.showMessageDialog(null, "Please choose PlanID column " );
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error" );
         }
     }
 

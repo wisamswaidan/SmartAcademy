@@ -152,41 +152,21 @@ public class EmployeeController implements Initializable {
         int row = pos.getRow();
         //Item here is the table view type:
         EmployeeConstructor item = tableEmpView.getItems().get(row);
+        String getMobileField = item.getMobile();
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
-        System.out.println(data);
 
-        //Check Method if the user select the correct column to start the Delete process .
-        boolean matchBoolena = false;
-        String resultMatch = "";
+        try {
+            preparedStatement = con.prepareStatement(deleteEmp.DeleteEmployeeTSQL());
+            preparedStatement.setString(1,getMobileField);
 
-        for(int i = 0; i < matchFoundList.size() ; i++){
+            //We use executeUpdate() instead of executeQuery() because we don't expect any return .
+            preparedStatement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Delete Done" );
 
-            String userSearchMatch = matchFoundList.get(i);
-            if (data.equals(userSearchMatch)){
-                System.out.println("match found " + userSearchMatch);
-                resultMatch = userSearchMatch;
-                matchBoolena = true;
-
-                if(matchBoolena == true){
-                    try {
-                        preparedStatement = con.prepareStatement(deleteEmp.DeleteEmployeeTSQL());
-                        preparedStatement.setString(1,resultMatch);
-
-                        //We use executeUpdate() instead of executeQuery() because we don't expect any return .
-                        preparedStatement.executeUpdate();
-                        JOptionPane.showMessageDialog(null, "Delete Done" );
-
-                    } catch (SQLException e) {
-                        JOptionPane.showMessageDialog(null, "Please check if the employee have a education plane first" );
-                    }
-                }
-            }
-        }
-
-        if(matchBoolena == false){
-            JOptionPane.showMessageDialog(null, "Please choose Mobile column " );
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Please check if the employee have a education plane first" );
         }
 
     }
@@ -206,73 +186,52 @@ public class EmployeeController implements Initializable {
         int row = pos.getRow();
         //Item here is the educations_table view type:
         EmployeeConstructor item = tableEmpView.getItems().get(row);
+        String getMobileField = item.getMobile();
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
 
-        //Check Method if the user select the AMU column to start the Delete process .
-        boolean matchBoolena = false;
-        String resultMatch = "";
+        try {
+            //Start the JDBC
+            preparedStatement = con.prepareStatement(editEmp.EditEmployeeTSQL());
+            preparedStatement.setString(1,getMobileField);
+            ResultSet rs = preparedStatement.executeQuery();
 
-        for(int i = 0; i < matchFoundList.size() ; i++){
+            while (rs.next()) {
+                String fld_FirstName = rs.getString("fld_FirstName");
+                firstname_TextField.setText(fld_FirstName);
 
-            String userSearchMatch = matchFoundList.get(i);
-            if (data.equals(userSearchMatch)){
-                resultMatch = userSearchMatch;
-                //System.out.println(resultMatch);
+                String fld_LastName = rs.getString("fld_LastName");
+                lastname_TextField.setText(fld_LastName);
 
-                matchBoolena = true;
+                String fld_Email = rs.getString("fld_Email");
+                email_TextField.setText(fld_Email);
 
-                if(matchBoolena == true){
+                String fld_Mobile = rs.getString("fld_Mobile");
+                mobile_TextField.setText(fld_Mobile);
+                mobile_TextField.setDisable(true);
 
-                    try {
-                        //Start the JDBC
-                        preparedStatement = con.prepareStatement(editEmp.EditEmployeeTSQL());
-                        preparedStatement.setString(1,resultMatch);
-                        ResultSet rs = preparedStatement.executeQuery();
+                String fld_Address = rs.getString("fld_Address");
+                address_TextField.setText(fld_Address);
 
-                        while (rs.next()) {
-                            String fld_FirstName = rs.getString("fld_FirstName");
-                            firstname_TextField.setText(fld_FirstName);
-
-                            String fld_LastName = rs.getString("fld_LastName");
-                            lastname_TextField.setText(fld_LastName);
-
-                            String fld_Email = rs.getString("fld_Email");
-                            email_TextField.setText(fld_Email);
-
-                            String fld_Mobile = rs.getString("fld_Mobile");
-                            mobile_TextField.setText(fld_Mobile);
-                            mobile_TextField.setDisable(true);
-
-                            String fld_Address = rs.getString("fld_Address");
-                            address_TextField.setText(fld_Address);
-
-                            String fld_Zipcode = rs.getString("fld_Zipcode");
-                            zipcode_TextField.setText(fld_Zipcode);
+                String fld_Zipcode = rs.getString("fld_Zipcode");
+                zipcode_TextField.setText(fld_Zipcode);
 
 
-                            String fld_Information = rs.getString("fld_Information");
-                            information_TextField.setText(fld_Information);
+                String fld_Information = rs.getString("fld_Information");
+                information_TextField.setText(fld_Information);
 
-                            String fld_CompanyID = rs.getString("fld_CompanyID");
+                String fld_CompanyID = rs.getString("fld_CompanyID");
 
-                            //Set the the user type inside the Drop menu
-                            accessBox.setValue(fld_CompanyID.trim());
+                //Set the the user type inside the Drop menu
+                accessBox.setValue(fld_CompanyID.trim());
 
-                        }
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-
-                }
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        if(matchBoolena == false){
-            JOptionPane.showMessageDialog(null, "Please choose Mobile Number " );
-        }
 
 
     }

@@ -144,8 +144,7 @@ public class EducationSchController  implements Initializable {
                         resultSet.getString("fld_EduSch_ID"),
                         resultSet.getString("AMU"),
                         resultSet.getString("fld_Date")));
-                        // Add the value we need to check for a match with to the list
-                        eduSchIDSearch.add(resultSet.getString("fld_EduSch_ID"));
+
             }
 
         } catch (SQLException e) {
@@ -174,39 +173,22 @@ public class EducationSchController  implements Initializable {
         int row = pos.getRow();
         //Item here is the educations_table view type:
         EducationSchConstractor item = schEduTable.getItems().get(row);
+        String getEduIDField = item.getID();
+
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
 
-        //Check Method if the user select the AMU column to start the Delete process .
-        boolean matchBoolena = false;
-        String resultMatch = "";
+        try {
+            preparedStatement = con.prepareStatement(deleteEduSch.DeleteEducationSchSQL());
+            preparedStatement.setString(1,getEduIDField);
+            //We use executeUpdate() instead of executeQuery() because we dont expect any return .
+            preparedStatement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Delete Done" );
 
-        for(int i = 0; i < eduSchIDSearch.size() ; i++){
-
-            String amuSearchMatch = eduSchIDSearch.get(i);
-            if (data.equals(amuSearchMatch)){
-                resultMatch = amuSearchMatch;
-                matchBoolena = true;
-
-                if(matchBoolena == true){
-                    try {
-                        preparedStatement = con.prepareStatement(deleteEduSch.DeleteEducationSchSQL());
-                        preparedStatement.setString(1,resultMatch);
-                        //We use executeUpdate() instead of executeQuery() because we dont expect any return .
-                        preparedStatement.executeUpdate();
-                        JOptionPane.showMessageDialog(null, "Delete Done" );
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        if(matchBoolena == false){
-            JOptionPane.showMessageDialog(null, "Please choose ID column " ); }
-
     }
 
     /**

@@ -109,8 +109,9 @@ public class UserController implements Initializable{
                         resultSet.getString("fld_username"),
                         resultSet.getString("fld_password"),
                         resultSet.getString("fld_usertype")));
-                        // Add the value we need to check for a match with to the list
-                        matchFoundList.add(resultSet.getString("fld_username"));
+
+
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -143,42 +144,22 @@ public class UserController implements Initializable{
         int row = pos.getRow();
         //Item here is the table view type:
         UserConstructor item = tableUserView.getItems().get(row);
+        String getUserNameField = item.getUserName();
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
-        System.out.println(data);
 
-        //Check Method if the user select the correct column to start the Delete process .
-        boolean matchBoolena = false;
-        String resultMatch = "";
+        try {
+            preparedStatement = con.prepareStatement(deleteUser.DeleteUserTSQL());
+            preparedStatement.setString(1,getUserNameField);
+            //We use executeUpdate() instead of executeQuery() because we don't expect any return .
+            preparedStatement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Delete Done" );
 
-        for(int i = 0; i < matchFoundList.size() ; i++){
-
-            String userSearchMatch = matchFoundList.get(i);
-            if (data.equals(userSearchMatch)){
-                System.out.println("match found " + userSearchMatch);
-                resultMatch = userSearchMatch;
-                matchBoolena = true;
-
-                if(matchBoolena == true){
-                    try {
-                        preparedStatement = con.prepareStatement(deleteUser.DeleteUserTSQL());
-                        preparedStatement.setString(1,resultMatch);
-                        //We use executeUpdate() instead of executeQuery() because we don't expect any return .
-                        preparedStatement.executeUpdate();
-                        System.out.println("Delete Done for " + userSearchMatch);
-                        JOptionPane.showMessageDialog(null, "Delete Done" );
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        if(matchBoolena == false){
-            JOptionPane.showMessageDialog(null, "Please choose UserName column " );
-        }
 
     }
 
@@ -194,77 +175,56 @@ public class UserController implements Initializable{
         int row = pos.getRow();
         //Item here is the educations_table view type:
         UserConstructor item = tableUserView.getItems().get(row);
+        //Get the username from the selecting table.
+        String getUserNameField = item.getUserName();
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
 
-        //Check Method if the user select the AMU column to start the Delete process .
-        boolean matchBoolena = false;
-        String resultMatch = "";
+        try {
 
-        for(int i = 0; i < matchFoundList.size() ; i++){
+            //Start the StoredProcedures
+            StoredProcedures.ViewSpecificUser();
+            ResultSet rs;
+            try (CallableStatement stmt = con.prepareCall(StoredProcedures.ViewSpecificUser())) {
+                //pass all the parameters to the stored procedure.
+                stmt.setString(1, getUserNameField);
+                rs = stmt.executeQuery();
+                //Get the results
+                while (rs.next()) {
 
-            String userSearchMatch = matchFoundList.get(i);
-            if (data.equals(userSearchMatch)){
-                resultMatch = userSearchMatch;
+                    String fld_FirstName = rs.getString("fld_FirstName");
+                    firstname_TextField.setText(fld_FirstName);
 
-                matchBoolena = true;
+                    String fld_LastName = rs.getString("fld_LastName");
+                    lastname_TextField.setText(fld_LastName);
 
-                if(matchBoolena == true){
+                    String fld_TelephoneNumber = rs.getString("fld_TelephoneNumber");
+                    phone_TextField.setText(fld_TelephoneNumber);
 
-                    try {
+                    String fld_Address = rs.getString("fld_Address");
+                    address_TextField.setText(fld_Address);
 
-                        //Start the StoredProcedures
-                        StoredProcedures.ViewSpecificUser();
-                        ResultSet rs;
-                        try (CallableStatement stmt = con.prepareCall(StoredProcedures.ViewSpecificUser())) {
-                            //pass all the parameters to the stored procedure.
-                            stmt.setString(1, resultMatch);
-                            rs = stmt.executeQuery();
-                            //Get the results
-                            while (rs.next()) {
+                    String fld_Zipcode = rs.getString("fld_Zipcode");
+                    zipcode_TextField.setText(fld_Zipcode);
 
-                            String fld_FirstName = rs.getString("fld_FirstName");
-                            firstname_TextField.setText(fld_FirstName);
+                    String fld_UserName = rs.getString("fld_UserName");
+                    username_TextField.setText(fld_UserName);
+                    username_TextField.setDisable(true);
 
-                            String fld_LastName = rs.getString("fld_LastName");
-                            lastname_TextField.setText(fld_LastName);
+                    String fld_Password = rs.getString("fld_Password");
+                    password_TextField.setText(fld_Password);
 
-                            String fld_TelephoneNumber = rs.getString("fld_TelephoneNumber");
-                            phone_TextField.setText(fld_TelephoneNumber);
+                    String fld_UserType = rs.getString("fld_UserType");
 
-                            String fld_Address = rs.getString("fld_Address");
-                            address_TextField.setText(fld_Address);
-
-                            String fld_Zipcode = rs.getString("fld_Zipcode");
-                            zipcode_TextField.setText(fld_Zipcode);
-
-                            String fld_UserName = rs.getString("fld_UserName");
-                            username_TextField.setText(fld_UserName);
-                            username_TextField.setDisable(true);
-
-                            String fld_Password = rs.getString("fld_Password");
-                            password_TextField.setText(fld_Password);
-
-                            String fld_UserType = rs.getString("fld_UserType");
-
-                            //Set the user type inside the Drop menu
-                            accessBox.setValue(fld_UserType.trim());
-                            }
-                        }
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-
+                    //Set the user type inside the Drop menu
+                    accessBox.setValue(fld_UserType.trim());
                 }
             }
-        }
 
-        if(matchBoolena == false){
-            JOptionPane.showMessageDialog(null, "Please choose UserName " );
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
 
     }
 
@@ -304,7 +264,7 @@ public class UserController implements Initializable{
             preparedStatement.setString(7,UserAccessLevel);
             preparedStatement.setString(8,username);
 
-            System.out.println(UserAccessLevel);
+            //System.out.println(UserAccessLevel);
 
             preparedStatement.executeUpdate();
             JOptionPane.showMessageDialog(null, "Edit Done" );

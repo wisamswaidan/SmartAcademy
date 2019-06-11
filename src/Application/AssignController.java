@@ -115,7 +115,7 @@ public class AssignController implements Initializable {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                oblist.add(new AssignUserContractor(
+                        oblist.add(new AssignUserContractor(
                         resultSet.getString("fld_ComapnyID"),
                         resultSet.getString("fld_UserName")));
                         // Add the value we need to check for a match with to the list

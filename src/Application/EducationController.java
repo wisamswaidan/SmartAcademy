@@ -84,8 +84,7 @@ public class EducationController implements  Initializable{
                         resultSet.getString("fld_NumOfDays"),
                         resultSet.getString("fld_Information"),
                         resultSet.getString("fld_Type")));
-                        // Add the value we need to check for a match with to the list
-                        matchFoundList.add(resultSet.getString("fld_AMU"));
+
             }
 
         } catch (SQLException e) {
@@ -114,6 +113,7 @@ public class EducationController implements  Initializable{
         int row = pos.getRow();
         //Item here is the educations_table view type:
         EducationConstructor item = educations_table.getItems().get(row);
+        String getAMUField = item.getAMU();
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
@@ -123,34 +123,16 @@ public class EducationController implements  Initializable{
         JDBC deleteEdu = new JDBC();
         deleteEdu.DeleteEducationTSQL();
 
-        //Check Method if the user select the AMU column to start the Delete process .
-        boolean matchBoolena = false;
-        String resultMatch = "";
+        try {
+            preparedStatement = con.prepareStatement(deleteEdu.DeleteEducationTSQL());
+            preparedStatement.setString(1,getAMUField);
+            //We use executeUpdate() instead of executeQuery() because we dont expect any return .
+            preparedStatement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Delete Done" );
 
-        for(int i = 0; i < matchFoundList.size() ; i++){
-
-            String amuSearchMatch = matchFoundList.get(i);
-            if (data.equals(amuSearchMatch)){
-                resultMatch = amuSearchMatch;
-                matchBoolena = true;
-
-                if(matchBoolena == true){
-                    try {
-                        preparedStatement = con.prepareStatement(deleteEdu.DeleteEducationTSQL());
-                        preparedStatement.setString(1,resultMatch);
-                        //We use executeUpdate() instead of executeQuery() because we dont expect any return .
-                        preparedStatement.executeUpdate();
-                        JOptionPane.showMessageDialog(null, "Delete Done" );
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        if(matchBoolena == false){
-            JOptionPane.showMessageDialog(null, "Please choose AMU column " ); }
     }
 
     /**
@@ -168,63 +150,41 @@ public class EducationController implements  Initializable{
         int row = pos.getRow();
         //Item here is the educations_table view type:
         EducationConstructor item = educations_table.getItems().get(row);
+        String getAMUField = item.getAMU();
         TableColumn col = pos.getTableColumn();
         // Gives the value in the selected cell:
         String data = (String) col.getCellObservableValue(item).getValue();
         //System.out.println(data);
 
-        //Check Method if the user select the AMU column to start the Delete process .
-        boolean matchBoolena = false;
-        String resultMatch = "";
+        try {
+            //Start the JDBC
+            preparedStatement = con.prepareStatement(edit_EduJDBC.EditEducationTSQL());
+            preparedStatement.setInt(1,Integer.parseInt(getAMUField));
+            ResultSet rs = preparedStatement.executeQuery();
 
-        for(int i = 0; i < matchFoundList.size() ; i++){
+            while (rs.next()) {
+                String table_amu = rs.getString("fld_AMU");
+                amu_TextField.setText(table_amu);
+                amu_TextField.setDisable(true);
 
-            String amuSearchMatch = matchFoundList.get(i);
-            if (data.equals(amuSearchMatch)){
+                String table_title = rs.getString("fld_Title");
+                title_TextField.setText(table_title);
 
-                resultMatch = amuSearchMatch;
-                System.out.println(resultMatch);
+                String table_provider = rs.getString("fld_Provider");
+                provider_TextField.setText(table_provider);
 
-                matchBoolena = true;
+                String table_numberOfdays = rs.getString("fld_NumOfDays");
+                number_of_Days_TextField.setText(table_numberOfdays);
 
-                if(matchBoolena == true){
+                String table_Information = rs.getString("fld_Information");
+                information_TextField.setText(table_Information);
 
-                    try {
-                        //Start the JDBC
-                        preparedStatement = con.prepareStatement(edit_EduJDBC.EditEducationTSQL());
-                        preparedStatement.setInt(1,Integer.parseInt(resultMatch));
-                        ResultSet rs = preparedStatement.executeQuery();
-
-                        while (rs.next()) {
-                            String table_amu = rs.getString("fld_AMU");
-                            amu_TextField.setText(table_amu);
-                            amu_TextField.setDisable(true);
-
-                            String table_title = rs.getString("fld_Title");
-                            title_TextField.setText(table_title);
-
-                            String table_provider = rs.getString("fld_Provider");
-                            provider_TextField.setText(table_provider);
-
-                            String table_numberOfdays = rs.getString("fld_NumOfDays");
-                            number_of_Days_TextField.setText(table_numberOfdays);
-
-                            String table_Information = rs.getString("fld_Information");
-                            information_TextField.setText(table_Information);
-
-                            String table_Type = rs.getString("fld_Type");
-                            type_TextField.setText(table_Type);
-                        }
-
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
+                String table_Type = rs.getString("fld_Type");
+                type_TextField.setText(table_Type);
             }
-        }
 
-        if(matchBoolena == false){
-            JOptionPane.showMessageDialog(null, "Please choose AMU column " );
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
