@@ -17,7 +17,7 @@ public class MainController implements Initializable {
      * Move to education scene.
      */
     public void ShowEduOptions(ActionEvent event) throws Exception {
-        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/education.fxml"));
+        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/FXML/education.fxml"));
         Scene showScene = new Scene(showPage);
         Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
         showApp.setScene(showScene);
@@ -28,7 +28,7 @@ public class MainController implements Initializable {
      */
     public void ShowUsersOptions(ActionEvent event) throws Exception {
 
-        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/user.fxml"));
+        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/FXML/user.fxml"));
         Scene showScene = new Scene(showPage);
         Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
         showApp.setScene(showScene);
@@ -40,7 +40,7 @@ public class MainController implements Initializable {
      */
     public void ShowCompaniesOptions(ActionEvent event) throws Exception {
 
-        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/company.fxml"));
+        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/FXML/company.fxml"));
         Scene showScene = new Scene(showPage);
         Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
         showApp.setScene(showScene);
@@ -52,7 +52,7 @@ public class MainController implements Initializable {
      */
     public void ShowEmployeesOptions(ActionEvent event) throws Exception {
 
-        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/employee.fxml"));
+        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/FXML/employee.fxml"));
         Scene showScene = new Scene(showPage);
         Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
         showApp.setScene(showScene);
@@ -63,7 +63,7 @@ public class MainController implements Initializable {
      * Move to Assign user scene.
      */
     public void ShowAssignUserOptions(ActionEvent event) throws Exception {
-        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/assignUser.fxml"));
+        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/FXML/assignUser.fxml"));
         Scene showScene = new Scene(showPage);
         Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
         showApp.setScene(showScene);
@@ -74,7 +74,7 @@ public class MainController implements Initializable {
      * Move to education Schedule scene.
      */
     public void ShowEduSchOptions(ActionEvent event) throws Exception {
-        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/eduSch.fxml"));
+        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/FXML/eduSch.fxml"));
         Scene showScene = new Scene(showPage);
         Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
         showApp.setScene(showScene);
@@ -85,7 +85,7 @@ public class MainController implements Initializable {
      * Move to education plan scene.
      */
     public void ShowEduPlanOptions(ActionEvent event) throws Exception {
-        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/educationPlan.fxml"));
+        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/FXML/educationPlan.fxml"));
         Scene showScene = new Scene(showPage);
         Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
         showApp.setScene(showScene);

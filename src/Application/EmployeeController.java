@@ -407,7 +407,7 @@ public class EmployeeController implements Initializable {
      * Back to the main scene.
      */
     public void backButton(ActionEvent event) throws Exception {
-        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));
+        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/FXML/main.fxml"));
         Scene showScene = new Scene(showPage);
         Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
         showApp.setScene(showScene);

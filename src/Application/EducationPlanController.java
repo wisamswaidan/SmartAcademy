@@ -3,7 +3,6 @@ package Application;
 import Domain.EducationPlanConstractor;
 import Foundation.DB;
 import Technical.JDBC;
-import com.sun.rowset.internal.Row;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,7 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -280,7 +278,7 @@ public class EducationPlanController implements Initializable {
      * Back to the main scene .
      */
     public void backButton(ActionEvent event) throws Exception {
-        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));
+        Parent showPage = FXMLLoader.load(getClass().getResource("/UI/FXML/main.fxml"));
         Scene showScene = new Scene(showPage);
         Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
         showApp.setScene(showScene);

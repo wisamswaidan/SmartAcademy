@@ -1,5 +1,7 @@
 package Technical;
 
+import Foundation.DB;
+
 /**
  * All the JDBC command we used.
  */
@@ -9,14 +11,25 @@ public class JDBC {
      */
 
     /**
-     * All the JDBC command related to login by searching for match between javafx textFields and the db.
+     * Sql Statement to check the username and the password from database , use it for Unit Testing.
      */
 
-    public String loginTSQL(){
+    public static boolean loginTSQL(String userName , String passWord){
 
         //SQL_Query to read the user name and the password from the database .
-        String sql = "SELECT * from tbl_Users where fld_UserName = ? and fld_Password = ?";
-        return sql;
+        DB.selectSQL("SELECT * from tbl_Users where fld_UserName = '"+ userName +"' and fld_Password = '"+ passWord +"'");
+        do
+        {
+            String result = DB.getDisplayData();
+            if (result.equals(DB.NOMOREDATA))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        } while (true);
     }
 
 
@@ -35,14 +48,6 @@ public class JDBC {
 
         //SQL_Query to......
         String sql = "SELECT * from tbl_Users ";
-        return sql;
-    }
-
-    public static String EditUserTSQL(){
-
-        //SQL_Query to......
-        String sql = "SELECT * from tbl_Users WHERE fld_UserName = ?";
-        //String sql = "{ call ViewSpecificUser(?) }";
         return sql;
     }
 
@@ -65,12 +70,6 @@ public class JDBC {
     /**
      * All the JDBC command to related to the Educations.
      */
-    public String CreateEducationTSQL(){
-
-        //SQL_Query to......
-        String sql = "INSERT INTO tbl_Educations VALUES (? , ? , ? , ? , ? , ?)";
-        return sql;
-    }
 
     public String ViewEducationTSQL(){
 
@@ -264,21 +263,12 @@ public class JDBC {
         return sql;
     }
 
-
     public String DeleteEducationplanTSQL(){
 
         //SQL_Query to......
         String sql = "DELETE FROM tbl_EducationPlans WHERE fld_PlanID=?";
         return sql;
     }
-
-    public String UpdateEducationplanTSQL(){
-
-        //SQL_Query to......
-        String sql = "UPDATE tbl_EducationPlans SET fld_EducationAMU = ? , fld_EmployeeMobile = ? , fld_CompanyID = ? , fld_Information  = ? , fld_EduSch_ID = ? WHERE fld_PlanID = ?";
-        return sql;
-    }
-
 
 
 

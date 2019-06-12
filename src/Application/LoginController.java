@@ -2,7 +2,6 @@
 package Application;
 
 import Foundation.DB;
-import Technical.JDBC;
 import Technical.StoredProcedures;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
@@ -74,7 +73,7 @@ public class LoginController  {
             }
             else {
                 JOptionPane.showMessageDialog(null, "Welcome " + userName);
-                Parent showPage = FXMLLoader.load(getClass().getResource("/UI/main.fxml"));
+                Parent showPage = FXMLLoader.load(getClass().getResource("/UI/FXML/main.fxml"));
                 Scene showScene = new Scene(showPage);
                 Stage showApp = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 showApp.setScene(showScene);

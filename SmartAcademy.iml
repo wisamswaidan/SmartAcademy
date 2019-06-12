@@ -11,5 +11,6 @@
     <orderEntry type="library" name="gradle-wrapper" level="application" />
     <orderEntry type="library" name="xmlbeans-2.3.0" level="application" />
     <orderEntry type="library" name="poi-3.13" level="application" />
+    <orderEntry type="library" name="junit4" level="application" />
   </component>
 </module>
