@@ -135,6 +135,7 @@ public class AssignController implements Initializable {
 
     /**
      * Create a new assign between users and companies .
+     *
      */
     @FXML
     public void assignUserToCom() throws SQLException {

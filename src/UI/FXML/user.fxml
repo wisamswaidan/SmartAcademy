@@ -13,7 +13,7 @@
 <children>
       <ImageView fitHeight="800.0" fitWidth="1050.0" layoutX="-1.0" layoutY="-1.0">
          <image>
-            <Image url="@Images/user.jpg" />
+            <Image url="@../Images/user.jpg" />
          </image>
       </ImageView>
    <TableView fx:id="tableUserView" layoutX="37.0" layoutY="123.0" prefHeight="554.0" prefWidth="660.0">

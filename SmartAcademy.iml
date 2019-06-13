@@ -8,9 +8,17 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="sqljdbc4" level="project" />
-    <orderEntry type="library" name="gradle-wrapper" level="application" />
-    <orderEntry type="library" name="xmlbeans-2.3.0" level="application" />
-    <orderEntry type="library" name="poi-3.13" level="application" />
     <orderEntry type="library" name="junit4" level="application" />
+    <orderEntry type="module-library">
+      <library name="JUnit4">
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="poi-3.13" level="application" />
   </component>
 </module>

@@ -10,7 +10,7 @@
    <children>
       <ImageView fitHeight="800.0" fitWidth="1050.0">
          <image>
-            <Image url="@Images/eduSch.jpg" />
+            <Image url="@../Images/eduSch.jpg" />
          </image>
       </ImageView>
       <Button fx:id="addDateBut" layoutX="33.0" layoutY="701.0" mnemonicParsing="false" onAction="#launchSwing" prefHeight="25.0" prefWidth="117.0" text="Add date" />

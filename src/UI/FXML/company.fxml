@@ -10,7 +10,7 @@
    <children>
       <ImageView fitHeight="800.0" fitWidth="1050.0">
          <image>
-            <Image url="@Images/company.jpg" />
+            <Image url="@../Images/company.jpg" />
          </image>
       </ImageView>
       <Button fx:id="createButton" layoutX="799.0" layoutY="301.0" mnemonicParsing="false" onAction="#addComp" prefHeight="25.0" prefWidth="114.0" text="Create" />

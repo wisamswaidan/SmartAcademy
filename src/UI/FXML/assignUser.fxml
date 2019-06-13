@@ -10,7 +10,7 @@
    <children>
       <ImageView fitHeight="800.0" fitWidth="1050.0">
          <image>
-            <Image url="@Images/assignUser.jpg" />
+            <Image url="@../Images/assignUser.jpg" />
          </image>
       </ImageView>
       <Text layoutX="50.0" layoutY="536.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Company ID" />

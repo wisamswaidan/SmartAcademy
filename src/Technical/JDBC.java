@@ -12,6 +12,8 @@ public class JDBC {
 
     /**
      * Sql Statement to check the username and the password from database , use it for Unit Testing.
+     * @param userName The username.
+     * @param passWord The password.
      */
 
     public static boolean loginTSQL(String userName , String passWord){

@@ -10,7 +10,7 @@
    <children>
       <ImageView fitHeight="800.0" fitWidth="1050.0">
          <image>
-            <Image url="@Images/eduPlan.jpg" />
+            <Image url="@../Images/eduPlan.jpg" />
          </image>
       </ImageView>
       <Text layoutX="572.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Would you like to add a new Education Plan ?" wrappingWidth="256.056640625" />
