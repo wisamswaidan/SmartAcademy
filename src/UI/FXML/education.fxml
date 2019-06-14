@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.EducationController">
+   <children>
+      <ImageView fitHeight="800.0" fitWidth="1050.0">
+         <image>
+            <Image url="@../Images/education.jpg" />
+         </image>
+      </ImageView>
+      <TableView fx:id="educations_table" layoutX="481.0" layoutY="109.0" prefHeight="489.0" prefWidth="543.0">
+        <columns>
+          <TableColumn fx:id="col_amu" prefWidth="54.0" text="AMU" />
+          <TableColumn fx:id="col_title" prefWidth="71.0" text="Title" />
+            <TableColumn fx:id="col_provier" prefWidth="76.0" text="Provider" />
+            <TableColumn fx:id="col_numofday" prefWidth="85.0" text="NumOfDays" />
+            <TableColumn fx:id="col_type" prefWidth="66.0" text="Type" />
+            <TableColumn fx:id="col_info" prefWidth="140.0" text="Information" />
+        </columns>
+      </TableView>
+      <Button fx:id="removeBut" layoutX="910.0" layoutY="688.0" mnemonicParsing="false" onAction="#removeEdu" prefHeight="25.0" prefWidth="114.0" text="Delete" />
+      <Button fx:id="selectBut" layoutX="481.0" layoutY="688.0" mnemonicParsing="false" onAction="#selectToEditEdu" prefHeight="25.0" prefWidth="114.0" text="Select" />
+      <TextField fx:id="type_TextField" layoutX="621.0" layoutY="611.0" prefHeight="25.0" prefWidth="114.0" promptText="Type" />
+      <TextField fx:id="information_TextField" layoutX="621.0" layoutY="645.0" prefHeight="25.0" prefWidth="404.0" promptText="Information" />
+      <TextField fx:id="number_of_Days_TextField" layoutX="481.0" layoutY="645.0" prefHeight="25.0" prefWidth="114.0" promptText="Number of Days" />
+      <TextField fx:id="title_TextField" layoutX="763.0" layoutY="611.0" prefHeight="25.0" prefWidth="114.0" promptText="Title" />
+      <TextField fx:id="provider_TextField" layoutX="910.0" layoutY="611.0" prefHeight="25.0" prefWidth="114.0" promptText="Provider" />
+      <TextField fx:id="amu_TextField" layoutX="481.0" layoutY="611.0" prefHeight="25.0" prefWidth="114.0" promptText="AMU" />
+      <Button fx:id="editBut" layoutX="621.0" layoutY="688.0" mnemonicParsing="false" onAction="#editEdu" prefHeight="25.0" prefWidth="114.0" text="Edit" />
+      <Button fx:id="addBut" layoutX="766.0" layoutY="688.0" mnemonicParsing="false" onAction="#addEducation" prefHeight="25.0" prefWidth="114.0" text="Create" />
+      <Button fx:id="backBut" layoutX="910.0" layoutY="730.0" mnemonicParsing="false" onAction="#backButton" prefHeight="25.0" prefWidth="114.0" text="Back" />
+   </children>
+</Pane>

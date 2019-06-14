@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.EmployeeController">
+<children>
+      <ImageView fitHeight="800.0" fitWidth="1050.0">
+         <image>
+            <Image url="@../Images/employee.jpg" />
+         </image>
+      </ImageView>
+   <TableView fx:id="tableEmpView" layoutX="14.0" layoutY="159.0" prefHeight="578.0" prefWidth="660.0">
+      <columns>
+         <TableColumn fx:id="col_firstname" text="Firstname" />
+         <TableColumn fx:id="col_lastname" prefWidth="74.0" text="Lastname" />
+         <TableColumn fx:id="col_email" prefWidth="93.0" text="Email" />
+         <TableColumn fx:id="col_mobile" prefWidth="61.0" text="Mobile" />
+         <TableColumn fx:id="col_address" prefWidth="61.0" text="Address" />
+         <TableColumn fx:id="col_zipcode" prefWidth="91.0" text="Zipcode" />
+         <TableColumn fx:id="col_information" prefWidth="93.0" text="Information" />
+         <TableColumn fx:id="col_companyID" prefWidth="106.0" text="CompanyID" />
+      </columns>
+   </TableView>
+   <Button fx:id="editBut" layoutX="752.0" layoutY="583.0" mnemonicParsing="false" onAction="#editEmp" prefHeight="25.0" prefWidth="149.0" text="Edit" />
+   <Button fx:id="removeBut" layoutX="752.0" layoutY="620.0" mnemonicParsing="false" onAction="#removeEmp" prefHeight="25.0" prefWidth="149.0" text="Delete" />
+   <Button fx:id="backBut" layoutX="752.0" layoutY="694.0" mnemonicParsing="false" onAction="#backButton" prefHeight="25.0" prefWidth="149.0" text="Back" />
+   <ChoiceBox fx:id="accessBox" layoutX="752.0" layoutY="473.0" prefWidth="150.0" />
+   <TextField fx:id="information_TextField" layoutX="752.0" layoutY="401.0" promptText="Information" />
+   <TextField fx:id="zipcode_TextField" layoutX="752.0" layoutY="367.0" promptText="Zipcode" />
+   <TextField fx:id="address_TextField" layoutX="752.0" layoutY="330.0" promptText="Address" />
+   <TextField fx:id="email_TextField" layoutX="752.0" layoutY="258.0" promptText="Email" />
+   <TextField fx:id="lastname_TextField" layoutX="752.0" layoutY="221.0" promptText="Lastname" />
+   <TextField fx:id="firstname_TextField" layoutX="752.0" layoutY="187.0" promptText="Firstname" />
+   <Button fx:id="addBut" layoutX="754.0" layoutY="511.0" mnemonicParsing="false" onAction="#addEmp" prefHeight="25.0" prefWidth="150.0" text="Add" />
+   <Text layoutX="721.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Would you like to add a new Employee?" />
+      <Button fx:id="selectBut" layoutX="752.0" layoutY="546.0" mnemonicParsing="false" onAction="#selectToEditEmp" prefHeight="25.0" prefWidth="149.0" text="Select" />
+      <Text layoutX="776.0" layoutY="460.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Company" />
+      <TextField fx:id="mobile_TextField" layoutX="752.0" layoutY="294.0" promptText="Mobile" />
+      <Button fx:id="exportBut" layoutX="752.0" layoutY="657.0" mnemonicParsing="false" onAction="#exportExcel" prefHeight="25.0" prefWidth="149.0" text="Export to Excel" />
+</children>
+</AnchorPane>
